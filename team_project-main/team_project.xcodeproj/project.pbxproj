@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
+		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFC02AF0D3CD0063C5FA /* LoginView.swift */; };
 		2B5FCFC32AF0D4550063C5FA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFC22AF0D4550063C5FA /* LoginModel.swift */; };
 		2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFC52AF0D7E60063C5FA /* HTTPClient.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
+		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
 		2B5FCFC02AF0D3CD0063C5FA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2B5FCFC22AF0D4550063C5FA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		2B5FCFC52AF0D7E60063C5FA /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				2B5FCFC22AF0D4550063C5FA /* LoginModel.swift */,
 				2B97ED8F2AF12CAE00CEEFE3 /* RegisterModel.swift */,
 				2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */,
+				2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
+				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,
 				2B9C0DE42AE96E6B00DAA0A3 /* team_projectApp.swift in Sources */,
 			);

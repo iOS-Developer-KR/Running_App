@@ -57,7 +57,8 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
             print("powered off")
         case .poweredOn:
             print("powered on")
-            self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+//            self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+            self.centralManager.scanForPeripherals(withServices: [serviceUUID])
         @unknown default:
             fatalError()
         }
@@ -69,13 +70,12 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         // [serviceUUID]만 갖고있는 기기만 검색
         print("주변기기 스캔시작")
         centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
-        //let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID]) // 3. 이미 연결된 주변기기를 찾아라.
-        print("좀 찾자")
+        let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID]) // 3. 이미 연결된 주변기기를 찾아라.
         // 아래 내용은 불필요한 것
-        /*for peripheral in peripherals { // 찾은 주변기기를 가지고
-         //delegate?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil) // 대지라에게 찾은 peripheral를 넘겨준다.
+        for peripheral in peripherals { // 찾은 주변기기를 가지고
+//            centralManager?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil) // 대지라에게 찾은 peripheral를 넘겨준다.
          // 주변기기를 파라미터로 전달하여 ViewController의 peripheralList에 저장되도록 하고, TableView에 나타나도록 하는 것이다.
-         }*/
+         }
     }
     func stopScan() {
         centralManager.stopScan()
@@ -83,11 +83,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
     
     // central manager가 peripheral를 발견할 때마다 delegate 객체의 메서드를 호출한다. // RSSI: 신호강도
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        // peripheral는 찾은 주변 기기
-//        print("발견한 주변 기기: \(peripheral.name ?? ""), \(peripheral.identifier)")
         peripherals.insert(peripheral)
-//        centralManager.connect(peripheral, options: nil) // 4. 발견한 주변기기와 연결한다.
-//        connectedPeripheral = peripheral // 객체에 연결된 아두이노 넣기
     }
         
     // 기기가 연결되면 호출되는 delegate 메서드다.

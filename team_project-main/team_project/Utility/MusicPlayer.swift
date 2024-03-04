@@ -38,10 +38,29 @@ class MusicPlayer {
         }
     }
     
-    func getMusic() async {
+    func getMusicInfo() async { // 음악 정보 가져오기
         var request = URLRequest(url: URL(string: "http://lsproject.shop:8080/audio")!)
         request.httpMethod = "GET"
         request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
+
+        let configuration = URLSessionConfiguration.default
+                
+        let session = URLSession(configuration: configuration)
+        print(request.url!)
+        do {
+            let (data, _) = try await session.data(for: request)
+            let musicinfo = try JSONDecoder().decode(MusicInfoModel.self, from: data)
+            print(musicinfo)
+            await setupMusicInfo(info: musicinfo)
+            await getMusic(url: URL(string: musicinfo.filePath)!)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getMusic(url: URL) async { // 음악 가져와서 재생하기
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
 
         let configuration = URLSessionConfiguration.default
         
@@ -50,30 +69,40 @@ class MusicPlayer {
         let session = URLSession(configuration: configuration)
         print(request.url!)
         do {
-            let (data, response) = try await session.data(for: request)
+            let (data, _) = try await session.data(for: request)
             print(data)
-            print(response.description)
             self.player = try AVAudioPlayer(data: data)
             player?.play()
             setupRemoteCommands()
-            setupMusicInfo()
         } catch {
             print(error)
         }
     }
     
-    func setupMusicInfo() {
+    func setupMusicInfo(info: MusicInfoModel) async { // 잠금화면에 띄우기
         // 재생 중인 노래 정보를 설정
         var nowPlayingInfo: [String : Any] = [
-            MPMediaItemPropertyTitle: "Your Song Title",
-            MPMediaItemPropertyArtist: "Your Artist Name",
+            MPMediaItemPropertyTitle: info.title,
+            MPMediaItemPropertyArtist: info.artist,
             MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
             MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentTime ?? 0
         ]
-        if let albumCoverPage = UIImage(named: "apple") {
-            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-                return albumCoverPage
-            })
+        
+        var request = URLRequest(url: URL(string: info.albumUrl)!)
+        request.httpMethod = "GET"
+        
+        let configuration = URLSessionConfiguration.default
+        
+        let session = URLSession(configuration: configuration)
+        do {
+            let (data, _) = try await session.data(for: request)
+            if let albumCoverPage = UIImage(data: data) {
+                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
+                    return albumCoverPage
+                })
+            }
+        } catch {
+            print(error)
         }
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }

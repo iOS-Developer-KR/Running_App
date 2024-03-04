@@ -84,7 +84,7 @@ struct MainView: View {
                     Button {
 //                        player.playSound()
                         Task {
-                            await player.getMusic()
+                            await player.getMusicInfo()
                         }
                     } label: {
                         Text("노래켜기")
