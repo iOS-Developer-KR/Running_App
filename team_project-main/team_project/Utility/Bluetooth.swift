@@ -113,15 +113,12 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         print("다시 재접 연결")
     }
     
-    
-    
-    
-    //
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) { // 7.
         for service in peripheral.services! {
             //검색된 모든 service에 대해서 characteristic을 검색한다. 파라미터를 nil로 설정하면 해당 serivce의 모든 characteristic을 검색한다.
             print("특성검색")
             peripheral.discoverCharacteristics([characteristicUUID], for: service)
+            peripheral.discoverCharacteristics(nil, for: service)
         }
     }
     
