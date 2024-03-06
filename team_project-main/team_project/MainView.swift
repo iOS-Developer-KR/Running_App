@@ -14,6 +14,7 @@ struct MainView: View {
     
     // MARK: - PROPERTIES
     @EnvironmentObject var bluetooth: Bluetooth
+    @StateObject private var soundManager = MusicPlayer()
     @State private var textfield = ""
     @State private var alert = false
     var cancellable: Cancellable?
@@ -82,9 +83,9 @@ struct MainView: View {
                 
                 HStack {
                     Button {
-//                        player.playSound()
                         Task {
-                            await player.getMusicInfo()
+//                            player.setupRemoteCommands()
+                            await player.getMusicInfo(url: Constants().currentmusic!)
                         }
                     } label: {
                         Text("노래켜기")

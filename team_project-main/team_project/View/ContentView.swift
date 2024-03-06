@@ -12,6 +12,7 @@ struct ContentView: View {
     var loginmodel = LoginModel()
     @AppStorage("id") var userid = ""
     @State private var credentials: Credentials?
+    @StateObject var bluetooth = Bluetooth()
 
 
     // MARK: - FUNCTIONS
@@ -22,6 +23,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
+                .environmentObject(bluetooth)
             SummeryView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")

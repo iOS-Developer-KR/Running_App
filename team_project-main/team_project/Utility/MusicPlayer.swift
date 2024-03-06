@@ -7,87 +7,101 @@
 
 import AVFoundation
 import MediaPlayer
+import SwiftAudioPlayer
 
-class MusicPlayer {
+class MusicPlayer: ObservableObject {
     static let instance = MusicPlayer()
-    var player: AVAudioPlayer?
+    //    var player: AVAudioPlayer?
+    var player: AVPlayer?
     var isPlaying = false
     
-    func playSound() {
-        guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
+    //    func playSound() {
+    //        guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
+    //            self.player = AVPlayer(url: url)
+    //            player?.play()
+    //            setupRemoteCommands()
+    //            // 재생 중인 노래 정보를 설정
+    //            var nowPlayingInfo: [String : Any] = [
+    //                MPMediaItemPropertyTitle: "Your Song Title",
+    //                MPMediaItemPropertyArtist: "Your Artist Name",
+    //                MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
+    ////                MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
+    //                MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
+    //            ]
+    //            if let albumCoverPage = UIImage(named: "apple") {
+    //                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
+    //                    return albumCoverPage
+    //                })
+    //            }
+    //            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    //    }
+    
+    func getMusicInfo(url: URL) async { // 음악 정보 가져오기
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        if url == Constants().currentmusic {
+            request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
+        }
+        
+        let configuration = URLSessionConfiguration.default
         do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-            setupRemoteCommands()
-            // 재생 중인 노래 정보를 설정
-            var nowPlayingInfo: [String : Any] = [
-                MPMediaItemPropertyTitle: "Your Song Title",
-                MPMediaItemPropertyArtist: "Your Artist Name",
-                MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
-                MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentTime ?? 0
-            ]
-            if let albumCoverPage = UIImage(named: "apple") {
-                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-                    return albumCoverPage
-                })
-            }
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-            
+            let token = try KeyChain.get()
+            configuration.httpAdditionalHeaders = ["Authorization": token.token]
         } catch {
             print(error.localizedDescription)
         }
-    }
-    
-    func getMusicInfo() async { // 음악 정보 가져오기
-        var request = URLRequest(url: URL(string: "http://lsproject.shop:8080/audio")!)
-        request.httpMethod = "GET"
-        request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
-
-        let configuration = URLSessionConfiguration.default
-                
+        
+        
         let session = URLSession(configuration: configuration)
-        print(request.url!)
         do {
             let (data, _) = try await session.data(for: request)
             let musicinfo = try JSONDecoder().decode(MusicInfoModel.self, from: data)
             print(musicinfo)
-            await setupMusicInfo(info: musicinfo)
-            await getMusic(url: URL(string: musicinfo.filePath)!)
-        } catch {
-            print(error)
-        }
-    }
-    
-    func getMusic(url: URL) async { // 음악 가져와서 재생하기
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-
-        let configuration = URLSessionConfiguration.default
-        
-        configuration.httpAdditionalHeaders = ["Accept": "audio/mpeg"]
-        
-        let session = URLSession(configuration: configuration)
-        print(request.url!)
-        do {
-            let (data, _) = try await session.data(for: request)
-            print(data)
-            self.player = try AVAudioPlayer(data: data)
-            player?.play()
+            
             setupRemoteCommands()
+            //            await getMusic(url: URL(string: musicinfo.filePath)!)
+            await setupMusicInfo(url: URL(string: musicinfo.filePath)!, info: musicinfo)
         } catch {
             print(error)
         }
     }
     
-    func setupMusicInfo(info: MusicInfoModel) async { // 잠금화면에 띄우기
+    //    func getMusic(url: URL) async { // 음악 가져와서 재생하기
+    //
+    //        do {
+    //            let duration = try await player?.currentItem?.asset.load(.duration)
+    //            print("여기좀 확인해봐" + (duration?.seconds.description)!)
+    //            var nowPlayingInfo: [String : Any] = [
+    //                MPNowPlayingInfoPropertyElapsedPlaybackTime: Int(duration!.seconds),
+    //            ]
+    //            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    //
+    //
+    //        } catch {
+    //
+    //        }
+    //        print(player?.currentItem?.duration.seconds.description)
+    //        print(CMTimeGetSeconds((player?.currentItem?.asset.duration)!))
+    //    }
+    
+    func setupMusicInfo(url: URL, info: MusicInfoModel) async { // 잠금화면에 띄우기
+        self.player = AVPlayer(url: url)
+        player?.play()
         // 재생 중인 노래 정보를 설정
+        do {
+            let duration = try await player?.currentItem?.asset.load(.duration)
+            print("여기좀 확인해봐" + (duration?.seconds.description)!)//
+//            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 30 = duration?.seconds
+
         var nowPlayingInfo: [String : Any] = [
             MPMediaItemPropertyTitle: info.title,
             MPMediaItemPropertyArtist: info.artist,
-            MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
-            MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentTime ?? 0
+            MPMediaItemPropertyPlaybackDuration: Int(duration!.seconds),//Int((player?.currentTime().seconds)!),
+            MPNowPlayingInfoPropertyElapsedPlaybackTime: CMTimeGetSeconds(player!.currentTime()),
+            MPNowPlayingInfoPropertyPlaybackRate: player?.rate
         ]
-        
+      
+
         var request = URLRequest(url: URL(string: info.albumUrl)!)
         request.httpMethod = "GET"
         
@@ -105,39 +119,24 @@ class MusicPlayer {
             print(error)
         }
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-    }
-    
-    func nextSound() {
-        guard let url = Bundle.main.url(forResource: "music2", withExtension: ".mp3") else { return }
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-            setupRemoteCommands()
-            // 재생 중인 노래 정보를 설정
-            var nowPlayingInfo: [String : Any] = [
-                MPMediaItemPropertyTitle: "Your Song Title",
-                MPMediaItemPropertyArtist: "Your Artist Name",
-                MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
-                MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentTime ?? 0
-            ]
-            if let albumCoverPage = UIImage(named: "gym") {
-                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-                    return albumCoverPage
-                })
-            }
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-            
         } catch {
-            print(error.localizedDescription)
+            print(error)
         }
     }
     
     func stopSound() {
-        player?.stop()
+        player?.pause()
     }
     
     func setupRemoteCommands() {
         let remoteCommandCenter = MPRemoteCommandCenter.shared()
+        remoteCommandCenter.skipBackwardCommand.isEnabled = false
+        remoteCommandCenter.skipForwardCommand.isEnabled = false
+        remoteCommandCenter.playCommand.isEnabled = true
+        remoteCommandCenter.pauseCommand.isEnabled = true
+        remoteCommandCenter.previousTrackCommand.isEnabled = true
+        remoteCommandCenter.nextTrackCommand.isEnabled = true
+        remoteCommandCenter.stopCommand.isEnabled = true
         
         remoteCommandCenter.pauseCommand.addTarget { _ in
             self.pausePlayback()
@@ -149,17 +148,22 @@ class MusicPlayer {
             return .success
         }
         
+        
         remoteCommandCenter.previousTrackCommand.addTarget { _ in
-            self.previousPlayback()
+            Task {
+                await self.previousPlayback()
+            }
             return .success
         }
         
         remoteCommandCenter.nextTrackCommand.addTarget { _ in
-            self.nextPlayback()
+            Task {
+                await self.nextPlayback()
+            }
             return .success
         }
         
-        
+        //        remoteCommandCenter.
         
     }
     
@@ -174,23 +178,30 @@ class MusicPlayer {
     func pausePlayback() {
         // Pause playback logic
         isPlaying = false
+        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0
         player?.pause()
     }
     
     func resumePlayback() {
         // Resume playback logic
         isPlaying = true
+        print(player?.currentTime().seconds.description)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 1
         player?.play()
     }
     
-    func previousPlayback() {
+    func previousPlayback() async {
         isPlaying = true
-        playSound()
+        //        playSound()
+        print("이전버튼")
+        await getMusicInfo(url: Constants().previousmusic!)
     }
     
-    func nextPlayback() {
+    func nextPlayback() async {
         isPlaying = true
-        nextSound()
+        //        nextSound()
+        print("다음버튼")
+        await getMusicInfo(url: Constants().nextmusic!)
     }
     
 }

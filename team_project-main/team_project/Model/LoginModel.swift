@@ -12,7 +12,7 @@ class LoginModel {
     let httpClient = HTTPClient()
     // 여기서 토큰 체크하고 갱신한다
     func login(userid: String, password: String, completion: @escaping (Bool) -> Void) {
-        let loginData = ["username": userid, "password": password]
+        let loginData = ["userid": userid, "password": password]
         var request = URLRequest(url: Constants().loginPath!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -44,7 +44,7 @@ class LoginModel {
     func Relogin(completion: @escaping (Bool) -> Void) {
         do {
             let credentials = try KeyChain.get()
-            let loginData = ["username": credentials.username, "password": credentials.psssword]
+            let loginData = ["userid": credentials.username, "password": credentials.psssword]
             var request = URLRequest(url: Constants().loginPath!)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -14,7 +14,6 @@ struct team_projectApp: App {
     @StateObject var isLogged = LoginStatus()
     @State private var isSplashScreenVisible = true
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var bluetooth = Bluetooth()
     
     // MARK: - FUNCTIOINS
     func getCredentials() -> Credentials? {
@@ -62,33 +61,38 @@ struct team_projectApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //            ZStack {
-            //                if isSplashScreenVisible {
-            //                    SplashScreenView()
-            //                        .onAppear {
-            //                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            //                                withAnimation {
-            //                                    isSplashScreenVisible = false
-            //                                }
-            //                            }
-            //                        }
-            //                } else {
-            //                    if let views = isLogged.isLogged {
-            //                        if views { // 만약 로그인 성공이라면
-            //                            ContentView()
-            //                        } else { // 만일 로그인이 실패한 상태라면
-            //                            LoginRegisterView()
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //            
-            //        }
-            //        .environmentObject(isLogged)
-            //        .onChange(of: scenePhase) {
-            //            attemptAutoLogin()
-            MainView()
-                .environmentObject(bluetooth)
+                        ZStack {
+                            if isSplashScreenVisible {
+                                SplashScreenView()
+                                    .onAppear {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                isSplashScreenVisible = false
+                                            }
+                                        }
+                                    }
+                            } else {
+                                if let views = isLogged.isLogged {
+                                    if views { // 만약 로그인 성공이라면
+                                        ContentView()
+                                    } else { // 만일 로그인이 실패한 상태라면
+                                        LoginRegisterView()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .environmentObject(isLogged)
+                    .onChange(of: scenePhase) {
+//                        do {
+//                            try KeyChain.delete()
+//                        } catch {
+//                            print("키체인 지우기 실패")
+//                        }
+//                        getCredentials()
+                        attemptAutoLogin()
+//            MainView()
+//                .environmentObject(bluetooth)
         }
     }
 }

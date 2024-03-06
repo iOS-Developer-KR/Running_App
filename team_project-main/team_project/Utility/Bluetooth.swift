@@ -8,6 +8,9 @@
 import Foundation
 import CoreBluetooth
 
+enum BluetoothError: Error {
+    case DecodingError
+}
 
 class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
@@ -141,6 +144,15 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         // 전송받은 데이터가 존재하는지 확인
         let data = characteristic.value
         guard data != nil else { return }
+        
+        do {
+            guard let js = try? JSONDecoder().decode(BluetoothModel.self, from: data!) else {
+                throw BluetoothError.DecodingError
+            }
+            print(js.bpm.description + " " + js.power_status.description)
+        } catch {
+            
+        }
         
         if let str = String(data: data!, encoding: String.Encoding.utf8) {
             print(str)
