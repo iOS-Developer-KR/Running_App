@@ -18,7 +18,7 @@ struct MainView: View {
     @State private var textfield = ""
     @State private var alert = false
     var cancellable: Cancellable?
-    var player = MusicPlayer.instance
+//    var player = MusicPlayer.instance
     
     // MARK: - FUNCTIONS
     
@@ -85,14 +85,14 @@ struct MainView: View {
                     Button {
                         Task {
 //                            player.setupRemoteCommands()
-                            await player.getMusicInfo(url: Constants().currentmusic!)
+                            await soundManager.getMusicInfo(url: Constants().currentmusic!)
                         }
                     } label: {
                         Text("노래켜기")
                     }
                     
                     Button {
-                        player.stopSound()
+                        soundManager.stopSound()
                     } label: {
                         Text("노래끄기")
                     }

@@ -103,9 +103,9 @@ struct HTTPClient {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
         do {
-            let token = try await KeyChain.get()
+            let token = try KeyChain.get()
             
-            print("가져온 토큰값\(token.token)")
+//            print("가져온 토큰값\(token.token)")
 //            let decoded = try decode(jwt: token)
             configuration.httpAdditionalHeaders = ["Authorization": token.token]
 //            }
@@ -115,7 +115,7 @@ struct HTTPClient {
         }
         let session = URLSession(configuration: configuration)
         print(session.configuration)
-        let (data, response) = try await session.data(for: request)
+        let (data, _) = try await session.data(for: request)
         
 //        guard let httpResponse = response as? HTTPURLResponse else {
 //                throw NetworkError.invalidResponse

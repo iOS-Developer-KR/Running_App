@@ -61,14 +61,11 @@ class KeyChain {
                                     kSecAttrServer as String: server,
                                     kSecReturnAttributes as String: true, // username 포함
                                     kSecReturnData as String: true] // token 포함
-        print("keychain에서 가져오는거 시작")
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         
-        print("값 있는지 확인")
         guard status != errSecItemNotFound else { throw KeychainError.notFound }
 
-        print("값은 있다고 하는데..")
         guard status == errSecSuccess else { throw
             KeychainError.unhandledError(status: status)
         }
@@ -77,7 +74,7 @@ class KeyChain {
             throw KeychainError.unexpectedPasswordData
         }
         let decoded = try decoder.decode(Credentials.self, from: (existingItem[kSecValueData as String] as? Data)!)
-        print("불러오기 성공 password: \(decoded.psssword), account: \(decoded.username), token: \(decoded.token)")
+//        print("불러오기 성공 password: \(decoded.psssword), account: \(decoded.username), token: \(decoded.token)")
         return Credentials(username: decoded.username, psssword: decoded.psssword, token: decoded.token)
     }
     
@@ -88,11 +85,9 @@ class KeyChain {
                                     kSecAttrServer as String: server,
                                     kSecReturnAttributes as String: true, // username 포함
                                     kSecReturnData as String: true] // token 포함
-        print("keychain에서 가져오는거 시작")
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         
-        print("값 있는지 확인")
         guard status != errSecItemNotFound else { return false }
         return true
     }
@@ -101,7 +96,7 @@ class KeyChain {
         let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                     kSecAttrServer as String: server]
         
-        print("업데이트할 유저이름:\(credentials.username), 유저토큰:\(credentials.token), 유저비밀번호:\(credentials.psssword)")
+//        print("업데이트할 유저이름:\(credentials.username), 유저토큰:\(credentials.token), 유저비밀번호:\(credentials.psssword)")
         let encoder = JSONEncoder()
         let data = try encoder.encode(credentials)
         let attributes: [String: Any] = [kSecAttrAccount as String: credentials.username,
@@ -113,11 +108,9 @@ class KeyChain {
     }
     
     static func delete() throws {
-        print("삭제하기")
         let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                     kSecAttrServer as String: server]
         let status = SecItemDelete(query as CFDictionary)
-        print("삭제하기2")
         if status == errSecSuccess {
             print("Successfully deleted the keychain.")
             

@@ -75,10 +75,10 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
         let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID]) // 3. 이미 연결된 주변기기를 찾아라.
         // 아래 내용은 불필요한 것
-        for peripheral in peripherals { // 찾은 주변기기를 가지고
+//        for peripheral in peripherals { // 찾은 주변기기를 가지고
 //            centralManager?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil) // 대지라에게 찾은 peripheral를 넘겨준다.
          // 주변기기를 파라미터로 전달하여 ViewController의 peripheralList에 저장되도록 하고, TableView에 나타나도록 하는 것이다.
-         }
+//         }
     }
     func stopScan() {
         centralManager.stopScan()
@@ -112,9 +112,9 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         }
     }
     
-    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-        print("다시 재접 연결")
-    }
+//    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
+//        print("다시 재접 연결")
+//    }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) { // 7.
         for service in peripheral.services! {

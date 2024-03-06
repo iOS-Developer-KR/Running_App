@@ -32,7 +32,7 @@ class LoginModel {
                 print("토큰 무효")
                 return
             }
-            print("토큰값: \(token)")
+//            print("토큰값: \(token)")
             let credentials = Credentials(username: userid, psssword: password, token: token)
             Task {
                 try KeyChain.save(credentials: credentials)
@@ -61,7 +61,7 @@ class LoginModel {
                     print("토큰 무효")
                     return
                 }
-                print("토큰값: \(token)")
+//                print("토큰값: \(token)")
                 let credentials = Credentials(username: credentials.username, psssword: credentials.psssword, token: token)
                 Task {
                     do {
