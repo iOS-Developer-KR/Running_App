@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B0A152B2B98C6A900AD09A6 /* NowPlayableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */; };
-		2B0A152C2B98C6A900AD09A6 /* NowPlayableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */; };
-		2B0A152D2B98C6A900AD09A6 /* NowPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */; };
-		2B0A152E2B98C6A900AD09A6 /* NowPlayableMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -21,7 +17,6 @@
 		2B61711D2B9365BD00E379F6 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */; };
 		2B61711F2B9368D200E379F6 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B61711E2B9368D200E379F6 /* music.mp3 */; };
 		2B639AC52B9741BF00EA0DA9 /* SwiftAudioPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 2B639AC42B9741BF00EA0DA9 /* SwiftAudioPlayer */; };
-		2B77BC782B88933A00E05D3B /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B77BC772B88933A00E05D3B /* TransferService.swift */; };
 		2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47BD2AF7FD840024D811 /* LoginRegisterView.swift */; };
 		2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C02AF7FF250024D811 /* IdView.swift */; };
 		2B8B47C32AF7FFD10024D811 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C22AF7FFD10024D811 /* PasswordView.swift */; };
@@ -63,10 +58,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NowPlayableCommand.swift; path = "../../../../../../../Downloads/BecomingANowPlayableApp-2/Shared/NowPlayable/NowPlayableCommand.swift"; sourceTree = "<group>"; };
-		2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableError.swift; sourceTree = "<group>"; };
-		2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayable.swift; sourceTree = "<group>"; };
-		2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableMetadata.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
 		2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothModel.swift; sourceTree = "<group>"; };
@@ -77,7 +68,6 @@
 		2B5FCFCA2AF0FD540063C5FA /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		2B61711E2B9368D200E379F6 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
-		2B77BC772B88933A00E05D3B /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 		2B8B47BD2AF7FD840024D811 /* LoginRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterView.swift; sourceTree = "<group>"; };
 		2B8B47C02AF7FF250024D811 /* IdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdView.swift; sourceTree = "<group>"; };
 		2B8B47C22AF7FFD10024D811 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
@@ -191,15 +181,10 @@
 		2B97ED912AF12D8200CEEFE3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */,
-				2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */,
-				2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */,
-				2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */,
 				2B97ED922AF12D9F00CEEFE3 /* Constants.swift */,
 				2BEC5B7D2B01F45D00D45CBE /* JWT.swift */,
 				2BC489982B0623AF00544928 /* KeyChain.swift */,
 				2BC0935A2B88346C00E528A1 /* Bluetooth.swift */,
-				2B77BC772B88933A00E05D3B /* TransferService.swift */,
 				2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */,
 			);
 			path = Utility;
@@ -416,7 +401,6 @@
 				2BABF6AB2AED560D00CD88CE /* MainView.swift in Sources */,
 				2BABF6912AE9EDEC00CD88CE /* MyPageView.swift in Sources */,
 				2BE5BBB62AEE8CCA00C8AD5A /* StartExerciseView.swift in Sources */,
-				2B0A152C2B98C6A900AD09A6 /* NowPlayableError.swift in Sources */,
 				2B5FCFC32AF0D4550063C5FA /* LoginModel.swift in Sources */,
 				2BABF6932AE9F1D900CD88CE /* SettingsLabelView.swift in Sources */,
 				2BEC5B842B024AED00D45CBE /* SummeryChartView.swift in Sources */,
@@ -438,17 +422,13 @@
 				2BC489992B0623AF00544928 /* KeyChain.swift in Sources */,
 				2BEC5B7E2B01F45D00D45CBE /* JWT.swift in Sources */,
 				2BABF69C2AEA71CD00CD88CE /* AlertView.swift in Sources */,
-				2B77BC782B88933A00E05D3B /* TransferService.swift in Sources */,
 				2B61711D2B9365BD00E379F6 /* MusicPlayer.swift in Sources */,
 				2BABF69E2AEA725500CD88CE /* SettingToggleView.swift in Sources */,
 				2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */,
 				2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */,
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
-				2B0A152B2B98C6A900AD09A6 /* NowPlayableCommand.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
-				2B0A152E2B98C6A900AD09A6 /* NowPlayableMetadata.swift in Sources */,
-				2B0A152D2B98C6A900AD09A6 /* NowPlayable.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,

@@ -79,7 +79,7 @@ class KeyChain {
     }
     
     // 통신할때마다 계속 사용될 토큰 유효한지 확인하는 코드, 유효하지 않으면 다시 받아온다.
-    static func CheckToken() throws -> Bool{
+    static func CheckToken() throws -> Bool {
         let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                     kSecMatchLimit as String: kSecMatchLimitOne,
                                     kSecAttrServer as String: server,
@@ -88,8 +88,32 @@ class KeyChain {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         
-        guard status != errSecItemNotFound else { return false }
-        return true
+        guard status != errSecItemNotFound else {
+            throw KeychainError.notFound
+        }
+        
+        guard status == errSecSuccess else { throw
+            KeychainError.unhandledError(status: status)
+        }
+        let decoder = JSONDecoder()
+        guard let existingItem = item as? [String : Any] else {
+            throw KeychainError.unexpectedPasswordData
+        }
+        let decoded = try decoder.decode(Credentials.self, from: (existingItem[kSecValueData as String] as? Data)!)
+        let token = try JWTDecode.decode(jwt: decoded.token)
+        
+        return token.expired // 토큰이 만료되었다면 true
+    }
+    
+    static func CheckTokenVaild() -> Bool {
+        do {
+            let token = try get().token
+            let decodedtoken = try JWTDecode.decode(jwt: token)
+            return decodedtoken.expired
+        } catch {
+            print(error)
+            return false
+        }
     }
     
     static func update(credentials: Credentials) throws {

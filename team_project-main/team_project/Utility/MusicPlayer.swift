@@ -7,7 +7,7 @@
 
 import AVFoundation
 import MediaPlayer
-import SwiftAudioPlayer
+//import SwiftAudioPlayer
 import SwiftUI
 
 class MusicPlayer: ObservableObject {
@@ -59,7 +59,6 @@ class MusicPlayer: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-        
         
         let session = URLSession(configuration: configuration)
         do {

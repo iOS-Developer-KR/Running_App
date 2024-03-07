@@ -1,14 +1,14 @@
+////
+////  TransferService.swift
+////  team_project
+////
+////  Created by Taewon Yoon on 2/23/24.
+////
 //
-//  TransferService.swift
-//  team_project
+//import Foundation
+//import CoreBluetooth
 //
-//  Created by Taewon Yoon on 2/23/24.
-//
-
-import Foundation
-import CoreBluetooth
-
-struct TransferService {
-    static let serviceUUID = CBUUID(string: "FFE0")
-    static let characteristicUUID = CBUUID(string: "FFE1")
-}
+//struct TransferService {
+//    static let serviceUUID = CBUUID(string: "FFE0")
+//    static let characteristicUUID = CBUUID(string: "FFE1")
+//}
