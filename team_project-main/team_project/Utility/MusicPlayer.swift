@@ -14,10 +14,6 @@ class MusicPlayer: ObservableObject {
     var nowPlayingInfo: [String : Any] = [:]
     var player: AVPlayer?
     var isPlaying = false
-    var forwardpressed = false
-    var backwardpressed = false
-    var nextpressed = false
-    var previouspressed = false
     var currentTime: CMTime = .zero
     var timeObserverToken: Any?
     
@@ -82,61 +78,11 @@ class MusicPlayer: ObservableObject {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
-    func removePeriodicTimeObserber() {
-        if let timeObserverToken = timeObserverToken {
-            player?.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
-    }
-    
-    func addBoundaryTimeObserver() {
-        print("경계 설정 완료")
-        var times = [NSValue]()
-        // Set initial time to zero
-        var currentTime = CMTime.zero
-        // Divide the asset's duration into quarters.
-        let interval = CMTimeMultiplyByFloat64((player?.currentItem!.duration)!, multiplier: 0.25)
-        
-        // Build boundary times at 25%, 50%, 75%, 100%
-        while currentTime < (player?.currentItem!.duration)! {
-            currentTime = currentTime + interval
-            times.append(NSValue(time: currentTime))
-        }
-        // Add time observer. Observe boundary time changes on the main queue.
-        timeObserverToken = player!.addBoundaryTimeObserver(forTimes: times,
-                                                           queue: .main) {
-            // Update UI
-            print("25%완료")
-            Task {
-                await self.getMusicInfo(url: Constants().nextmusic!)
-//                self!.removePeriodicTimeObserber()
-            }
-        }
-//        // Add time observer. Observe boundary time changes on the main queue.
-//        self.timeObserverToken = player!.addBoundaryTimeObserver(forTimes: times, queue: .main) {
-//            // Update UI
-//            print("25%완료")
-//            Task {
-//                await self.getMusicInfo(url: Constants().nextmusic!)
-//                self.removePeriodicTimeObserber()
-//            }
-//        }
-    }
-    
     
     
     func setupMusicInfo(url: URL, info: MusicInfoModel) async { // 잠금화면에 띄우기
         self.player = AVPlayer(url: url)
         player?.play()
-        addBoundaryTimeObserver()
-        print("노래 시작을 알린다")
-        NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: nil, queue: nil) { _ in
-            print("노래가 끝났습니다.")
-            Task {
-                await self.getMusicInfo(url: Constants().nextmusic!)
-                
-            }
-        }
         
         // 재생 중인 노래 정보를 설정
         do {
@@ -182,11 +128,15 @@ class MusicPlayer: ObservableObject {
         remoteCommandCenter.nextTrackCommand.isEnabled = true
         remoteCommandCenter.skipBackwardCommand.isEnabled = true
         remoteCommandCenter.skipBackwardCommand.isEnabled = true
-        remoteCommandCenter.seekForwardCommand.isEnabled = true
-        remoteCommandCenter.seekBackwardCommand.isEnabled = true
         remoteCommandCenter.changePlaybackPositionCommand.isEnabled = true
         remoteCommandCenter.playCommand.isEnabled = true
         remoteCommandCenter.pauseCommand.isEnabled = true
+        
+        NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: nil, queue: nil) { _ in
+            Task {
+                await self.getMusicInfo(url: Constants().nextmusic!)
+            }
+        }
         
         remoteCommandCenter.pauseCommand.addTarget { _ in
             self.pausePlayback()
@@ -209,46 +159,27 @@ class MusicPlayer: ObservableObject {
         remoteCommandCenter.nextTrackCommand.addTarget { _ in
             Task {
                 await self.nextPlayback()
-                self.nextpressed = true
-            }
-            //            }
-            return .success
-        }
-        
-
-        remoteCommandCenter.seekBackwardCommand.addTarget { [self] event in
-            print("앞으로 감기")
-            remoteCommandCenter.stopCommand.isEnabled = true
-            currentTime = CMTimeSubtract(self.currentTime, CMTime(seconds: 10, preferredTimescale: 1))
-            if !self.backwardpressed && self.forwardpressed {
-                self.seek(to: currentTime)
-                self.backwardpressed = true
-            } else {
-                self.backwardpressed = false
-            }
-            remoteCommandCenter.stopCommand.isEnabled = false
-            return .success
-        }
-        
-        remoteCommandCenter.seekForwardCommand.addTarget { [self] event in
-            print("뒤로 감기")
-            currentTime = CMTimeAdd(self.currentTime, CMTime(seconds: 10, preferredTimescale: 1))
-            if !self.forwardpressed {
-                self.seek(to: currentTime)//to: CMTime(seconds: targetTime, preferredTimescale: 1))
-                self.forwardpressed = true
-            } else {
-                self.forwardpressed = false
             }
             return .success
         }
         
         
-        remoteCommandCenter.changePlaybackPositionCommand.addTarget(handler: { (event) in
-            // Handle position change
-//            self.seek(to: event. - self.player?.currentTime()!)
-            return MPRemoteCommandHandlerStatus.success
-        })
-        
+        remoteCommandCenter.changePlaybackPositionCommand.addTarget { [weak self](remoteEvent) -> MPRemoteCommandHandlerStatus in
+                guard let self = self else {return .commandFailed}
+                if let player = self.player {
+                   let playerRate = player.rate
+                   if let event = remoteEvent as? MPChangePlaybackPositionCommandEvent {
+                       player.seek(to: CMTime(seconds: event.positionTime, preferredTimescale: CMTimeScale(1000)), completionHandler: { [weak self](success) in
+                           guard let self = self else {return}
+                           if success {
+                               self.player?.rate = playerRate
+                           }
+                       })
+                       return .success
+                    }
+                }
+                return .commandFailed
+            }
     }
     
     
@@ -257,7 +188,6 @@ class MusicPlayer: ObservableObject {
         player!.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) {
             isFinished in
             if isFinished {
-                print("검색중")
                 self.handlePlaybackChange()
             }
         }
@@ -272,29 +202,25 @@ class MusicPlayer: ObservableObject {
     }
     
     func pausePlayback() {
-        // Pause playback logic
         isPlaying = false
-        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0
         player?.pause()
+        handlePlaybackChange()
     }
     
     func resumePlayback() {
-        // Resume playback logic
         isPlaying = true
-        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 1
         player?.play()
+        handlePlaybackChange()
     }
     
     func previousPlayback() async {
         isPlaying = true
-        //        playSound()
         print("이전버튼")
         await getMusicInfo(url: Constants().previousmusic!)
     }
     
     func nextPlayback() async {
         isPlaying = true
-        //        nextSound()
         print("다음버튼")
         await getMusicInfo(url: Constants().nextmusic!)
     }
