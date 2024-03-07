@@ -11,18 +11,21 @@ import SwiftAudioPlayer
 import SwiftUI
 
 class MusicPlayer: ObservableObject {
-    static let instance = MusicPlayer()
+    //    static let instance = MusicPlayer()
     //    var player: AVAudioPlayer?
+    var session: MPNowPlayingSession?
+    var nowPlayingInfo: [String : Any] = [:]
     var player: AVPlayer?
     var isPlaying = false
     var forwardpressed = false
     var backwardpressed = false
     var nextpressed = false
     var previouspressed = false
-    
+    var currentTime: CMTime = .zero
     init() {
         print("🙏초기세팅")
         setupRemoteCommands()
+        //        self.session = MPNowPlayingSession(players: [player!])
     }
     
     //    func playSound() {
@@ -46,14 +49,14 @@ class MusicPlayer: ObservableObject {
     //            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     //    }
     
-//    init() {
-//            NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd(_:)), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-//        }
+    //    init() {
+    //            NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd(_:)), name: .AVPlayerItemDidPlayToEndTime, object: nil)
+    //        }
     
-//    @objc private func playerItemDidReachEnd(_ notification: Notification) async {
-//            print("노래 끝나는데")
-////        await getMusicInfo(url: Constants().nextmusic!)
-//        }
+    //    @objc private func playerItemDidReachEnd(_ notification: Notification) async {
+    //            print("노래 끝나는데")
+    ////        await getMusicInfo(url: Constants().nextmusic!)
+    //        }
     
     func getMusicInfo(url: URL) async { // 음악 정보 가져오기
         var request = URLRequest(url: url)
@@ -77,10 +80,38 @@ class MusicPlayer: ObservableObject {
             let (data, _) = try await session.data(for: request)
             let musicinfo = try JSONDecoder().decode(MusicInfoModel.self, from: data)
             print(musicinfo)
-        //            await getMusic(url: URL(string: musicinfo.filePath)!)
+            //            await getMusic(url: URL(string: musicinfo.filePath)!)
             await setupMusicInfo(url: URL(string: musicinfo.filePath)!, info: musicinfo)
         } catch {
             print(error)
+        }
+    }
+    
+    func handlePlaybackChange() {
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] =  CMTimeGetSeconds(player!.currentTime())
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    }
+    
+    func addBoundaryTimeObserver() {
+        var times = [NSValue]()
+        // Set initial time to zero
+        var currentTime = CMTime.zero
+        // Divide the asset's duration into quarters.
+        let interval = CMTimeMultiplyByFloat64((player?.currentItem!.duration)!, multiplier: 0.25)
+        
+        // Build boundary times at 25%, 50%, 75%, 100%
+        while currentTime < (player?.currentItem!.duration)! {
+            currentTime = currentTime + interval
+            times.append(NSValue(time: currentTime))
+        }
+        
+        // Add time observer. Observe boundary time changes on the main queue.
+        player!.addBoundaryTimeObserver(forTimes: times, queue: .main) {
+            // Update UI
+            print("25%완료")
+            Task {
+                await self.getMusicInfo(url: Constants().nextmusic!)
+            }
         }
     }
     
@@ -92,27 +123,19 @@ class MusicPlayer: ObservableObject {
         print("노래 시작을 알린다")
         NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: nil, queue: nil) { Notification in
             print("노래가 끝났습니다.")
-//            Task {
-//                await self.getMusicInfo(url: Constants().nextmusic!)
-//            }
+            //            Task {
+            //                await self.getMusicInfo(url: Constants().nextmusic!)
+            //            }
         }
-        
-        
-        
-        
         
         // 재생 중인 노래 정보를 설정
         do {
-            let duration = try await player?.currentItem?.asset.load(.duration)
-            print("여기좀 확인해봐" + (duration?.seconds.description)!)//
-            //            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 30 = duration?.seconds
-            
-            var nowPlayingInfo: [String : Any] = [
+            let duration = try await player?.currentItem?.asset.load(.duration) // 현재 음악의 총 시간
+            nowPlayingInfo = [
                 MPMediaItemPropertyTitle: info.title,
                 MPMediaItemPropertyArtist: info.artist,
                 MPMediaItemPropertyPlaybackDuration: Int(duration!.seconds),
                 MPNowPlayingInfoPropertyElapsedPlaybackTime: CMTimeGetSeconds(player!.currentTime()),
-                //            MPNowPlayingInfoPropertyPlaybackRate: player?.rate
             ]
             
             var request = URLRequest(url: URL(string: info.albumUrl)!)
@@ -148,7 +171,7 @@ class MusicPlayer: ObservableObject {
         remoteCommandCenter.previousTrackCommand.isEnabled = true
         remoteCommandCenter.nextTrackCommand.isEnabled = true
         remoteCommandCenter.skipBackwardCommand.isEnabled = true
-        remoteCommandCenter.skipForwardCommand.isEnabled = true
+        remoteCommandCenter.skipBackwardCommand.isEnabled = true
         remoteCommandCenter.seekForwardCommand.isEnabled = true
         remoteCommandCenter.seekBackwardCommand.isEnabled = true
         remoteCommandCenter.changePlaybackPositionCommand.isEnabled = true
@@ -174,57 +197,115 @@ class MusicPlayer: ObservableObject {
         }
         
         remoteCommandCenter.nextTrackCommand.addTarget { _ in
-//            if self.nextpressed {
-//                print("0.1초")
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                    self.nextpressed = false
-//                }
-//            } else {
-//                print("0.1초 아니야")
-                Task {
-                    await self.nextPlayback()
-                    self.nextpressed = true
-                }
-//            }
+            Task {
+                await self.nextPlayback()
+                self.nextpressed = true
+            }
+            //            }
             return .success
         }
         
-        remoteCommandCenter.seekBackwardCommand.addTarget { event in
-            if !self.backwardpressed {
-                self.seek(to: (self.player?.currentTime())! - CMTime(seconds: 10.0, preferredTimescale: 1))
+        //        remoteCommandCenter.seekBackwardCommand.addTarget { event in
+        ////            let currentTime = CMTimeGetSeconds(self.player!.currentTime())
+        ////            let targetTime = currentTime - 10 // 현재 시간에서 10초 뒤로 설정
+        //            let currentTime = self.player!.currentTime()
+        //            let targetTime = CMTimeSubtract(currentTime, CMTime(seconds: 10, preferredTimescale: 1)) // 현재 시간에서 10초를 빼는 값
+        //
+        //            if !self.backwardpressed {
+        //                self.seek(to: targetTime)
+        //                self.backwardpressed = true
+        //            } else {
+        //                self.backwardpressed = false
+        //            }
+        //            return .success
+        //        }
+        remoteCommandCenter.seekBackwardCommand.addTarget { [self] event in
+            print("앞으로 감기")
+            remoteCommandCenter.stopCommand.isEnabled = true
+            currentTime = CMTimeSubtract(self.currentTime, CMTime(seconds: 10, preferredTimescale: 1))
+            if !self.backwardpressed && self.forwardpressed {
+                self.seek(to: currentTime)
                 self.backwardpressed = true
             } else {
                 self.backwardpressed = false
             }
+            remoteCommandCenter.stopCommand.isEnabled = false
             return .success
+            //            guard let player = self.player else { return .commandFailed }
+            //
+            //            // 현재 시간에서 10초를 빼는 값을 계산하여 currentTime을 업데이트합니다.
+            //            self.currentTime = CMTimeSubtract(self.currentTime, CMTime(seconds: 10, preferredTimescale: 1))
+            //
+            //            // currentTime으로 이동합니다.
+            //            player.seek(to: self.currentTime) { success in
+            //                if success {
+            //                    print("미디어를 10초 뒤로 이동했습니다.")
+            //                } else {
+            //                    print("미디어 이동에 실패했습니다.")
+            //                }
+            //            }
+            //
+            //            return .success
         }
-
-        remoteCommandCenter.seekForwardCommand.addTarget { event in
+        
+        remoteCommandCenter.seekForwardCommand.addTarget { [self] event in
+            print("뒤로 감기")
+            currentTime = CMTimeAdd(self.currentTime, CMTime(seconds: 10, preferredTimescale: 1))
+            //            let currentTime = CMTimeGetSeconds(self.player!.currentTime())
+            //            let targetTime = currentTime + 10 // 현재 시간에서 10초 뒤로 설정
             if !self.forwardpressed {
-                self.seek(to: (self.player?.currentTime())! + CMTime(seconds: 10.0, preferredTimescale: 1))
+                self.seek(to: currentTime)//to: CMTime(seconds: targetTime, preferredTimescale: 1))
                 self.forwardpressed = true
             } else {
                 self.forwardpressed = false
             }
             return .success
         }
-//
-//        remoteCommandCenter.changePlaybackPositionCommand.addTarget(handler: { (event) in
-//            // Handle position change
-////            self.seek(to: event. - self.player?.currentTime()!)
-//            return MPRemoteCommandHandlerStatus.success
-//        })
+        //        remoteCommandCenter.seekForwardCommand.addTarget { event in
+        //            guard let player = self.player else {
+        //                return .commandFailed
+        //            }
+        //
+        //            let currentTime = CMTimeGetSeconds(player.currentTime())
+        //            let targetTime = currentTime + 10 // 현재 시간에서 10초 뒤로 설정
+        //
+        //            let duration = CMTimeGetSeconds(player.currentItem?.duration ?? .zero)
+        //            if targetTime >= duration { // 목표 시간이 미디어의 총 재생 시간보다 클 경우
+        //                // 여기에 처리할 로직 추가
+        //                return .commandFailed // 명령이 실패했음을 알림
+        //            }
+        //
+        //            player.seek(to: CMTime(seconds: targetTime, preferredTimescale: 1)) { success in
+        //                if success {
+        //                    print("10초 뒤로 빨리감기 성공")
+        //                    // 여기에 처리할 로직 추가
+        //                    return  // 명령이 성공했음을 알림
+        //                } else {
+        //                    print("10초 뒤로 빨리감기 실패")
+        //                    // 여기에 처리할 로직 추가
+        //                    return //.commandFailed // 명령이 실패했음을 알림
+        //                }
+        //            }
+        //            return .success
+        //        }
+        
+        //
+        //        remoteCommandCenter.changePlaybackPositionCommand.addTarget(handler: { (event) in
+        //            // Handle position change
+        ////            self.seek(to: event. - self.player?.currentTime()!)
+        //            return MPRemoteCommandHandlerStatus.success
+        //        })
         
     }
     
+    
+    
     private func seek(to time: CMTime) {
-        
-//        if case .stopped = playerState { return }
-        
         player!.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) {
             isFinished in
             if isFinished {
-//                self.handlePlaybackChange()
+                print("검색중")
+                self.handlePlaybackChange()
             }
         }
     }

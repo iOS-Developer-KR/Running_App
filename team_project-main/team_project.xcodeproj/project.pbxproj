@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0A152B2B98C6A900AD09A6 /* NowPlayableCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */; };
+		2B0A152C2B98C6A900AD09A6 /* NowPlayableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */; };
+		2B0A152D2B98C6A900AD09A6 /* NowPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */; };
+		2B0A152E2B98C6A900AD09A6 /* NowPlayableMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -59,6 +63,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NowPlayableCommand.swift; path = "../../../../../../../Downloads/BecomingANowPlayableApp-2/Shared/NowPlayable/NowPlayableCommand.swift"; sourceTree = "<group>"; };
+		2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableError.swift; sourceTree = "<group>"; };
+		2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayable.swift; sourceTree = "<group>"; };
+		2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayableMetadata.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
 		2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothModel.swift; sourceTree = "<group>"; };
@@ -183,6 +191,10 @@
 		2B97ED912AF12D8200CEEFE3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				2B0A15292B98C6A900AD09A6 /* NowPlayable.swift */,
+				2B0A15272B98C6A800AD09A6 /* NowPlayableCommand.swift */,
+				2B0A15282B98C6A800AD09A6 /* NowPlayableError.swift */,
+				2B0A152A2B98C6A900AD09A6 /* NowPlayableMetadata.swift */,
 				2B97ED922AF12D9F00CEEFE3 /* Constants.swift */,
 				2BEC5B7D2B01F45D00D45CBE /* JWT.swift */,
 				2BC489982B0623AF00544928 /* KeyChain.swift */,
@@ -404,6 +416,7 @@
 				2BABF6AB2AED560D00CD88CE /* MainView.swift in Sources */,
 				2BABF6912AE9EDEC00CD88CE /* MyPageView.swift in Sources */,
 				2BE5BBB62AEE8CCA00C8AD5A /* StartExerciseView.swift in Sources */,
+				2B0A152C2B98C6A900AD09A6 /* NowPlayableError.swift in Sources */,
 				2B5FCFC32AF0D4550063C5FA /* LoginModel.swift in Sources */,
 				2BABF6932AE9F1D900CD88CE /* SettingsLabelView.swift in Sources */,
 				2BEC5B842B024AED00D45CBE /* SummeryChartView.swift in Sources */,
@@ -431,8 +444,11 @@
 				2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */,
 				2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */,
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
+				2B0A152B2B98C6A900AD09A6 /* NowPlayableCommand.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
+				2B0A152E2B98C6A900AD09A6 /* NowPlayableMetadata.swift in Sources */,
+				2B0A152D2B98C6A900AD09A6 /* NowPlayable.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,
