@@ -84,8 +84,10 @@ struct MainView: View {
                 HStack {
                     Button {
                         Task {
-//                            player.setupRemoteCommands()
-                            await soundManager.getMusicInfo(url: Constants().currentmusic!)
+                            if try !KeyChain.CheckToken() { // 만약 만료되지 않았다면
+                                await soundManager.getMusicInfo(url: Constants().currentmusic!)
+                            }
+//                            soundManager.playing()
                         }
                     } label: {
                         Text("노래켜기")
@@ -119,6 +121,9 @@ struct MainView: View {
         .onAppear {
             try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try? AVAudioSession.sharedInstance().setActive(true)
+//            Task {
+//                await soundManager.readyToConnect(url: Constants().currentmusic!)
+//            }
         }
     }
 }

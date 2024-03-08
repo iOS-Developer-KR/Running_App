@@ -17,6 +17,28 @@ struct SplashScreenView: View {
     let loginmodel = LoginModel()
     
     // MARK: - FUNCTIONS
+    func MainTainSession() {
+        DispatchQueue.main.async {
+            do {
+                if try KeyChain.CheckToken() { // 토큰이 존재하는데 유효하지 않는다면
+                    loginmodel.Relogin { result in
+                        if result {
+                            isLogged.isLogged = true
+                        } else {
+                            isLogged.isLogged = false
+                        }
+                    }
+                } else { // 토큰이 존재하는데 유효한다면  // 바로 메인 화면으로 넘어가기
+                    isLogged.isLogged = true
+                }
+            } catch KeychainError.notFound {
+                isLogged.isLogged = false
+            } catch {
+                print(error)
+                isLogged.isLogged = false
+            }
+        }
+    }
     
     // MARK: - BODY
     
@@ -27,7 +49,7 @@ struct SplashScreenView: View {
             Text("Your App Splash Screen")
                 .onAppear { // Splash 화면에서 비동기 작업 수행
                     Task { // 토큰 만료 여부 확인 후 만료되었으면 자동 로그인 진행
-//                        loginmodel.attemptAutoLogin()
+                        MainTainSession()
                     }
                 }
         }

@@ -16,6 +16,7 @@
 		2B5FCFCB2AF0FD540063C5FA /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFCA2AF0FD540063C5FA /* RegisterView.swift */; };
 		2B61711D2B9365BD00E379F6 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */; };
 		2B61711F2B9368D200E379F6 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B61711E2B9368D200E379F6 /* music.mp3 */; };
+		2B6356092B9AD2A3002B74A9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2B6356082B9AD2A3002B74A9 /* Alamofire */; };
 		2B639AC52B9741BF00EA0DA9 /* SwiftAudioPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 2B639AC42B9741BF00EA0DA9 /* SwiftAudioPlayer */; };
 		2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47BD2AF7FD840024D811 /* LoginRegisterView.swift */; };
 		2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C02AF7FF250024D811 /* IdView.swift */; };
@@ -113,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B6356092B9AD2A3002B74A9 /* Alamofire in Frameworks */,
 				2B639AC52B9741BF00EA0DA9 /* SwiftAudioPlayer in Frameworks */,
 				2BEC5B822B01FF6F00D45CBE /* JWTDecode in Frameworks */,
 			);
@@ -331,6 +333,7 @@
 			packageProductDependencies = (
 				2BEC5B812B01FF6F00D45CBE /* JWTDecode */,
 				2B639AC42B9741BF00EA0DA9 /* SwiftAudioPlayer */,
+				2B6356082B9AD2A3002B74A9 /* Alamofire */,
 			);
 			productName = team_project;
 			productReference = 2B9C0DE02AE96E6B00DAA0A3 /* team_project.app */;
@@ -363,6 +366,7 @@
 			packageReferences = (
 				2BEC5B802B01FF6F00D45CBE /* XCRemoteSwiftPackageReference "JWTDecode" */,
 				2B639AC32B9741BF00EA0DA9 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
+				2B6356072B9AD2A3002B74A9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 2B9C0DE12AE96E6B00DAA0A3 /* Products */;
 			projectDirPath = "";
@@ -647,6 +651,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2B6356072B9AD2A3002B74A9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.0;
+			};
+		};
 		2B639AC32B9741BF00EA0DA9 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tanhakabir/SwiftAudioPlayer.git";
@@ -666,6 +678,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B6356082B9AD2A3002B74A9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B6356072B9AD2A3002B74A9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		2B639AC42B9741BF00EA0DA9 /* SwiftAudioPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2B639AC32B9741BF00EA0DA9 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;

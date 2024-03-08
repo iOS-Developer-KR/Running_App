@@ -66,9 +66,9 @@ class KeyChain {
         
         guard status != errSecItemNotFound else { throw KeychainError.notFound }
 
-        guard status == errSecSuccess else { throw
-            KeychainError.unhandledError(status: status)
-        }
+//        guard status == errSecSuccess else { throw
+//            KeychainError.unhandledError(status: status)
+//        }
         let decoder = JSONDecoder()
         guard let existingItem = item as? [String : Any] else {
             throw KeychainError.unexpectedPasswordData
@@ -101,7 +101,7 @@ class KeyChain {
         }
         let decoded = try decoder.decode(Credentials.self, from: (existingItem[kSecValueData as String] as? Data)!)
         let token = try JWTDecode.decode(jwt: decoded.token)
-        
+        print(decoded.token)
         return token.expired // 토큰이 만료되었다면 true
     }
     

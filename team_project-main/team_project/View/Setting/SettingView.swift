@@ -4,7 +4,7 @@ struct SettingView: View {
     
     @Binding var path: [String]
     @EnvironmentObject var isLogged: LoginStatus
-    
+
     var body: some View {
         List {
             Section("내 정보") {

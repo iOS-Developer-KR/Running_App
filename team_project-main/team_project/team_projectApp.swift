@@ -64,11 +64,11 @@ struct team_projectApp: App {
         }
         .environmentObject(isLogged)
         .onChange(of: scenePhase) {
-            //                        do {
-            //                            try KeyChain.delete()
-            //                        } catch {
-            //                            print("키체인 지우기 실패")
-            //                        }
+//                                    do {
+//                                        try KeyChain.delete()
+//                                    } catch {
+//                                        print("키체인 지우기 실패")
+//                                    }
             //                        getCredentials()
             MainTainSession()
             //            MainView()
