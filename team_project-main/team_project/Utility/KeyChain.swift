@@ -101,19 +101,24 @@ class KeyChain {
         }
         let decoded = try decoder.decode(Credentials.self, from: (existingItem[kSecValueData as String] as? Data)!)
         let token = try JWTDecode.decode(jwt: decoded.token)
-        print(decoded.token)
+//        print(decoded.token)
+        
         return token.expired // 토큰이 만료되었다면 true
     }
     
-    static func CheckTokenVaild() -> Bool {
-        do {
-            let token = try get().token
-            let decodedtoken = try JWTDecode.decode(jwt: token)
-            return decodedtoken.expired
-        } catch {
-            print(error)
+    static func CheckTokenExist() -> Bool {
+        let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
+                                    kSecMatchLimit as String: kSecMatchLimitOne,
+                                    kSecAttrServer as String: server,
+                                    kSecReturnAttributes as String: true, // username 포함
+                                    kSecReturnData as String: true] // token 포함
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+        guard status != errSecItemNotFound else {
             return false
         }
+        return true
     }
     
     static func update(credentials: Credentials) throws {

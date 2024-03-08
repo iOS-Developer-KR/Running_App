@@ -85,7 +85,8 @@ struct MainView: View {
                     Button {
                         Task {
                             if try !KeyChain.CheckToken() { // 만약 만료되지 않았다면
-                                await soundManager.getMusicInfo(url: Constants().currentmusic!)
+//                                await soundManager.getMusicInfo(url: Constants().currentmusic!)
+                                await soundManager.getsss()
                             }
 //                            soundManager.playing()
                         }
@@ -94,7 +95,13 @@ struct MainView: View {
                     }
                     
                     Button {
-                        soundManager.stopSound()
+//                        soundManager.stopSound()
+                        do {
+                            let data = try KeyChain.get()
+                            print(data.token)
+                        } catch {
+                            
+                        }
                     } label: {
                         Text("노래끄기")
                     }

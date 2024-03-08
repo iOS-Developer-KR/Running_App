@@ -30,55 +30,57 @@ struct LoginView: View {
     // MARK: - BODY
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(uiColor: .darkGray), Color(uiColor: .black)]), startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
-                .opacity(1)
-            
-            VStack(alignment: .center, spacing: 20) {
+        NavigationStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color(uiColor: .darkGray), Color(uiColor: .black)]), startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
+                    .opacity(1)
                 
-                IdView(id: $id)
-                PasswordView(password: $password)
-                
-                HStack(spacing: 20) {
-                    Button {
-                        print("로그인")
-                        Task {
-//                            loginmodel.ReLogin()
-                            loginmodel.login(userid: id, password: password) { result in
-                                if result {
-                                    print("로그인됐는데?")
-                                    isLogged.checklogged(logged: true)
-                                } else {
-                                    print("로그인 안됐는데?")
-                                    alert.toggle()
+                VStack(alignment: .center, spacing: 20) {
+                    
+                    IdView(id: $id)
+                    PasswordView(password: $password)
+                    
+                    HStack(spacing: 20) {
+                        Button {
+                            print("로그인")
+                            Task {
+                                //                            loginmodel.ReLogin()
+                                loginmodel.login(userid: id, password: password) { result in
+                                    if result {
+                                        print("로그인됐는데?")
+                                        isLogged.checklogged(logged: true)
+                                    } else {
+                                        print("로그인 안됐는데?")
+                                        alert.toggle()
+                                    }
                                 }
                             }
-                        }
-                    } label: {
-                        Text("로그인")
-                            .font(.system(size: 20))
-                            .fontWeight(.light)
-                            .frame(height: 2)
-                    }.buttonStyle(GradientBackgroundStyle())
+                        } label: {
+                            Text("로그인")
+                                .font(.system(size: 20))
+                                .fontWeight(.light)
+                                .frame(height: 2)
+                        }.buttonStyle(GradientBackgroundStyle())
+                        
+                    } // HSTACK
                     
-                } // HSTACK
-                
-                Spacer()
-            } // VSTACK
-            .navigationDestination(for: String.self, destination: { str in
-                if str == "회원가입" {
-                    RegisterationView()
+                    Spacer()
+                } // VSTACK
+                .navigationDestination(for: String.self, destination: { str in
+                    if str == "회원가입" {
+                        RegisterationView()
+                    }
+                }) // navigationDestination
+                .alert("로그인이 안됐습니다", isPresented: $alert) {
+                    Button("확인", role: .cancel) { }
                 }
-            }) // navigationDestination
-            .alert("로그인이 안됐습니다", isPresented: $alert) {
-                Button("확인", role: .cancel) { }
-            }
+                .padding()
+                
+            } // ZSTACK
             .padding()
-            
         } // ZSTACK
-        .padding()
-    } // ZSTACK
+    }
     
 }// BODY
 

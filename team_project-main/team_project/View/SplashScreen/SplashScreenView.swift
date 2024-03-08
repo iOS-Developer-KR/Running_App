@@ -29,6 +29,7 @@ struct SplashScreenView: View {
                         }
                     }
                 } else { // 토큰이 존재하는데 유효한다면  // 바로 메인 화면으로 넘어가기
+                    print("토큰이 유효하다고?")
                     isLogged.isLogged = true
                 }
             } catch KeychainError.notFound {

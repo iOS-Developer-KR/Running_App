@@ -65,10 +65,11 @@ class LoginModel {
                 let credentials = Credentials(username: credentials.username, psssword: credentials.psssword, token: token)
                 Task {
                     do {
-                        if try KeyChain.CheckToken() {
+                        if KeyChain.CheckTokenExist() { // 존재한다면
                             try KeyChain.update(credentials: credentials)
                             completion(true)
                         } else {
+                            try KeyChain.delete()
                             try KeyChain.save(credentials: credentials)
                             completion(true)
                         }

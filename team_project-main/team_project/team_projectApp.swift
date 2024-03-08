@@ -17,8 +17,8 @@ struct team_projectApp: App {
     
     // MARK: - FUNCTIOINS
     func MainTainSession() {
-        do {
-            if try KeyChain.CheckToken() { // 토큰이 존재하는데 유효하지 않는다면
+//        do {
+//            if try KeyChain.CheckToken() { // 토큰이 존재하는데 유효하지 않는다면
                 loginmodel.Relogin { result in
                     if result {
                         isLogged.isLogged = true
@@ -26,15 +26,13 @@ struct team_projectApp: App {
                         isLogged.isLogged = false
                     }
                 }
-            } else { // 토큰이 존재하는데 유효한다면  // 바로 메인 화면으로 넘어가기
-                isLogged.isLogged = true
-            }
-        } catch KeychainError.notFound {
-            isLogged.isLogged = false
-        } catch {
-            print(error)
-            isLogged.isLogged = false
-        }
+//            } else { // 토큰이 존재하는데 유효한다면  // 바로 메인 화면으로 넘어가기
+//                isLogged.isLogged = true
+//            }
+//        } catch {
+//            print(error)
+//            isLogged.isLogged = false
+//        }
     }
     
     // MARK: - FUNCTIONS
