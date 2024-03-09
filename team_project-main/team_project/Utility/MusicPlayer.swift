@@ -148,6 +148,7 @@ class MusicPlayer: ObservableObject {
     
     func getTest() {
         do {
+            print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
             let token = try KeyChain.get()
             print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
             let url = Constants().currentmusic!
@@ -157,10 +158,8 @@ class MusicPlayer: ObservableObject {
                        encoding: URLEncoding.default,
                        headers: ["Content-Type":"application/json", "Accept":"application/json", "Authorization": token.token])
             .validate(statusCode: 200..<300)
-            .responseJSON { (json) in
-                //여기서 가져온 데이터를 자유롭게 활용하세요.
-                print(json)
-                
+            .responseDecodable(of: MusicInfoModel.self) { response in
+                print(response.value!)
             }
         } catch {
             
