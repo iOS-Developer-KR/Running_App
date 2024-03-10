@@ -8,7 +8,7 @@
 import Foundation
 
 class LoginStatus: ObservableObject {
-    @Published var isLogged: Bool?
+    @Published var isLogged = false
     
     @MainActor func checklogged(logged: Bool) {
         isLogged = logged

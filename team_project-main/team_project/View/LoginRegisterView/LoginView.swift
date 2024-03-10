@@ -49,7 +49,9 @@ struct LoginView: View {
                                 loginmodel.login(userid: id, password: password) { result in
                                     if result {
                                         print("로그인됐는데?")
-                                        isLogged.checklogged(logged: true)
+                                        DispatchQueue.main.async {
+                                            isLogged.checklogged(logged: true)
+                                        }
                                     } else {
                                         print("로그인 안됐는데?")
                                         alert.toggle()

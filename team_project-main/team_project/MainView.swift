@@ -9,7 +9,12 @@ import SwiftUI
 import CoreBluetooth
 import Combine
 import AVFAudio
+import Alamofire
+import JWTDecode
 
+struct test: Decodable {
+    var token: String
+}
 struct MainView: View {
     
     // MARK: - PROPERTIES
@@ -21,7 +26,31 @@ struct MainView: View {
 //    var player = MusicPlayer.instance
     
     // MARK: - FUNCTIONS
-    
+
+//    func login() async {
+//        do {
+//            let loginData = ["username": "lsh", "password": "lsh"]
+//            var request = try URLRequest(url: URL(string: "http://lsproject.shop:8080/api/login")!, method: .post)
+//            request.httpBody = try? JSONEncoder().encode(loginData)
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            let configuration = URLSessionConfiguration.default
+//            configuration.urlCache = URLCache.shared
+//            configuration.requestCachePolicy = .returnCacheDataElseLoad
+//            let session = URLSession(configuration: configuration)
+//            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
+//            let (data, _) = try await session.data(for: request)
+//            let test = try JSONDecoder().decode(test.self, from: data)
+//            print(test.token)
+//            configuration.urlCache = nil
+//            configuration.requestCachePolicy = .useProtocolCachePolicy
+//            print(JWT().decodeJWTPart(test.token))
+//            print(JWT().decode_header(jwtToken: test.token))
+//            print(JWT().decode_payload(jwtToken: test.token))
+//            print(JWT().decode_signature(jwtToken: test.token))
+//        } catch {
+//            
+//        }
+//    }
     
     // MARK: - BODY
     
@@ -83,28 +112,34 @@ struct MainView: View {
                 
                 HStack {
                     Button {
-                        Task {
-                            if try !KeyChain.CheckToken() { // 만약 만료되지 않았다면
-//                                await soundManager.getMusicInfo(url: Constants().currentmusic!)
-                                await soundManager.getsss()
+                        do {
+                            if try !KeyChain.CheckToken() {
+                                Task {
+                                    await soundManager.getMusicFromServer()
+                                }
                             }
-//                            soundManager.playing()
+                        } catch {
+                            print(error)
                         }
                     } label: {
-                        Text("노래켜기")
+                        Text("fetch")
                     }
                     
                     Button {
+
 //                        soundManager.stopSound()
-                        do {
-                            let data = try KeyChain.get()
-                            print(data.token)
-                        } catch {
-                            
-                        }
+                        
+//                        do {
+//                            let data = try KeyChain.get()
+//                            print(data.token)
+//                        } catch {
+//                            
+//                        }
                     } label: {
                         Text("노래끄기")
                     }
+                    
+
                     
                 }
             }
@@ -126,11 +161,11 @@ struct MainView: View {
             Button("블루투스 연결을 확인하세요") { alert = false }
         }
         .onAppear {
-            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try? AVAudioSession.sharedInstance().setActive(true)
+            
 //            Task {
 //                await soundManager.readyToConnect(url: Constants().currentmusic!)
 //            }
+            
         }
     }
 }

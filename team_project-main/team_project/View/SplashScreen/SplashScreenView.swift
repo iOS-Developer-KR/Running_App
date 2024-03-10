@@ -7,6 +7,7 @@
 import SwiftUI
 import JWTDecode
 import Foundation
+import AVFAudio
 
 struct SplashScreenView: View {
     // MARK: - PROPERTIES
@@ -51,6 +52,8 @@ struct SplashScreenView: View {
                 .onAppear { // Splash 화면에서 비동기 작업 수행
                     Task { // 토큰 만료 여부 확인 후 만료되었으면 자동 로그인 진행
                         MainTainSession()
+                        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+                        try? AVAudioSession.sharedInstance().setActive(true)
                     }
                 }
         }

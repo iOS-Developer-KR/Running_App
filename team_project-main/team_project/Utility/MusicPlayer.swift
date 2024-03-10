@@ -22,6 +22,8 @@ class MusicPlayer: ObservableObject {
         print("🙏초기세팅")
         player?.automaticallyWaitsToMinimizeStalling = false
         player?.allowsExternalPlayback = false
+        player?.play()
+        
         setupRemoteCommands()
     }
     
@@ -121,49 +123,84 @@ class MusicPlayer: ObservableObject {
         }
     }
     
-    func getsss() async {
-
+//    func getMusicFromServer() async {
+//
+//        do {
+//            let configuration = URLSessionConfiguration.default
+//            configuration.urlCache = URLCache.shared
+//            configuration.requestCachePolicy = .returnCacheDataElseLoad
+//            print("토큰 가져오는 시간 \(Date().timeIntervalSince1970)")
+//            let token = try KeyChain.get()
+//            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
+//            configuration.httpAdditionalHeaders = ["Authorization": token.token]
+//            var request = try URLRequest(url: Constants().currentmusic!, method: .get)
+//            request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
+//            let session = URLSession(configuration: configuration)
+//            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
+//            let (data, _) = try await session.data(for: request)
+//            print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
+//            print("디코딩 전 \(Date().timeIntervalSince1970)")
+//            let decoded = try JSONDecoder().decode(MusicInfoModel.self, from: data)
+//            print("디코딩 후 \(Date().timeIntervalSince1970)")
+//            print(decoded)
+//            await setupMusicInfo(url: URL(string: decoded.filePath)!, info: decoded)
+//            configuration.urlCache = nil
+//            configuration.requestCachePolicy = .useProtocolCachePolicy
+//            print(token.token)
+//        } catch {
+//            
+//        }
+//    }
+    
+    func getMusicFromServer() async {
         do {
             let configuration = URLSessionConfiguration.default
-            print("토큰 가져오는 시간 \(Date().timeIntervalSince1970)")
+            configuration.urlCache = URLCache.shared
+            configuration.requestCachePolicy = .returnCacheDataElseLoad
             let token = try KeyChain.get()
-            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
             configuration.httpAdditionalHeaders = ["Authorization": token.token]
             var request = try URLRequest(url: Constants().currentmusic!, method: .get)
-            request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
             let session = URLSession(configuration: configuration)
-            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
             let (data, _) = try await session.data(for: request)
-            print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
-            print("디코딩 전 \(Date().timeIntervalSince1970)")
             let decoded = try JSONDecoder().decode(MusicInfoModel.self, from: data)
-            print("디코딩 후 \(Date().timeIntervalSince1970)")
-            print(decoded)
             await setupMusicInfo(url: URL(string: decoded.filePath)!, info: decoded)
-            
+            configuration.urlCache = nil
+            configuration.requestCachePolicy = .useProtocolCachePolicy
+            print(token.token)
         } catch {
-            
+            print(error)
         }
     }
     
     func getTest() {
         do {
+            let parameters = ["heartRate": "80"]
             print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
             let token = try KeyChain.get()
             print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
             let url = Constants().currentmusic!
+            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
             AF.request(url,
                        method: .get,
-                       parameters: nil,
+                       parameters: parameters,
                        encoding: URLEncoding.default,
                        headers: ["Content-Type":"application/json", "Accept":"application/json", "Authorization": token.token])
             .validate(statusCode: 200..<300)
             .responseDecodable(of: MusicInfoModel.self) { response in
-                print(response.value!)
+                print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
+                Task {
+                    await self.setupMusicInfo(url: URL(string: response.value?.filePath ?? "")!, info: response.value!)
+                }
+                print(response.value ?? "값이 없습니다요")
+                print(token.token)
             }
         } catch {
             
         }
+    }
+    
+    func getTest1() {
+
     }
     
     func handlePlaybackChange() {
@@ -177,8 +214,7 @@ class MusicPlayer: ObservableObject {
         print("음악 재생 전 \(Date().timeIntervalSince1970)")
         self.player = AVPlayer(url: url)
         print("음악 재생 직전 \(Date().timeIntervalSince1970)")
-//        player?.playImmediately(atRate: 1)
-        player?.play()
+        player?.playImmediately(atRate: 1)
         print("음악 재생 후 \(Date().timeIntervalSince1970)")
         // 재생 중인 노래 정보를 설정
         do {
@@ -322,4 +358,55 @@ class MusicPlayer: ObservableObject {
         await getMusicInfo(url: Constants().nextmusic!)
     }
     
+}
+
+
+class NetworkManager {
+    static let shared = NetworkManager()
+    private var isNetworkInitialized = false
+    
+    private init() {}
+    
+    func initializeNetwork() {
+        guard !isNetworkInitialized else { return }
+        
+        // 네트워크 초기화 작업 수행
+        // 예: URLSession 초기화
+        
+        isNetworkInitialized = true
+    }
+    
+    func fetchDataFromServer(completion: @escaping (Result<Data, Error>) -> Void) async {
+        initializeNetwork() // 네트워크 초기화
+        
+        // 서버에서 데이터 가져오기
+        // 예: URLSession 사용
+//        do {
+//            let configuration = URLSessionConfiguration.default
+//            configuration.urlCache = URLCache.shared
+//            configuration.requestCachePolicy = .returnCacheDataElseLoad
+//            print("토큰 가져오는 시간 \(Date().timeIntervalSince1970)")
+//            let token = try KeyChain.get()
+//            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
+//            configuration.httpAdditionalHeaders = ["Authorization": token.token]
+//            var request = try URLRequest(url: Constants().currentmusic!, method: .get)
+//            request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
+//            let session = URLSession(configuration: configuration)
+//            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
+//            let (data, _) = try await session.data(for: request)
+//            print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
+//            print("디코딩 전 \(Date().timeIntervalSince1970)")
+//            let decoded = try JSONDecoder().decode(MusicInfoModel.self, from: data)
+//            print("디코딩 후 \(Date().timeIntervalSince1970)")
+//            print(decoded)
+//            await setupMusicInfo(url: URL(string: decoded.filePath)!, info: decoded)
+//            configuration.urlCache = nil
+//            configuration.requestCachePolicy = .useProtocolCachePolicy
+//            print(token.token)
+//        } catch {
+//            
+//        }
+        // 데이터를 가져온 후 처리
+        // 예: completion 핸들러 호출
+    }
 }

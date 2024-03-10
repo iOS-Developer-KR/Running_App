@@ -8,7 +8,7 @@ enum AuthenticationError: Error {
 }
 
 class LoginModel {
-    @EnvironmentObject var isLogged: LoginStatus
+//    @EnvironmentObject var isLogged: LoginStatus
 
     let httpClient = HTTPClient()
 
