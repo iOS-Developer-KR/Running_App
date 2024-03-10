@@ -171,7 +171,7 @@ class MusicPlayer: ObservableObject {
             print(error)
         }
     }
-    
+    ddd
     func getTest() {
         do {
             let parameters = ["heartRate": "80"]
