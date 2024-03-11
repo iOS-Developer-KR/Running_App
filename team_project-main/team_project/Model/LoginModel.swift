@@ -127,12 +127,3 @@ struct RegisterResponseDTO: Codable {
     var reason: String?
 }
 
-//struct tmp: Codable {
-//    var key1: [tmp2]
-//}
-//
-//struct tmp2: Codable {
-//    var date
-//    var 횟수
-//    var 세트수
-//}

@@ -8,6 +8,7 @@
 import Foundation
 
 struct MusicInfoModel: Decodable {
+//    var id: Int
     var title: String
     var artist: String
     var albumUrl: String
