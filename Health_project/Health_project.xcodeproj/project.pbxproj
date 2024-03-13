@@ -87,6 +87,7 @@
 		2B6978E02B9E0B7000D684BA /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		2B6978E22B9E114200D684BA /* PagerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerManager.swift; sourceTree = "<group>"; };
 		2B6978E42B9E132900D684BA /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		2BBCC04C2BA0A4D300395939 /* Health-project-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Health-project-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 		2B6978A12B9E029A00D684BA /* Health_project Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				2BBCC04C2BA0A4D300395939 /* Health-project-Watch-App-Info.plist */,
 				2B6978D22B9E072300D684BA /* Controller */,
 				2B6978A22B9E029A00D684BA /* Health_projectApp.swift */,
 				2B6978A42B9E029A00D684BA /* ContentView.swift */,
@@ -466,6 +468,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "";
 			};
 			name = Debug;
 		};
@@ -519,6 +522,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				TARGETED_DEVICE_FAMILY = "";
 			};
 			name = Release;
 		};
@@ -533,6 +537,7 @@
 				DEVELOPMENT_TEAM = 8HM2XMG9QM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Health-project-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Health_project;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
@@ -563,6 +568,7 @@
 				DEVELOPMENT_TEAM = 8HM2XMG9QM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Health-project-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Health_project;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
@@ -591,11 +597,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8HM2XMG9QM;
 				INFOPLIST_KEY_CFBundleDisplayName = Health_project;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,4,6";
 			};
 			name = Debug;
 		};
@@ -607,11 +619,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8HM2XMG9QM;
 				INFOPLIST_KEY_CFBundleDisplayName = Health_project;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,4,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -629,9 +647,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
+				TARGETED_DEVICE_FAMILY = "1,4";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Health_project Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Health_project Watch App";
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -650,9 +670,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
+				TARGETED_DEVICE_FAMILY = "1,4";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Health_project Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Health_project Watch App";
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -671,9 +693,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project-Watch-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
+				TARGETED_DEVICE_FAMILY = "1,4";
 				TEST_TARGET_NAME = "Health_project Watch App";
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -691,9 +715,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Notification.Health-project-Watch-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
+				TARGETED_DEVICE_FAMILY = "1,4";
 				TEST_TARGET_NAME = "Health_project Watch App";
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
