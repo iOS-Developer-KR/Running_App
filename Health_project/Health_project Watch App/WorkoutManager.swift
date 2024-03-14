@@ -55,6 +55,7 @@ class WorkoutManager: NSObject, ObservableObject {
         let startDate = Date()
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
+            print("운동 데이터 수집 시작")
             // The workout has started.
         }
     }

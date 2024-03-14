@@ -50,8 +50,8 @@ struct test: View {
     }
     
     func autorizeHealthKit() {
-        let healthKitTypes: Set = [
-        HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!]
+        let healthKitTypes: Set = [HKQuantityType(.heartRate)]
+        
 
         healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { _, _ in }
     }
