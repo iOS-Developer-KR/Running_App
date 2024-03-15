@@ -1,17 +1,18 @@
 //
-//  test.swift
-//  Health_project Watch App
+//  ContentView.swift
+//  team_project_w Watch App
 //
-//  Created by Taewon Yoon on 3/11/24.
+//  Created by Taewon Yoon on 3/15/24.
 //
-import SwiftUI
 
+import SwiftUI
 import HealthKit
 
-struct test: View {
+struct ContentView: View {
     private var healthStore = HKHealthStore()
     let heartRateQuantity = HKUnit(from: "count/min")
     
+    @EnvironmentObject var connect: WatchToiOS
     @State private var value = 0
     
     var body: some View {
@@ -20,7 +21,7 @@ struct test: View {
                 Text("❤️")
                     .font(.system(size: 50))
                 Spacer()
-
+                
             }
             
             HStack{
@@ -37,12 +38,21 @@ struct test: View {
                 Spacer()
                 
             }
+            
+            Button {
+                
+            } label: {
+                
+            }
 
+            
         }
         .padding()
-        .onAppear(perform: start)
+        .onAppear {
+            start()
+        }
     }
-
+    
     
     func start() {
         autorizeHealthKit()
@@ -50,45 +60,39 @@ struct test: View {
     }
     
     func autorizeHealthKit() {
+        print("이상하네")
         let healthKitTypes: Set = [HKQuantityType(.heartRate)]
-        
-
-        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { _, _ in }
+        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { result, error in
+            if !result {
+                print(error!.localizedDescription)
+            }
+        }
     }
     
     private func startHeartRateQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-        
-        // 1
         let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        // 2
         let updateHandler: (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void = {
             query, samples, deletedObjects, queryAnchor, error in
             
-            // 3
-        guard let samples = samples as? [HKQuantitySample] else {
-            return
-        }
-            
-        self.process(samples, type: quantityTypeIdentifier)
-
+            guard let samples = samples as? [HKQuantitySample] else {
+                return
+            }
+            self.process(samples, type: quantityTypeIdentifier)
         }
         
-        // 4
-        let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
-        
+        let query = HKAnchoredObjectQuery(type: HKQuantityType(quantityTypeIdentifier), predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
         query.updateHandler = updateHandler
-        
-        // 5
-        
         healthStore.execute(query)
     }
     
     private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
         var lastHeartRate = 0.0
-        
+        print("아니면 여기")
         for sample in samples {
             if type == .heartRate {
                 lastHeartRate = sample.quantity.doubleValue(for: heartRateQuantity)
+                connect.sendMessage(message: ["heartRate": lastHeartRate])
+                print("보내지고 있는데")
             }
             
             self.value = Int(lastHeartRate)
@@ -96,8 +100,6 @@ struct test: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        test()
-    }
+#Preview {
+    ContentView()
 }

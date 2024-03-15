@@ -13,6 +13,7 @@ struct team_projectApp: App {
     var loginmodel = LoginModel()
     @StateObject var isLogged = LoginStatus()
     @State private var isSplashScreenVisible = true
+    @StateObject var connectManager = iOSToWatch()
     @Environment(\.scenePhase) var scenePhase
     
     // MARK: - FUNCTIOINS
@@ -43,39 +44,46 @@ struct team_projectApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                if isSplashScreenVisible {
-                    SplashScreenView()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                withAnimation {
-                                    isSplashScreenVisible = false
-                                }
-                            }
-                        }
-                } else {
-                    if isLogged.isLogged {
-                        ContentView()
-                    } else { // 만일 로그인이 실패한 상태라면
-                        LoginRegisterView()
-                    }
-                }
+
+            ContentView()
+                .environmentObject(connectManager)
+
             }
         }
-        .environmentObject(isLogged)
-        .onChange(of: scenePhase) {
-//                                                do {
-//                                                    try KeyChain.delete()
-//                                                } catch {
-//                                                    print("키체인 지우기 실패")
-//                                                }
-            //                        getCredentials()
-            Task {
-                await MainTainSession()
-            }
-            //            MainView()
-            //                .environmentObject(bluetooth)
-        }
-    }
+    
+    
+//    var body: some Scene {
+//        WindowGroup {
+//            ZStack {
+//                if isSplashScreenVisible {
+//                    SplashScreenView()
+//                        .onAppear {
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                                withAnimation {
+//                                    isSplashScreenVisible = false
+//                                }
+//                            }
+//                        }
+//                } else {
+//                    if isLogged.isLogged {
+//                        ContentView()
+//                    } else { // 만일 로그인이 실패한 상태라면
+//                        LoginRegisterView()
+//                    }
+//                }
+//            }
+//        }
+//        .environmentObject(isLogged)
+//        .onChange(of: scenePhase) {
+////                                                do {
+////                                                    try KeyChain.delete()
+////                                                } catch {
+////                                                    print("키체인 지우기 실패")
+////                                                }
+//            Task {
+//                await MainTainSession()
+//            }
+//        }
+//    }
 }
 
