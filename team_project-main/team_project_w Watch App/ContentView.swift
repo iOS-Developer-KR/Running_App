@@ -16,41 +16,7 @@ struct ContentView: View {
     @State private var value = 0
     
     var body: some View {
-        VStack{
-            HStack{
-                Text("❤️")
-                    .font(.system(size: 50))
-                Spacer()
-                
-            }
-            
-            HStack{
-                Text("\(value)")
-                    .fontWeight(.regular)
-                    .font(.system(size: 70))
-                
-                Text("BPM")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.red)
-                    .padding(.bottom, 28.0)
-                
-                Spacer()
-                
-            }
-            
-            Button {
-                
-            } label: {
-                
-            }
-
-            
-        }
-        .padding()
-        .onAppear {
-            start()
-        }
+        Text("")
     }
     
     
@@ -87,14 +53,11 @@ struct ContentView: View {
     
     private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
         var lastHeartRate = 0.0
-        print("아니면 여기")
         for sample in samples {
             if type == .heartRate {
                 lastHeartRate = sample.quantity.doubleValue(for: heartRateQuantity)
-                connect.sendMessage(message: ["heartRate": lastHeartRate])
-                print("보내지고 있는데")
+                connect.sendMessage(heartRate: ["heartRate": lastHeartRate])
             }
-            
             self.value = Int(lastHeartRate)
         }
     }

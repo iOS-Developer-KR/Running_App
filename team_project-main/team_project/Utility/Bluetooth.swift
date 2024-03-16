@@ -73,7 +73,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Obser
         // [serviceUUID]만 갖고있는 기기만 검색
         print("주변기기 스캔시작")
         centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
-        let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID]) // 3. 이미 연결된 주변기기를 찾아라.
+//        let peripherals = centralManager.retrieveConnectedPeripherals(withServices: [serviceUUID]) // 3. 이미 연결된 주변기기를 찾아라.
         // 아래 내용은 불필요한 것
 //        for peripheral in peripherals { // 찾은 주변기기를 가지고
 //            centralManager?.serialDidDiscoverPeripheral(peripheral: peripheral, RSSI: nil) // 대지라에게 찾은 peripheral를 넘겨준다.

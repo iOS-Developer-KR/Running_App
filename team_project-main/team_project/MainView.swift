@@ -33,15 +33,25 @@ struct MainView: View {
             
             HStack {
                 Button {
-                    connect.sendMessage(message: ["start":true])
+//                    connect.sendMessage(message: ["start":true])
+                    soundManager.playSound()
                 } label: {
-                    Text("시작")
+                    Text("음악시작")
                 }
                 
                 Button {
                     connect.sendMessage(message: ["start":false])
                 } label: {
                     Text("종료")
+                }
+            }
+            
+            HStack {
+                Button {
+                    print("심박수 요청버튼 눌렀다")
+                    connect.sendMessage(message: ["heart":true])
+                } label: {
+                    Text("심박수 가져오기")
                 }
 
             }
@@ -64,5 +74,3 @@ struct MainView: View {
 //    MainView()
 //}
 
-extension CBPeripheral: Identifiable {
-}

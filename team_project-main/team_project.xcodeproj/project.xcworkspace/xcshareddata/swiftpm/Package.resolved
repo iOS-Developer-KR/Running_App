@@ -1,4 +1,5 @@
 {
+  "originHash" : "e5ec34fd95d8dfb374bfafd92fef821367c98f8167ee6674505bf4a345530c6c",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -17,16 +18,7 @@
         "revision" : "58af7278797871e460d79496621b3e5366b865b2",
         "version" : "3.1.0"
       }
-    },
-    {
-      "identity" : "swiftaudioplayer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tanhakabir/SwiftAudioPlayer.git",
-      "state" : {
-        "revision" : "2fdfc62ce9f5d8b818ee1b2a9ac061fce4f64af9",
-        "version" : "7.6.0"
-      }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

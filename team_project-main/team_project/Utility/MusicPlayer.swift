@@ -27,26 +27,25 @@ class MusicPlayer: ObservableObject {
         setupRemoteCommands()
     }
     
-    //    func playSound() {
-    //        guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
-    //            self.player = AVPlayer(url: url)
-    //            player?.play()
-    //            setupRemoteCommands()
-    //            // 재생 중인 노래 정보를 설정
-    //            var nowPlayingInfo: [String : Any] = [
-    //                MPMediaItemPropertyTitle: "Your Song Title",
-    //                MPMediaItemPropertyArtist: "Your Artist Name",
-    //                MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
-    ////                MPMediaItemPropertyPlaybackDuration: player?.duration ?? 0,
-    //                MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
-    //            ]
-    //            if let albumCoverPage = UIImage(named: "apple") {
-    //                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-    //                    return albumCoverPage
-    //                })
-    //            }
-    //            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-    //    }
+        func playSound() {
+            guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
+                self.player = AVPlayer(url: url)
+                player?.play()
+                setupRemoteCommands()
+                // 재생 중인 노래 정보를 설정
+                var nowPlayingInfo: [String : Any] = [
+                    MPMediaItemPropertyTitle: "Your Song Title",
+                    MPMediaItemPropertyArtist: "Your Artist Name",
+                    MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
+                    MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
+                ]
+                if let albumCoverPage = UIImage(named: "apple") {
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
+                        return albumCoverPage
+                    })
+                }
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        }
 //    func readyToConnect(url: URL) async { // 음악 정보 가져오기
 //        var request = URLRequest(url: url)
 //        request.httpMethod = "GET"
@@ -159,7 +158,7 @@ class MusicPlayer: ObservableObject {
             configuration.requestCachePolicy = .returnCacheDataElseLoad
             let token = try KeyChain.get()
             configuration.httpAdditionalHeaders = ["Authorization": token.token]
-            var request = try URLRequest(url: Constants().currentmusic!, method: .get)
+            let request = try URLRequest(url: Constants().currentmusic!, method: .get)
             let session = URLSession(configuration: configuration)
             let (data, _) = try await session.data(for: request)
             let decoded = try JSONDecoder().decode(MusicInfoModel.self, from: data)

@@ -10,11 +10,16 @@ import SwiftUI
 @main
 struct team_project_w_Watch_AppApp: App {
     @StateObject private var connectManager = WatchToiOS()
+    @StateObject private var workoutManager = WorkoutManager()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+//            SessionPagingView()
+            SelectingView()
                 .environmentObject(connectManager)
+                .environmentObject(workoutManager)
         }
+
     }
 }

@@ -9,9 +9,10 @@ import Foundation
 import WatchConnectivity
 
 class iOSToWatch: NSObject, ObservableObject {
-    static let sharedManager = iOSToWatch()
+//    static let sharedManager = iOSToWatch()
     @Published var startStatus: Bool?
     @Published var bpm: Int?
+    let session = WCSession.default
 
     override init() {
         super.init()
@@ -31,10 +32,12 @@ class iOSToWatch: NSObject, ObservableObject {
     }
     
     func sendMessage(message: [String:Any]) {
-        let session = WCSession.default
-        session.sendMessage(message) { _ in
-            
+        session.sendMessage(message) { heartRate in
+            self.bpm = heartRate["heartRate"] as? Int
+        } errorHandler: { error in
+            print(error)
         }
+
     }
 }
 
@@ -61,27 +64,37 @@ extension iOSToWatch: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        // 파일 타입으로 받았을 때
+        
     }
     
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        if let startValue = message["heartRate"] {
+            // "start" 키의 값이 존재함
+            // startValue를 사용하여 작업을 수행하면 됨
+            print("값이 왔다")
+            startStatus = startValue as? Bool
+        } else {
+            print("존재하지 않는 값")
+        }
+    }
 
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        // 데이터 타입으로 받았을 떄
+//        let decoded = JSONDecoder().decode(, from: )
+        print("데이터 타입으로 왔다")
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         if let startValue = message["heartRate"] {
-            DispatchQueue.main.async {
-                self.bpm = startValue as? Int
-            }
-        }
-        if let startValue = message["start"] {
-            DispatchQueue.main.async {
-                self.startStatus = startValue as? Bool
-            }
+            // "start" 키의 값이 존재함
+            // startValue를 사용하여 작업을 수행하면 됨
+            print(startValue)
+            print("값이 왔다1")
+        } else {
+            print("존재하지 않는 값2")
         }
     }
+    
     
     
 }

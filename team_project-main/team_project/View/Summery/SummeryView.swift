@@ -28,7 +28,7 @@ struct SummeryView: View {
 //                summeryData = Exce().info
 //                print(summeryData?.first)
                 summeryData = await model.getSummery()
-                print(summeryData)
+                
             }
         }
 //        List
