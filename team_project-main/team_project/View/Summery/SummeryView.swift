@@ -14,24 +14,7 @@ struct SummeryView: View {
     @State private var currentData: [ExerciseData]?
     
     var body: some View {
-        VStack {
-            Chart {
-                ForEach(Exce().info, id: \.id) { data in
-                    LineMark(x: .value("exerciseDate", data.exerciseDate!), y: .value("exerciseTime", data.exerciseTime))
-                }
-             }.frame(height: 300)
-             .padding()
-             Spacer()
-          }
-        .onAppear {
-            Task {
-//                summeryData = Exce().info
-//                print(summeryData?.first)
-                summeryData = await model.getSummery()
-                
-            }
-        }
-//        List
+        Text("")
     }
 }
 

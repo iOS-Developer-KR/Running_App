@@ -23,7 +23,7 @@ struct SessionPagingView: View {
         TabView(selection: $selection, content:  {
             ControlView().tag(Tab.controls)
             MetricsView().tag(Tab.metrics)
-            NowPlayingView()
+            NowPlayingView().tag(Tab.nowPlaying)
         })
         .navigationBarBackButtonHidden()
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: isLuminanceReduced ? .never : .automatic))

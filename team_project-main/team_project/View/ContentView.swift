@@ -9,21 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var appear = false
-    var loginmodel = LoginModel()
-    @AppStorage("id") var userid = ""
-    @State private var credentials: Credentials?
-    @StateObject var bluetooth = Bluetooth()
 
 
     // MARK: - FUNCTIONS
 
     var body: some View {
         TabView {
-            MainView()
+            MainViewContainer()
                 .tabItem {
                     Image(systemName: "house")
                 }
-                .environmentObject(bluetooth)
             SummeryView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")

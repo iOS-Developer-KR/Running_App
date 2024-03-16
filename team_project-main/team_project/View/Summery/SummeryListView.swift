@@ -10,9 +10,7 @@ import SwiftUI
 struct SummeryListView: View {
 //    var exerciseData
     var body: some View {
-        List(Exce().info, id: \.id) { ex in
-            Text(ex.exerciseName)
-        }
+        Text("")
     }
 }
 

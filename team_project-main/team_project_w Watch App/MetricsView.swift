@@ -28,11 +28,6 @@ struct MetricsView: View {
             .ignoresSafeArea(edges: .bottom)
             .scenePadding()
         }
-        Button {
-            WatchToiOS().sendMessage(heartRate: ["abc":123])
-        } label: {
-            Text("전송")
-        }
         .onChange(of: workoutManager.heartRate) { oldValue, newValue in
             connect.sendMessage(heartRate: ["abc":123])
         }
