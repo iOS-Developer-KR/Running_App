@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 struct RegisterModel {
     let httpClient = HTTPClient()
@@ -21,37 +22,17 @@ struct RegisterModel {
         }
     }
     
+    func registers(userid: String, password: String, completion: @escaping (Result<RegisterResponseDTD, NetworkError>) -> Void) {
+        let registerData = ["username": userid, "password": password]
+        AF.request(Constants().registerPath!, method: .post, parameters: registerData, encoder: JSONParameterEncoder.default).responseDecodable(of: RegisterResponseDTD.self) { response in
+            if response.error != nil {
+                return completion(.failure(.invalidResponse))
+            } // 만일 성공했다면
+            guard let data = response.value else {
+                 return completion(.failure(.noData))
+            }
+            completion(.success(data))
+        }
+    }
     
-//    func register(userid: String, password: String, key: String) async -> RegisterResponseDTD {
-//        do {
-//            let url = URL(string: "http://lsproject.shop/register")!
-//            let registerData = ["username": userid, "password": password, "key1":key]
-//            var uploadData = try JSONEncoder().encode(registerData)
-//            var request = URLRequest(url: url)
-//            request.httpMethod = "POST"
-//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//            let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
-//                if let error = error {
-//                    print ("error: \(error)")
-//                    return
-//                }
-//                guard let response = response as? HTTPURLResponse,
-//                      (200...299).contains(response.statusCode) else {
-//                    print ("server error")
-//                    return //RegisterResponseDTD(error: true, reason: "이미 존재하는 아이디")
-//                }
-//                if let mimeType = response.mimeType,
-//                   mimeType == "application/json",
-//                   let data = data,
-//                   let dataString = String(data: data, encoding: .utf8) {
-//                    print ("got data: \(dataString)")
-//                }
-//            }
-//            task.resume()
-//        }
-//        catch {
-//            print("인코딩 에러")
-//        }
-//        
-//    }
 }

@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 
 struct team_projectApp: App {
     var loginmodel = LoginModel()
     @StateObject var isLogged = LoginStatus()
+    @StateObject var appData = ApplicationData()
     @State private var isSplashScreenVisible = true
     @StateObject var connectManager = iOSToWatch()
     @Environment(\.scenePhase) var scenePhase
@@ -46,7 +48,9 @@ struct team_projectApp: App {
         WindowGroup {
 
             ContentView()
+                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
                 .environmentObject(connectManager)
+//                .environment(\.managedObjectContext, Application)
 
             }
         }

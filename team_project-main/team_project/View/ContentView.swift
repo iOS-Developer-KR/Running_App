@@ -19,10 +19,6 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-//            SummeryView()
-//                .tabItem {
-//                    Image(systemName: "chart.bar.xaxis")
-//                }
             
             MyPageView()
                 .tabItem {

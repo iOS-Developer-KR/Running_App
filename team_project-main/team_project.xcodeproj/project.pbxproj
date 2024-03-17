@@ -16,6 +16,9 @@
 		2B1825742BA5FC6000FE887A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825732BA5FC6000FE887A /* SearchBar.swift */; };
 		2B1825762BA601F400FE887A /* ToolSearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */; };
 		2B1825792BA6101900FE887A /* PartSearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825782BA6101900FE887A /* PartSearchMenuView.swift */; };
+		2B18257B2BA6B24E00FE887A /* ExerciseListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */; };
+		2B18257E2BA7183400FE887A /* CustomRoutine .xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */; };
+		2B1825802BA71BB900FE887A /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257F2BA71BB900FE887A /* ApplicationData.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -69,7 +72,7 @@
 		2BC4899C2B0713F100544928 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4899B2B0713F100544928 /* SplashScreenView.swift */; };
 		2BC4899E2B07250700544928 /* LoginStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4899D2B07250700544928 /* LoginStatus.swift */; };
 		2BC5D8882AF9336800A04770 /* AccountSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */; };
-		2BE5BBB92AEE8D0800C8AD5A /* ExerciseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5BBB82AEE8D0800C8AD5A /* ExerciseList.swift */; };
+		2BE5BBB92AEE8D0800C8AD5A /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */; };
 		2BEC5B7E2B01F45D00D45CBE /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC5B7D2B01F45D00D45CBE /* JWT.swift */; };
 		2BEC5B822B01FF6F00D45CBE /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 2BEC5B812B01FF6F00D45CBE /* JWTDecode */; };
 /* End PBXBuildFile section */
@@ -108,6 +111,9 @@
 		2B1825732BA5FC6000FE887A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolSearchMenuView.swift; sourceTree = "<group>"; };
 		2B1825782BA6101900FE887A /* PartSearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartSearchMenuView.swift; sourceTree = "<group>"; };
+		2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListCellView.swift; sourceTree = "<group>"; };
+		2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CustomRoutine .xcdatamodel"; sourceTree = "<group>"; };
+		2B18257F2BA71BB900FE887A /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B385E2F2BA5A34D001EC65C /* team_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = team_project.entitlements; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
@@ -165,7 +171,7 @@
 		2BC4899B2B0713F100544928 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		2BC4899D2B07250700544928 /* LoginStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStatus.swift; sourceTree = "<group>"; };
 		2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingModel.swift; sourceTree = "<group>"; };
-		2BE5BBB82AEE8D0800C8AD5A /* ExerciseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseList.swift; sourceTree = "<group>"; };
+		2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		2BEC5B7D2B01F45D00D45CBE /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +307,7 @@
 				2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */,
 				2B6927BA2BA3E6EE00A5CAA1 /* iOSToWatch.swift */,
 				2B1825732BA5FC6000FE887A /* SearchBar.swift */,
+				2B18257F2BA71BB900FE887A /* ApplicationData.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -317,6 +324,7 @@
 		2B9C0DD72AE96E6B00DAA0A3 = {
 			isa = PBXGroup;
 			children = (
+				2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */,
 				2B9C0DE22AE96E6B00DAA0A3 /* team_project */,
 				2B6927C32BA3E7E400A5CAA1 /* team_project_w Watch App */,
 				2B9C0DE12AE96E6B00DAA0A3 /* Products */,
@@ -403,7 +411,8 @@
 				2B1825712BA5FB4400FE887A /* AddingRoutineView.swift */,
 				2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */,
 				2B1825782BA6101900FE887A /* PartSearchMenuView.swift */,
-				2BE5BBB82AEE8D0800C8AD5A /* ExerciseList.swift */,
+				2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */,
+				2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */,
 			);
 			name = main;
 			path = ..;
@@ -567,7 +576,7 @@
 				2BABF6992AEA1C2300CD88CE /* SettingView.swift in Sources */,
 				2B9C0DE62AE96E6B00DAA0A3 /* ContentView.swift in Sources */,
 				2B18256C2BA5F92700FE887A /* RecommendationView.swift in Sources */,
-				2BE5BBB92AEE8D0800C8AD5A /* ExerciseList.swift in Sources */,
+				2BE5BBB92AEE8D0800C8AD5A /* ExerciseListView.swift in Sources */,
 				2BABF6A82AEB6AB300CD88CE /* AccountSetting.swift in Sources */,
 				2BC4899C2B0713F100544928 /* SplashScreenView.swift in Sources */,
 				2B97ED8E2AF12A2300CEEFE3 /* ExerciseModel.swift in Sources */,
@@ -582,6 +591,8 @@
 				2B1825762BA601F400FE887A /* ToolSearchMenuView.swift in Sources */,
 				2BABF6AD2AED578400CD88CE /* HeaderView.swift in Sources */,
 				2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */,
+				2B1825802BA71BB900FE887A /* ApplicationData.swift in Sources */,
+				2B18257B2BA6B24E00FE887A /* ExerciseListCellView.swift in Sources */,
 				2BC489992B0623AF00544928 /* KeyChain.swift in Sources */,
 				2BEC5B7E2B01F45D00D45CBE /* JWT.swift in Sources */,
 				2BABF69C2AEA71CD00CD88CE /* AlertView.swift in Sources */,
@@ -593,6 +604,7 @@
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
+				2B18257E2BA7183400FE887A /* CustomRoutine .xcdatamodeld in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
@@ -931,6 +943,20 @@
 			productName = JWTDecode;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */,
+			);
+			currentVersion = 2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */;
+			name = "CustomRoutine .xcdatamodeld";
+			path = "/Users/taewonyoon/Desktop/developer/SwiftUI/Running_App-main/team_project-main/CustomRoutine .xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2B9C0DD82AE96E6B00DAA0A3 /* Project object */;
 }

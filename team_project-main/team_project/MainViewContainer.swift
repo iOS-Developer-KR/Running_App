@@ -13,7 +13,7 @@ struct MainViewContainer: View {
     @StateObject private var soundManager = MusicPlayer()
     @EnvironmentObject private var connect: iOSToWatch
     @State private var pressed: Bool = false
-    
+
     // MARK: - FUNCTIONS
 
     // MARK: - BODY

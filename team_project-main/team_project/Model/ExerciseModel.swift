@@ -10,15 +10,15 @@ import SwiftUI
 import Observation
 
 
-struct ExerciseModel {
-//    let parts = ["전체", "가슴", "등", "어깨", "삼두", "이두", "전완", "복근", "둔근", "햄스트링", "대퇴사두", "승모", "종아리"]
-//    let tools = ["전체", "맨몸", "유산소", "스트레칭", "덤벨", "바벨", "스미스머신", "밴드", "머신", "케이블"]
-    let parts = ExercisePart.allCases
-    let tools = ExerciseTool.allCases
-}
+//struct ExerciseModel {
+////    let parts = ["전체", "가슴", "등", "어깨", "삼두", "이두", "전완", "복근", "둔근", "햄스트링", "대퇴사두", "승모", "종아리"]
+////    let tools = ["전체", "맨몸", "유산소", "스트레칭", "덤벨", "바벨", "스미스머신", "밴드", "머신", "케이블"]
+//    let parts = ExercisePart.allCases
+//    let tools = ExerciseTool.allCases
+//}
 
 
-enum ExercisePart: String, CaseIterable {
+enum ExercisePart: String, CaseIterable {    
     case wholeBody = "전체"
     case chest = "가슴"
     case back = "등"

@@ -10,19 +10,34 @@ import SwiftUI
 struct ExerciseListView: View {
     @Binding var targetPart: ExercisePart?
     @Binding var targetTool: ExerciseTool?
-
+    @Binding var selectedExercises: Set<ExerciseDataModel>
+    
     var body: some View {
-        List {
+        //        List {
+        ScrollView {
             ForEach(filteredExercises, id: \.self) { exercise in
-                Text(exercise.exerciseName)
+                ExerciseListCellView(exercise: exercise, isSelected: selectedExercises.contains(exercise))
+                    .onTapGesture {
+                        if selectedExercises.contains(exercise) {
+                            selectedExercises.remove(exercise)
+                        } else {
+                            selectedExercises.insert(exercise)
+                        }
+                    }
             }
+            
         }
+        
+        //        }
         .navigationTitle("Exercises")
         .onChange(of: targetPart) { oldValue, newValue in
-//            print("변했다:\(targetPart), \(targetTool)")
+            //            print("변했다:\(targetPart), \(targetTool)")
+        }
+        .onChange(of: selectedExercises) { oldValue, newValue in
+//            print(newValue)
         }
     }
-
+    
     var filteredExercises: [ExerciseDataModel] {
         switch targetPart {
         case .wholeBody:
@@ -55,7 +70,7 @@ struct ExerciseListView: View {
         case .abs: break
             
         case .glutes: break
-        
+            
         case .hamstrings: break
             
         case .quadriceps: break
@@ -74,5 +89,5 @@ struct ExerciseListView: View {
 }
 
 #Preview {
-    ExerciseListView(targetPart: .constant(.hamstrings), targetTool: .constant(.machine))
+    ExerciseListView(targetPart: .constant(.hamstrings), targetTool: .constant(.machine), selectedExercises: .constant(.init()))
 }

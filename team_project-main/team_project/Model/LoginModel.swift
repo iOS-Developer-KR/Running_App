@@ -1,6 +1,7 @@
 import Foundation
 import JWTDecode
 import SwiftUI
+import Alamofire
 
 enum AuthenticationError: Error {
     case invalidCredentials
@@ -32,7 +33,6 @@ class LoginModel {
                 completion(false)
                 return
             }
-//            print("토큰값: \(token)")
             let credentials = Credentials(username: userid, psssword: password, token: token)
             Task {
                 try KeyChain.save(credentials: credentials)
@@ -40,6 +40,24 @@ class LoginModel {
             }
             
         }.resume()
+    }
+    
+    func login1(userid: String, password: String, completion: @escaping (Bool) -> Void) {
+        let loginData = ["userid": userid, "password": password]
+        AF.request(Constants().loginPath!, method: .post, parameters: loginData, encoder: JSONParameterEncoder.default).responseString { token in
+            guard let token = token.value else {
+                return completion(false) // 토큰값이 없으면
+            }
+            let credentials = Credentials(username: userid, psssword: password, token: token)
+            Task {
+                do {
+                    try KeyChain.save(credentials: credentials)
+                    return completion(true)
+                } catch {
+                    return completion(false)
+                }
+            }
+        }
     }
     
     //MARK: 재로그인 (토큰만료됐을때)
@@ -88,29 +106,16 @@ class LoginModel {
         
     }
     
-//    func attemptAutoLogin() {
-//        do {
-//            if try KeyChain.CheckToken() { // 만약 토큰이 존재했다면 기존에 토큰을 지우고 재로그인
-//                Relogin(completion: { result in
-//                    if result { // 재로그인을 다시 시도했을때 성공할 경우
-//                        print("재로그인 성공 -> ContentView로 이동해야한다")
-//                        DispatchQueue.main.async {
-//                            self.isLogged.checklogged(logged: true)
-//                        }
-//                    } else { // 재로그인을 실패했을때 로그인창으로 회원정보 재입력
-//                        print("재로그인 실패 -> 로그인뷰로 이동해야한다")
-//                        DispatchQueue.main.async {
-//                            self.isLogged.checklogged(logged: false)
-//                        }
-//                    }
-//                })
-//            } else { // 만약 토큰이 애초에 존재하지 않았다면 새로 로그인
-//                isLogged.checklogged(logged: false)
-//            }
-//        } catch {
-//            print("에러 발생:\(error)")
-//        }
-//    }
+    func Relogin2(completion: @escaping (Bool) -> Void) {
+        do {
+            let credentials = try KeyChain.get()
+            login1(userid: credentials.username, password: credentials.psssword) { result in
+                return completion(result)
+            }
+        } catch {
+            return completion(false)
+        }
+    }
     
 }
 
