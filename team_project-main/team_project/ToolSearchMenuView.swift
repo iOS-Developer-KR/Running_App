@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ToolSearchMenuView: View {
-    @Binding var tool: ExerciseTool
+    @Binding var tool: ExerciseTool?
     @State private var scrollViewContentSize: CGSize = .zero
     let tools = ExerciseTool.allCases
     var selectedColor: Color

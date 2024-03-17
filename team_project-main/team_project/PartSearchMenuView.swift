@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PartSearchMenuView: View {
-    @Binding var part: ExercisePart
+    @Binding var part: ExercisePart?
     @State private var scrollViewContentSize: CGSize = .zero
     let parts = ExercisePart.allCases
     var selectedColor: Color
@@ -20,7 +20,7 @@ struct PartSearchMenuView: View {
                 ForEach(parts, id: \.self) { item in
                     Text(item.rawValue)
                         .padding(.horizontal, 5)
-                        .foregroundStyle(part.rawValue == item.rawValue ? selectedColor : Color.gray)
+                        .foregroundStyle(part?.rawValue == item.rawValue ? selectedColor : Color.gray)
                         .onTapGesture {
                             print("눌렸는데")
                             part = item

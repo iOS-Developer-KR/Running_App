@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct AddingRoutineView: View {
-    @State var textfield: String
     @Environment(\.dismiss) private var dismiss
 //    @State var part = ExerciseModel().parts
 //    @State var tool = ExerciseModel().tools
-    @State var part: ExercisePart
-    @State var tool: ExerciseTool
+    @State var part: ExercisePart?
+    @State var tool: ExerciseTool?
+    @State var textfield: String = ""
+
     
     @State private var selectedItem: String?
     
@@ -37,12 +38,12 @@ struct AddingRoutineView: View {
         Spacer()
         
         .navigationBarBackButtonHidden()
-        .onChange(of: part) { oldValue, newValue in
-            print("변했다:\(part), \(tool)")
-        }
+//        .onChange(of: part) { oldValue, newValue in
+//            print("변했다:\(part), \(tool)")
+//        }
     }
 }
 
 #Preview {
-    AddingRoutineView(textfield: "", part: .chest, tool: .machine)
+    AddingRoutineView(part: .chest, tool: .machine, textfield: "")
 }
