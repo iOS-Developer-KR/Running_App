@@ -9,16 +9,26 @@ import SwiftUI
 
 struct AddingRoutineView: View {
     @Environment(\.dismiss) private var dismiss
-//    @State var part = ExerciseModel().parts
-//    @State var tool = ExerciseModel().tools
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
     @State private var selectedExercises: Set<ExerciseDataModel> = []
+    @EnvironmentObject var persistentContainer: ApplicationData
 
+    //MARK: FUNC
 
-    
-    @State private var selectedItem: String?
+//    func saveContext() {
+//      let context = persistentContainer.viewContext
+//      if context.hasChanges {
+//        do {
+//          try context.save()
+//        } catch {
+//          let nserror = error as NSError
+//          fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//        }
+//      }
+//    }
+
     
     var body: some View {
         VStack {
