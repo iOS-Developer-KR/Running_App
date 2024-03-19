@@ -9,113 +9,54 @@ enum AuthenticationError: Error {
 }
 
 class LoginModel {
+    
+    
 //    @EnvironmentObject var isLogged: LoginStatus
-
-    let httpClient = HTTPClient()
-
-    // 여기서 토큰 체크하고 갱신한다
-    
     //MARK: 로그인 (토큰처음부터 없었을때)
-    func login(userid: String, password: String, completion: @escaping (Bool) -> Void) {
-        let loginData = ["userid": userid, "password": password]
-        var request = URLRequest(url: Constants().loginPath!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONEncoder().encode(loginData)
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(false)
-                return
-            }
-            
-            guard let token = String(data: data, encoding: .utf8) else {
-                completion(false)
-                return
-            }
-            let credentials = Credentials(username: userid, psssword: password, token: token)
-            Task {
-                try KeyChain.save(credentials: credentials)
-                completion(true)
-            }
-            
-        }.resume()
-    }
-    
-    func login1(userid: String, password: String, completion: @escaping (Bool) -> Void) {
-        let loginData = ["userid": userid, "password": password]
-        AF.request(Constants().loginPath!, method: .post, parameters: loginData, encoder: JSONParameterEncoder.default).responseString { token in
-            guard let token = token.value else {
-                return completion(false) // 토큰값이 없으면
-            }
-            let credentials = Credentials(username: userid, psssword: password, token: token)
-            Task {
-                do {
-                    try KeyChain.save(credentials: credentials)
-                    return completion(true)
-                } catch {
-                    return completion(false)
+    func login2(username: String, password: String, completion: @escaping (Bool) -> Void) {
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                if let usernameData = username.data(using: .utf8),
+                   let passwordData = password.data(using: .utf8) {
+                    multipartFormData.append(usernameData, withName: "username")
+                    multipartFormData.append(passwordData, withName: "password")
                 }
-            }
-        }
-    }
-    
-    //MARK: 재로그인 (토큰만료됐을때)
-    func Relogin(completion: @escaping (Bool) -> Void) {
-        do {
-            let credentials = try KeyChain.get()
-            let loginData = ["userid": credentials.username, "password": credentials.psssword]
-            var request = URLRequest(url: Constants().loginPath!)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try? JSONEncoder().encode(loginData)
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
-                    completion(false)
-                    return
-                }
-                guard let token = String(data: data, encoding: .utf8) else {
-                    completion(false)
-                    return
-                }
-//                print("토큰값: \(token)")
-                // 새로 로그인해서 가져온 토큰값으로 업데이트
-                let credentials = Credentials(username: credentials.username, psssword: credentials.psssword, token: token)
-                Task {
+            },
+            to: Constants().loginPath!,
+            method: .post,
+            headers: ["Content-Type": "multipart/form-data"]
+        ).responseString { response in
+            if let httpResponse = response.response {
+                if let token = httpResponse.allHeaderFields["Authorization"] as? String {
+                    print("받은 토큰:\(token)")
+                    let tokenWithoutBearer = token.replacingOccurrences(of: "Bearer ", with: "")
+                    print("바꾼 토큰:\(tokenWithoutBearer)")
+                    let credentials = Credentials(username: username, psssword: password, token: tokenWithoutBearer)
                     do {
-                        if KeyChain.CheckTokenExist() { // 존재한다면
-                            try KeyChain.update(credentials: credentials)
-                            completion(true)
-                        } else {
-                            try KeyChain.delete()
-                            try KeyChain.save(credentials: credentials)
-                            completion(true)
-                        }
+                        try KeyChain.save(credentials: credentials)
+                        return completion(true)
                     } catch {
-                        print("에러:\(error)")
-                        completion(false)
+                        return completion(false)
                     }
                 }
-                
-            }.resume()
-        } catch {
-            
+            }
         }
-        
-        
-        
+
     }
     
+    //MARK: 재로그인
     func Relogin2(completion: @escaping (Bool) -> Void) {
         do {
             let credentials = try KeyChain.get()
-            login1(userid: credentials.username, password: credentials.psssword) { result in
+            login2(username: credentials.username, password: credentials.psssword) { result in
                 return completion(result)
             }
         } catch {
             return completion(false)
         }
     }
+    
+
     
 }
 

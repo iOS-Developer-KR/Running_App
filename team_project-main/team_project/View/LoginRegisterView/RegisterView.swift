@@ -14,7 +14,6 @@ struct RegisterationView: View {
 
     @State private var id: String = ""
     @State private var password: String = ""
-    @State private var key: String = ""
     @State private var alert = false
     @State private var response: RegisterResponseDTD?
 
@@ -39,21 +38,33 @@ struct RegisterationView: View {
             
             VStack(alignment: .center, spacing: 20) {
                 
-                KeyView(key: $key)
                 IdView(id: $id)
                 PasswordView(password: $password)
                 
                 Button(action: {
                     Task {
                         print("값 보냄")
-                        response = await model.register(userid: id, password: password, key: key)
-                        if response?.error == true {
-                            print("실패")
-                            alert.toggle()
-                        } else {
-                            print("성공")
-                            // 다음 화면으로 넘어가기
+                        model.registers(userid: id, password: password) { result in
+                            switch result {
+                            case .success(let data):
+                                // 성공적으로 데이터를 받아왔을 때의 처리
+                                print("Received response: \(data)")
+                                response = data
+                            case .failure(let error):
+                                // 실패했을 때의 처리
+                                print("Error occurred: \(error)")
+                            }
+
+                            
                         }
+//                        response = await model.register(userid: id, password: password)
+//                        if response?.error == true {
+//                            print("실패")
+//                            alert.toggle()
+//                        } else {
+//                            print("성공")
+//                            // 다음 화면으로 넘어가기
+//                        }
                     }
                 }, label: {
                     Text("회원가입")

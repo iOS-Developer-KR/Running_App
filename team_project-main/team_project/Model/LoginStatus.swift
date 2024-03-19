@@ -13,4 +13,5 @@ class LoginStatus: ObservableObject {
     @MainActor func checklogged(logged: Bool) {
         isLogged = logged
     }
+    
 }

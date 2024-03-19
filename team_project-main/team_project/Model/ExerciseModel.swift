@@ -7,18 +7,25 @@
 
 import Foundation
 import SwiftUI
-import Observation
+import SwiftData
+
+@Model
+class Exercise: Identifiable {
+    var id: UUID = UUID()
+    var routineName: String?
+    var routines: [ExerciseDataModel]?
+    
+    init(id: UUID, routineName: String? = nil, routines: [ExerciseDataModel]? = nil) {
+        self.id = id
+        self.routineName = routineName
+        self.routines = routines
+    }
+}
 
 
-//struct ExerciseModel {
-////    let parts = ["전체", "가슴", "등", "어깨", "삼두", "이두", "전완", "복근", "둔근", "햄스트링", "대퇴사두", "승모", "종아리"]
-////    let tools = ["전체", "맨몸", "유산소", "스트레칭", "덤벨", "바벨", "스미스머신", "밴드", "머신", "케이블"]
-//    let parts = ExercisePart.allCases
-//    let tools = ExerciseTool.allCases
-//}
 
 
-enum ExercisePart: String, CaseIterable {    
+enum ExercisePart: String, CaseIterable, Codable {
     case wholeBody = "전체"
     case chest = "가슴"
     case back = "등"
@@ -34,7 +41,7 @@ enum ExercisePart: String, CaseIterable {
     case calves = "종아리"
 }
 
-enum ExerciseTool: String, CaseIterable {
+enum ExerciseTool: String, CaseIterable, Codable {
     case wholeBody = "전체"
     case bodyWeight = "맨몸"
     case cardio = "유산소"
@@ -48,11 +55,14 @@ enum ExerciseTool: String, CaseIterable {
 }
 
 
-struct ExerciseDataModel: Hashable {
+struct ExerciseDataModel: Hashable, Codable {
     var exerciseName: String
     var part: [ExercisePart]
     var tool: ExerciseTool
 }
+
+
+
 
 struct ExerciseData {
     static let lowingmachine = ExerciseDataModel(exerciseName: "로잉 머신", part: [.hamstrings, .quadriceps], tool: .machine)

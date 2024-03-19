@@ -11,7 +11,7 @@
 //"exp": 1700232175
 //}
 import Foundation
-import JWTDecode
+//import JWTDecode
 import SwiftUI
 
 struct Credentials: Codable {
@@ -105,8 +105,8 @@ class KeyChain {
         }
         do {
             let decoded = try decoder.decode(Credentials.self, from: (existingItem[kSecValueData as String] as? Data)!)
-            let token = try JWTDecode.decode(jwt: decoded.token)
-            return completion(.success(token.expired)) // 토큰이 만료되었다면 true
+//            let token = try JWTDecode.decode(jwt: decoded.token)
+//            return completion(.success(token.expired)) // 토큰이 만료되었다면 true
         } catch {
             return completion(.failure(KeychainError.decodingError))
         }

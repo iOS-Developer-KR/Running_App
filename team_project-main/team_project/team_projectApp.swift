@@ -7,87 +7,96 @@
 
 import SwiftUI
 import CoreData
+import AVFoundation
+import SwiftData
 
 @main
 
 struct team_projectApp: App {
     var loginmodel = LoginModel()
     @StateObject var isLogged = LoginStatus()
-    @StateObject var appData = ApplicationData()
+//    @StateObject var appData = ApplicationData()
     @State private var isSplashScreenVisible = true
-    @StateObject var connectManager = iOSToWatch()
+//    @StateObject var connectManager = iOSToWatch()
     @Environment(\.scenePhase) var scenePhase
     
     // MARK: - FUNCTIOINS
-    func MainTainSession() async {
-        //        do {
-        //            if try KeyChain.CheckToken() { // 토큰이 존재하는데 유효하지 않는다면
-        await MainActor.run {
-            
-            
-            //            loginmodel.Relogin { result in
-            //                if result {
-            //                    isLogged.isLogged = true
-            //                } else {
-            //                    isLogged.isLogged = false
-            //                }
-            //            }
+    func MainTainSession() {
+        DispatchQueue.main.async {
+            do {
+                KeyChain.CheckToken { result in
+                    switch result {
+                    case .success(true):
+                        loginmodel.Relogin2 { result in
+                            if result {
+                                self.isLogged.isLogged = true
+                            } else {
+                                self.isLogged.isLogged = false
+                            }
+                        }
+                    case .success(false):
+                        self.isLogged.isLogged = true
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
-        //            } else { // 토큰이 존재하는데 유효한다면  // 바로 메인 화면으로 넘어가기
-        //                isLogged.isLogged = true
-        //            }
-        //        } catch {
-        //            print(error)
-        //            isLogged.isLogged = false
-        //        }
     }
     
     // MARK: - FUNCTIONS
     
-    var body: some Scene {
-        WindowGroup {
-
-            ContentView()
-                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
-                .environmentObject(connectManager)
-//                .environment(\.managedObjectContext, Application)
-
-            }
-        }
-    
-    
 //    var body: some Scene {
 //        WindowGroup {
-//            ZStack {
-//                if isSplashScreenVisible {
-//                    SplashScreenView()
-//                        .onAppear {
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                                withAnimation {
-//                                    isSplashScreenVisible = false
-//                                }
-//                            }
-//                        }
-//                } else {
-//                    if isLogged.isLogged {
-//                        ContentView()
-//                    } else { // 만일 로그인이 실패한 상태라면
-//                        LoginRegisterView()
-//                    }
+//
+//            ContentView()
+//                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
+//                .environmentObject(connectManager)
+////                .environment(\.managedObjectContext, Application)
+//
+//            }
+//        }
+    
+    
+    var body: some Scene {
+        WindowGroup {
+            ZStack {
+                if isSplashScreenVisible {
+                    SplashScreenView()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                withAnimation {
+                                    isSplashScreenVisible = false
+                                }
+                            }
+                        }
+                } else {
+                    if isLogged.isLogged {
+                        ContentView()
+                            .modelContainer(for: [Exercise.self])
+                    } else { // 만일 로그인이 실패한 상태라면
+                        LoginRegisterView()
+                    }
+                }
+            }
+            .onAppear {
+                do {
+                    try AVAudioSession.sharedInstance().setCategory(.playback)
+                    try AVAudioSession.sharedInstance().setActive(true)
+                } catch {
+                    print("에러발생ㅇㅇㅇㅇㅇ:\(error)")
+                }
+            }
+        }
+        .environmentObject(isLogged)
+        .onChange(of: scenePhase) {
+//                do {
+//                    try KeyChain.delete()
+//                } catch {
+//                    print("키체인 지우기 실패")
 //                }
-//            }
-//        }
-//        .environmentObject(isLogged)
-//        .onChange(of: scenePhase) {
-////                                                do {
-////                                                    try KeyChain.delete()
-////                                                } catch {
-////                                                    print("키체인 지우기 실패")
-////                                                }
-//            Task {
-//                await MainTainSession()
-//            }
-//        }
-//    }
+            MainTainSession()
+        }
+    }
 }
 

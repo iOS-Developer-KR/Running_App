@@ -13,7 +13,7 @@ struct AddingRoutineView: View {
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
     @State private var selectedExercises: Set<ExerciseDataModel> = []
-    @EnvironmentObject var persistentContainer: ApplicationData
+//    @EnvironmentObject var persistentContainer: ApplicationData
 
     //MARK: FUNC
 

@@ -11,8 +11,8 @@ import Alamofire
 struct RegisterModel {
     let httpClient = HTTPClient()
     
-    func register(userid: String, password: String, key: String) async -> RegisterResponseDTD {
-        let registerData = ["username": userid, "password": password, "key1":key]
+    func register(userid: String, password: String) async -> RegisterResponseDTD {
+        let registerData = ["username": userid, "password": password]
         do {
             let request = Resource(url: Constants().registerPath!, method: .post(try JSONEncoder().encode(registerData)), modelType: RegisterResponseDTD.self)
             return try await httpClient.load(request)

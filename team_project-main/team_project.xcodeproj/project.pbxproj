@@ -17,7 +17,6 @@
 		2B1825762BA601F400FE887A /* ToolSearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */; };
 		2B1825792BA6101900FE887A /* PartSearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825782BA6101900FE887A /* PartSearchMenuView.swift */; };
 		2B18257B2BA6B24E00FE887A /* ExerciseListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */; };
-		2B18257E2BA7183400FE887A /* CustomRoutine .xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */; };
 		2B1825802BA71BB900FE887A /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257F2BA71BB900FE887A /* ApplicationData.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
@@ -112,7 +111,6 @@
 		2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolSearchMenuView.swift; sourceTree = "<group>"; };
 		2B1825782BA6101900FE887A /* PartSearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartSearchMenuView.swift; sourceTree = "<group>"; };
 		2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListCellView.swift; sourceTree = "<group>"; };
-		2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CustomRoutine .xcdatamodel"; sourceTree = "<group>"; };
 		2B18257F2BA71BB900FE887A /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B385E2F2BA5A34D001EC65C /* team_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = team_project.entitlements; sourceTree = "<group>"; };
@@ -287,6 +285,7 @@
 		2B97ED8C2AF129AB00CEEFE3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2BC4899D2B07250700544928 /* LoginStatus.swift */,
 				2B97ED8D2AF12A2300CEEFE3 /* ExerciseModel.swift */,
 				2B5FCFC22AF0D4550063C5FA /* LoginModel.swift */,
 				2B97ED8F2AF12CAE00CEEFE3 /* RegisterModel.swift */,
@@ -324,7 +323,6 @@
 		2B9C0DD72AE96E6B00DAA0A3 = {
 			isa = PBXGroup;
 			children = (
-				2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */,
 				2B9C0DE22AE96E6B00DAA0A3 /* team_project */,
 				2B6927C32BA3E7E400A5CAA1 /* team_project_w Watch App */,
 				2B9C0DE12AE96E6B00DAA0A3 /* Products */,
@@ -422,7 +420,6 @@
 			isa = PBXGroup;
 			children = (
 				2BC4899B2B0713F100544928 /* SplashScreenView.swift */,
-				2BC4899D2B07250700544928 /* LoginStatus.swift */,
 			);
 			path = SplashScreen;
 			sourceTree = "<group>";
@@ -604,7 +601,6 @@
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
-				2B18257E2BA7183400FE887A /* CustomRoutine .xcdatamodeld in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
@@ -943,20 +939,6 @@
 			productName = JWTDecode;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		2B18257C2BA7183400FE887A /* CustomRoutine .xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */,
-			);
-			currentVersion = 2B18257D2BA7183400FE887A /* CustomRoutine .xcdatamodel */;
-			name = "CustomRoutine .xcdatamodeld";
-			path = "/Users/taewonyoon/Desktop/developer/SwiftUI/Running_App-main/team_project-main/CustomRoutine .xcdatamodeld";
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2B9C0DD82AE96E6B00DAA0A3 /* Project object */;
 }

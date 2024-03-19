@@ -15,8 +15,8 @@ struct LoginView: View {
     
     private let httpClient = HTTPClient()
     
-    @State private var id: String = ""
-    @State private var password: String = ""
+    @State private var id: String = "helloworld"
+    @State private var password: String = "111111"
     @State private var key: String = ""
     @State private var alert = false
     @EnvironmentObject var isLogged: LoginStatus
@@ -45,8 +45,7 @@ struct LoginView: View {
                         Button {
                             print("로그인")
                             Task {
-                                //                            loginmodel.ReLogin()
-                                loginmodel.login(userid: id, password: password) { result in
+                                loginmodel.login2(username: id, password: password) { result in
                                     if result {
                                         print("로그인됐는데?")
                                         DispatchQueue.main.async {
