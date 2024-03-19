@@ -112,4 +112,5 @@ struct AddingRoutineView: View {
 
 #Preview {
     AddingRoutineView(part: .chest, tool: .machine, textfield: "")
+        .modelContainer(PreviewContainer.container)
 }

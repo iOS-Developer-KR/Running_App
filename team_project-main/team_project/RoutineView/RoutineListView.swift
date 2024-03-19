@@ -10,7 +10,7 @@ import SwiftData
 
 struct RoutineListView: View {
     
-    @Bindable var exercise: Exercise
+    var exercise: Exercise
     @State private var selected: ExerciseDataModel?
     @Environment(\.modelContext) var dbContext
     
@@ -49,6 +49,6 @@ struct RoutineListView: View {
     }
 }
 
-//#Preview {
-//    RoutineListView()
-//}
+#Preview {
+    RoutineListView(exercise: .init())
+}

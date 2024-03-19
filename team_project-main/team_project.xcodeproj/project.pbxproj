@@ -21,6 +21,7 @@
 		2B1825832BA9B18300FE887A /* MusicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825822BA9B18300FE887A /* MusicListView.swift */; };
 		2B1825862BA9B80B00FE887A /* AddCompletionRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825852BA9B80B00FE887A /* AddCompletionRoutineView.swift */; };
 		2B1825892BA9C3D600FE887A /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825882BA9C3D600FE887A /* RoutineListView.swift */; };
+		2B18258B2BA9F11900FE887A /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18258A2BA9F11900FE887A /* PreviewContainer.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -118,6 +119,7 @@
 		2B1825822BA9B18300FE887A /* MusicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListView.swift; sourceTree = "<group>"; };
 		2B1825852BA9B80B00FE887A /* AddCompletionRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompletionRoutineView.swift; sourceTree = "<group>"; };
 		2B1825882BA9C3D600FE887A /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
+		2B18258A2BA9F11900FE887A /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B385E2F2BA5A34D001EC65C /* team_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = team_project.entitlements; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				2B5FCFC72AF0F0F60063C5FA /* team-project-Info.plist */,
 				2B5FCFC42AF0D7DE0063C5FA /* HTTP */,
 				2B9C0DE32AE96E6B00DAA0A3 /* team_projectApp.swift */,
+				2B18258A2BA9F11900FE887A /* PreviewContainer.swift */,
 				2BABF6922AE9F1D900CD88CE /* SettingsLabelView.swift */,
 				2B9C0DE72AE96E6C00DAA0A3 /* Assets.xcassets */,
 				2B61711E2B9368D200E379F6 /* music.mp3 */,
@@ -638,6 +641,7 @@
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
+				2B18258B2BA9F11900FE887A /* PreviewContainer.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,
