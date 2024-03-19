@@ -11,12 +11,12 @@ import SwiftData
 
 @Model
 class Exercise: Identifiable {
-    var id: UUID = UUID()
-    var routineName: String?
-    var routines: [ExerciseDataModel]?
+    var id: UUID?
+    var routineName: String
+    var routines: [ExerciseDataModel]
     
-    init(id: UUID, routineName: String? = nil, routines: [ExerciseDataModel]? = nil) {
-        self.id = id
+    init(routineName: String = "", routines: [ExerciseDataModel] = .init()) {
+        self.id = UUID()
         self.routineName = routineName
         self.routines = routines
     }
@@ -25,7 +25,7 @@ class Exercise: Identifiable {
 
 
 
-enum ExercisePart: String, CaseIterable, Codable {
+enum ExercisePart: String, CaseIterable, Codable, Identifiable {
     case wholeBody = "전체"
     case chest = "가슴"
     case back = "등"
@@ -39,6 +39,7 @@ enum ExercisePart: String, CaseIterable, Codable {
     case quadriceps = "대퇴사두"
     case trapezius = "승모"
     case calves = "종아리"
+    var id: String { self.rawValue }
 }
 
 enum ExerciseTool: String, CaseIterable, Codable {
@@ -55,10 +56,12 @@ enum ExerciseTool: String, CaseIterable, Codable {
 }
 
 
-struct ExerciseDataModel: Hashable, Codable {
+struct ExerciseDataModel: Hashable, Codable, Identifiable {
+    var id: UUID = UUID()
     var exerciseName: String
     var part: [ExercisePart]
     var tool: ExerciseTool
+    var checked: Bool = false
 }
 
 

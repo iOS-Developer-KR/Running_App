@@ -18,6 +18,9 @@
 		2B1825792BA6101900FE887A /* PartSearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825782BA6101900FE887A /* PartSearchMenuView.swift */; };
 		2B18257B2BA6B24E00FE887A /* ExerciseListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */; };
 		2B1825802BA71BB900FE887A /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18257F2BA71BB900FE887A /* ApplicationData.swift */; };
+		2B1825832BA9B18300FE887A /* MusicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825822BA9B18300FE887A /* MusicListView.swift */; };
+		2B1825862BA9B80B00FE887A /* AddCompletionRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825852BA9B80B00FE887A /* AddCompletionRoutineView.swift */; };
+		2B1825892BA9C3D600FE887A /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825882BA9C3D600FE887A /* RoutineListView.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -112,6 +115,9 @@
 		2B1825782BA6101900FE887A /* PartSearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartSearchMenuView.swift; sourceTree = "<group>"; };
 		2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListCellView.swift; sourceTree = "<group>"; };
 		2B18257F2BA71BB900FE887A /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
+		2B1825822BA9B18300FE887A /* MusicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListView.swift; sourceTree = "<group>"; };
+		2B1825852BA9B80B00FE887A /* AddCompletionRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompletionRoutineView.swift; sourceTree = "<group>"; };
+		2B1825882BA9C3D600FE887A /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B385E2F2BA5A34D001EC65C /* team_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = team_project.entitlements; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
@@ -209,6 +215,36 @@
 			path = ExerciseList;
 			sourceTree = "<group>";
 		};
+		2B1825812BA9B16300FE887A /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				2B1825822BA9B18300FE887A /* MusicListView.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		2B1825842BA9B78D00FE887A /* AddingRoutineView */ = {
+			isa = PBXGroup;
+			children = (
+				2B1825712BA5FB4400FE887A /* AddingRoutineView.swift */,
+				2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */,
+				2B1825782BA6101900FE887A /* PartSearchMenuView.swift */,
+				2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */,
+				2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */,
+				2B1825852BA9B80B00FE887A /* AddCompletionRoutineView.swift */,
+			);
+			path = AddingRoutineView;
+			sourceTree = "<group>";
+		};
+		2B1825872BA9C39300FE887A /* RoutineView */ = {
+			isa = PBXGroup;
+			children = (
+				2B18256F2BA5FB1400FE887A /* MyRoutineView.swift */,
+				2B1825882BA9C3D600FE887A /* RoutineListView.swift */,
+			);
+			path = RoutineView;
+			sourceTree = "<group>";
+		};
 		2B3105882AF90AD200DC0E9A /* TextFieldView */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +311,7 @@
 				2BC5D8892AF9364700A04770 /* Summery */,
 				2BABF69A2AEA71C000CD88CE /* Setting */,
 				2BABF6A22AEA7E4100CD88CE /* MyPage */,
+				2B1825812BA9B16300FE887A /* Music */,
 				2BABF6A92AED55FA00CD88CE /* main */,
 				2B1825772BA60B6F00FE887A /* ExerciseList */,
 				2B5FCFBF2AF0D3BE0063C5FA /* LoginRegisterView */,
@@ -401,16 +438,12 @@
 		2BABF6A92AED55FA00CD88CE /* main */ = {
 			isa = PBXGroup;
 			children = (
+				2B1825872BA9C39300FE887A /* RoutineView */,
+				2B1825842BA9B78D00FE887A /* AddingRoutineView */,
 				2BABF6AA2AED560D00CD88CE /* MainViewContainer.swift */,
 				2BABF6AC2AED578400CD88CE /* HeaderView.swift */,
 				2B18256D2BA5F9E100FE887A /* UserInfoViewContainer.swift */,
 				2B18256B2BA5F92700FE887A /* RecommendationView.swift */,
-				2B18256F2BA5FB1400FE887A /* MyRoutineView.swift */,
-				2B1825712BA5FB4400FE887A /* AddingRoutineView.swift */,
-				2B1825752BA601F400FE887A /* ToolSearchMenuView.swift */,
-				2B1825782BA6101900FE887A /* PartSearchMenuView.swift */,
-				2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */,
-				2B18257A2BA6B24E00FE887A /* ExerciseListCellView.swift */,
 			);
 			name = main;
 			path = ..;
@@ -564,6 +597,7 @@
 				2B97ED962AF1310300CEEFE3 /* RegisterResponseDTD.swift in Sources */,
 				2BC4899E2B07250700544928 /* LoginStatus.swift in Sources */,
 				2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */,
+				2B1825862BA9B80B00FE887A /* AddCompletionRoutineView.swift in Sources */,
 				2B1825742BA5FC6000FE887A /* SearchBar.swift in Sources */,
 				2BABF6AB2AED560D00CD88CE /* MainViewContainer.swift in Sources */,
 				2BABF6912AE9EDEC00CD88CE /* MyPageView.swift in Sources */,
@@ -585,6 +619,7 @@
 				2B1825702BA5FB1400FE887A /* MyRoutineView.swift in Sources */,
 				2BABF6A42AEA7E6E00CD88CE /* FollowerFollowingView.swift in Sources */,
 				2BABF6A62AEAB8E600CD88CE /* UserProfileView.swift in Sources */,
+				2B1825892BA9C3D600FE887A /* RoutineListView.swift in Sources */,
 				2B1825762BA601F400FE887A /* ToolSearchMenuView.swift in Sources */,
 				2BABF6AD2AED578400CD88CE /* HeaderView.swift in Sources */,
 				2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */,
@@ -598,6 +633,7 @@
 				2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */,
 				2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */,
 				2B1825792BA6101900FE887A /* PartSearchMenuView.swift in Sources */,
+				2B1825832BA9B18300FE887A /* MusicListView.swift in Sources */,
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,

@@ -12,9 +12,10 @@ struct Constants {
     
     var registerPath = URL(string: baseUrlPath + "/join")
     var loginPath = URL(string: baseUrlPath + "/login")
-    
     var changePasswordPath = URL(string: baseUrlPath + "/changePassword")
+    
     var exercise = URL(string: baseUrlPath + "/exercise/user-data")
+    var getAllMusic = URL(string: baseUrlPath + "/all")
     var currentmusic = URL(string: baseUrlPath + "/music")
     var previousmusic = URL(string: "/previous")
     var nextmusic = URL(string: baseUrlPath + "/next")

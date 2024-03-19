@@ -6,28 +6,23 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddingRoutineView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) var dbContext
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
-    @State private var selectedExercises: Set<ExerciseDataModel> = []
-//    @EnvironmentObject var persistentContainer: ApplicationData
+    @State private var selectedExercises: [ExerciseDataModel] = []
+    @Query var exerciseData: [Exercise]
 
     //MARK: FUNC
 
-//    func saveContext() {
-//      let context = persistentContainer.viewContext
-//      if context.hasChanges {
-//        do {
-//          try context.save()
-//        } catch {
-//          let nserror = error as NSError
-//          fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//        }
-//      }
-//    }
+    func saveRoutine() {
+        let exercise = Exercise(routineName: "루틴1", routines: selectedExercises)
+        dbContext.insert(exercise)
+    }
 
     
     var body: some View {
@@ -71,7 +66,9 @@ struct AddingRoutineView: View {
                     
                     Button(action: {
                         // 데이터 저장하기
-                        print("ㅇㅇ")
+                        print("루틴 저장하기")
+                        saveRoutine()
+                        dismiss()
                     }, label: {
                         HStack {
                             if !selectedExercises.isEmpty {

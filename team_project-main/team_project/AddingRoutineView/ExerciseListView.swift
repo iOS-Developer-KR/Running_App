@@ -10,7 +10,7 @@ import SwiftUI
 struct ExerciseListView: View {
     @Binding var targetPart: ExercisePart?
     @Binding var targetTool: ExerciseTool?
-    @Binding var selectedExercises: Set<ExerciseDataModel>
+    @Binding var selectedExercises: [ExerciseDataModel]
     
     var body: some View {
         //        List {
@@ -19,9 +19,9 @@ struct ExerciseListView: View {
                 ExerciseListCellView(exercise: exercise, isSelected: selectedExercises.contains(exercise))
                     .onTapGesture {
                         if selectedExercises.contains(exercise) {
-                            selectedExercises.remove(exercise)
+                            selectedExercises.removeAll(where: { $0.id == exercise.id })
                         } else {
-                            selectedExercises.insert(exercise)
+                            selectedExercises.append(exercise)
                         }
                     }
             }
@@ -30,12 +30,6 @@ struct ExerciseListView: View {
         
         //        }
         .navigationTitle("Exercises")
-        .onChange(of: targetPart) { oldValue, newValue in
-            //            print("변했다:\(targetPart), \(targetTool)")
-        }
-        .onChange(of: selectedExercises) { oldValue, newValue in
-//            print(newValue)
-        }
     }
     
     var filteredExercises: [ExerciseDataModel] {

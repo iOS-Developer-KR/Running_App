@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct MusicInfoModel: Decodable {
-//    var id: Int
+struct MusicInfoModel: Decodable, Identifiable {
+    var id: UUID = UUID()
     var title: String
     var artist: String
     var albumUrl: String

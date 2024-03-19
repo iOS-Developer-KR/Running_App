@@ -19,6 +19,7 @@ struct team_projectApp: App {
     @State private var isSplashScreenVisible = true
 //    @StateObject var connectManager = iOSToWatch()
     @Environment(\.scenePhase) var scenePhase
+    @StateObject var musicPlayer = MusicPlayer()
     
     // MARK: - FUNCTIOINS
     func MainTainSession() {
@@ -46,57 +47,50 @@ struct team_projectApp: App {
     
     // MARK: - FUNCTIONS
     
-//    var body: some Scene {
-//        WindowGroup {
-//
-//            ContentView()
-//                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
-//                .environmentObject(connectManager)
-////                .environment(\.managedObjectContext, Application)
-//
-//            }
-//        }
-    
-    
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                if isSplashScreenVisible {
-                    SplashScreenView()
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                withAnimation {
-                                    isSplashScreenVisible = false
-                                }
-                            }
-                        }
-                } else {
-                    if isLogged.isLogged {
-                        ContentView()
-                            .modelContainer(for: [Exercise.self])
-                    } else { // 만일 로그인이 실패한 상태라면
-                        LoginRegisterView()
-                    }
-                }
-            }
-            .onAppear {
-                do {
-                    try AVAudioSession.sharedInstance().setCategory(.playback)
-                    try AVAudioSession.sharedInstance().setActive(true)
-                } catch {
-                    print("에러발생ㅇㅇㅇㅇㅇ:\(error)")
-                }
+
+            ContentView()
+//                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
+                .modelContainer(for: [Exercise.self])
+                .environmentObject(musicPlayer) // 3월19일날 추가한거
+
             }
         }
-        .environmentObject(isLogged)
-        .onChange(of: scenePhase) {
-//                do {
-//                    try KeyChain.delete()
-//                } catch {
-//                    print("키체인 지우기 실패")
+    
+    
+//    var body: some Scene {
+//        WindowGroup {
+//            ZStack {
+//                if isSplashScreenVisible {
+//                    SplashScreenView()
+//                        .onAppear {
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                                withAnimation {
+//                                    isSplashScreenVisible = false
+//                                }
+//                            }
+//                        }
+//                } else {
+//                    if isLogged.isLogged {
+//                        ContentView()
+//                            .modelContainer(for: [Exercise.self])
+//                            .environmentObject(musicPlayer) // 3월19일날 추가한거
+//                    } else { // 만일 로그인이 실패한 상태라면
+//                        LoginRegisterView()
+//                    }
 //                }
-            MainTainSession()
-        }
-    }
+//            }
+//        }
+//        .environmentObject(isLogged)
+//        .onChange(of: scenePhase) {
+////                do {
+////                    try KeyChain.delete()
+////                } catch {
+////                    print("키체인 지우기 실패")
+////                }
+//            MainTainSession()
+//        }
+//    }
 }
 

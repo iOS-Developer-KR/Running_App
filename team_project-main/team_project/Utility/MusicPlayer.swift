@@ -25,68 +25,45 @@ class MusicPlayer: ObservableObject {
         setupRemoteCommands()
     }
     
+//        func playSound() {
+//            guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
+//                self.player = AVPlayer(url: url)
+//                player?.play()
+//                // 재생 중인 노래 정보를 설정
+//                var nowPlayingInfo: [String : Any] = [
+//                    MPMediaItemPropertyTitle: "Your Song Title",
+//                    MPMediaItemPropertyArtist: "Your Artist Name",
+//                    MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
+//                    MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
+//                ]
+//                if let albumCoverPage = UIImage(named: "apple") {
+//                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
+//                        return albumCoverPage
+//                    })
+//                }
+//                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+//        }
     
-    
-        func playSound() {
-            guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
-                self.player = AVPlayer(url: url)
-                player?.play()
-                // 재생 중인 노래 정보를 설정
-                var nowPlayingInfo: [String : Any] = [
-                    MPMediaItemPropertyTitle: "Your Song Title",
-                    MPMediaItemPropertyArtist: "Your Artist Name",
-                    MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
-                    MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
-                ]
-                if let albumCoverPage = UIImage(named: "apple") {
-                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-                        return albumCoverPage
-                    })
-                }
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-        }
-    
-    
-    func getMusicInfo(url: URL) async { // 음악 정보 가져오기
-        print("함수 시작 시간 \(Date().timeIntervalSince1970)")
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        if url == Constants().currentmusic {
-            request.url?.append(queryItems: [URLQueryItem(name: "heartRate", value: "80")])
-        }
-        print(url.description)
-        
-        
-        let configuration = URLSessionConfiguration.default
-        // 0.8초
-//        configuration.urlCache = URLCache.shared
-//        configuration.requestCachePolicy = .returnCacheDataElseLoad
+    func getMusicInfo(completion: @escaping ([MusicInfoModel]) -> Void) {
         do {
-            print("토큰 가져오는 시간 \(Date().timeIntervalSince1970)")
             let token = try KeyChain.get()
-            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
-            configuration.httpAdditionalHeaders = ["Authorization": token.token]
+            let header: HTTPHeaders = [.authorization(bearerToken: token.token)]
+            AF.request(Constants().getAllMusic!,
+                       method: .get,
+                       parameters: nil,
+                       headers: header).responseDecodable(of: [MusicInfoModel].self) { result in
+                if result.error == nil {
+                    if let music = result.value {
+                        return completion(music)
+                    }
+                }
+            }
         } catch {
-            print(error.localizedDescription)
-        }
-
-        
-        do {
-            print("토큰넣기 전 시간 \(Date().timeIntervalSince1970)")
-            let session = URLSession(configuration: configuration)
-            print("토큰넣은 이후 시간 \(Date().timeIntervalSince1970)")
-            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
-            let (data, _) = try await session.data(for: request)
-            print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
-            print("디코딩 전 \(Date().timeIntervalSince1970)")
-            let decoded = try JSONDecoder().decode(MusicInfoModel.self, from: data)
-            print("디코딩 후 \(Date().timeIntervalSince1970)")
-            print(decoded)
-            await setupMusicInfo(url: URL(string: decoded.filePath)!, info: decoded)
-        } catch {
-            print(error)
+            print("키체인 가져오는데 에러:\(error.localizedDescription)")
+            return
         }
     }
+    
     
     func getMusicFromServer() async {
         do {
