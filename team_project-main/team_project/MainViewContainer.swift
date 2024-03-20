@@ -23,7 +23,7 @@ struct MainViewContainer: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+//            ScrollView {
                 
                 VStack {
                     HeaderView()
@@ -31,7 +31,6 @@ struct MainViewContainer: View {
                     UserInfoViewContainer()
                     
                     MainViewMusicContainer()
-                    Spacer()
                     
                     HStack(alignment:.bottom) {
                         Text("내 루틴")
@@ -42,10 +41,8 @@ struct MainViewContainer: View {
                     
                     
                     
-                    HStack {
-                        MyRoutineView()
-                        Spacer()
-                    }
+                    MyRoutineView()
+//                    Spacer()
                     
                     Button {
                         soundManager.getTest(url: Constants().currentmusic!)
@@ -70,10 +67,8 @@ struct MainViewContainer: View {
                     AddingRoutineView()
                 })
             }
-        }
-//        .overlay(alignment: .bottomTrailing) {
-//
 //        }
+
         
         
     }

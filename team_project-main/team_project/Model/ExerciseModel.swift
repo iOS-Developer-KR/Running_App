@@ -10,10 +10,11 @@ import SwiftUI
 import SwiftData
 
 @Model
-class Exercise: Identifiable {
+class Exercise: Identifiable { // 운동루틴 모델
     var id: UUID?
     var routineName: String
     var routines: [ExerciseDataModel]
+    var record: ExerciseRecord?
     
     init(routineName: String = "", routines: [ExerciseDataModel] = .init()) {
         self.id = UUID()
@@ -22,6 +23,21 @@ class Exercise: Identifiable {
     }
 }
 
+@Model final class ExerciseRecord { // 운동루팅 기록 저장 모델
+    
+    @Relationship(deleteRule: .noAction, inverse: \Exercise.record) 
+    var exercise: Exercise?
+    var date: Date?
+    var exerciseData: ExerciseDataModel?
+    var time: Int?
+    
+    init(exercise: Exercise, date: Date? = nil, exerciseData: ExerciseDataModel? = nil, time: Int? = nil) {
+        self.exercise = exercise
+        self.date = date
+        self.exerciseData = exerciseData
+        self.time = time
+    }
+}
 
 
 
@@ -58,6 +74,7 @@ enum ExerciseTool: String, CaseIterable, Codable {
 
 struct ExerciseDataModel: Hashable, Codable, Identifiable {
     var id: UUID = UUID()
+    
     var exerciseName: String
     var part: [ExercisePart]
     var tool: ExerciseTool

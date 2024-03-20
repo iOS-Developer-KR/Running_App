@@ -24,23 +24,27 @@ struct MyRoutineView: View {
                         RoutineListView(exercise: exercise)
                     } label: {
                         VStack {
-                            Text(exercise.routineName)
-                                .foregroundStyle(.white)
-                                .bold()
-                                .font(.title)
+                            HStack {
+                                Text(exercise.routineName)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                                    .font(.title)
+                                Spacer()
+                            }
                             // 파트 목록을 표시
                             HStack {
                                 ForEach(updateExerciseParts(from: exercise), id: \.self) { data in
                                     Text(data.rawValue)
                                         .foregroundStyle(.green)
                                 }
+                                Spacer()
                             }
                         }
                     }
                 }
             }
-        }
-        .frame(minHeight: minRowHeight * 3)
+        }.padding(10)
+//        .frame(minHeight: minRowHeight * 3)
     }
     
     // 중복 없는 파트 데이터를 업데이트하는 메소드

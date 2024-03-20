@@ -12,7 +12,7 @@ struct RoutineListCell: View {
     var model: ExerciseDataModel
     
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
+        HStack() {
 //            Image(model.image)
 //                .resizable()
 //                .scaledToFill()
