@@ -16,15 +16,30 @@ struct AddingRoutineView: View {
     @State var textfield: String = ""
     @State private var selectedExercises: [ExerciseDataModel] = []
     @Query var exerciseData: [Exercise]
+    var exercise: Exercise?
 
     //MARK: FUNC
 
     func saveRoutine() {
-        let exercise = Exercise(routineName: "루틴1", routines: selectedExercises)
-        dbContext.insert(exercise)
+        guard let existData = exercise else {
+            let newExercise = Exercise(routineName: "루틴1", routines: selectedExercises)
+            dbContext.insert(newExercise)
+            return
+        }
+        
+        // 기존에 있던 데이터라면 수정해야되는 것이 맞다.
+        let id = exercise?.id
+        let predicate = #Predicate<Exercise> { $0.id == id }
+        let descriptor = FetchDescriptor<Exercise>(predicate: predicate)
+        if let count = try? dbContext.fetchCount(descriptor), count > 0 {
+            // 만약 존재했다면 기존에 있던 루틴에 추가해준다
+            exercise?.routines += selectedExercises
+        }
+        
+        
     }
 
-    
+    // 만약 루틴에 추가한다면 exercise에 데이터가 있다면 추가한 루틴은 없어야한다.
     var body: some View {
         VStack {
             HStack {
@@ -38,9 +53,13 @@ struct AddingRoutineView: View {
             
             PartSearchMenuView(part: $part, selectedColor: .orange)
             ToolSearchMenuView(tool: $tool, selectedColor: .green)
-            ExerciseListView(targetPart: $part, targetTool: $tool, selectedExercises: $selectedExercises)
+            ExerciseListView(targetPart: $part, targetTool: $tool, selectedExercises: $selectedExercises, existedExercise: exercise)
+                
             
         }
+        .onAppear(perform: {
+            print("여기에는 \(exercise?.routines.count)개가 들어있다")
+        })
         .navigationBarBackButtonHidden()
         .onChange(of: selectedExercises) { oldValue, newValue in
             print("개수 변했다: \(newValue.count)")
@@ -49,9 +68,7 @@ struct AddingRoutineView: View {
             VStack {
                 Spacer()
                 HStack {
-                    
-//                    Spacer()
-                    
+                                        
                     Button(action: {}, label: {
                         Image(systemName: "arrow.up")
                             .resizable()

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainViewMusicContainer: View {
+    
+    @EnvironmentObject var musicPlayerModel: MusicPlayer
+    
     var body: some View {
         
         HStack {
@@ -17,6 +20,7 @@ struct MainViewMusicContainer: View {
             Button {
                 print("button")
                 // cksdud3786!@
+                
             } label: {
                 VStack {
                     Image(systemName: "forward.fill")
@@ -35,7 +39,7 @@ struct MainViewMusicContainer: View {
             Spacer()
             
             NavigationLink {
-                
+                MusicAllListView()
             } label: {
                 Text("전체노래")
                     .frame(width: 100, height: 80)

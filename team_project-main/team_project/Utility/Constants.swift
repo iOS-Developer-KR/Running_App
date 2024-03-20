@@ -17,7 +17,7 @@ struct Constants {
     var exercise = URL(string: baseUrlPath + "/exercise/user-data")
     var getAllMusic = URL(string: baseUrlPath + "/all")
     var currentmusic = URL(string: baseUrlPath + "/music")
-    var previousmusic = URL(string: "/previous")
+    var previousmusic = URL(string: baseUrlPath + "/previous")
     var nextmusic = URL(string: baseUrlPath + "/next")
 }
 

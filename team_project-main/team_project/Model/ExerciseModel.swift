@@ -14,7 +14,7 @@ class Exercise: Identifiable { // 운동루틴 모델
     var id: UUID?
     var routineName: String
     var routines: [ExerciseDataModel]
-    var record: ExerciseRecord?
+    var record: [ExerciseRecord]?
     
     init(routineName: String = "", routines: [ExerciseDataModel] = .init()) {
         self.id = UUID()

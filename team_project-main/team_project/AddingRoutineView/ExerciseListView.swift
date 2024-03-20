@@ -12,10 +12,21 @@ struct ExerciseListView: View {
     @Binding var targetTool: ExerciseTool?
     @Binding var selectedExercises: [ExerciseDataModel]
     
+    var existedExercise: Exercise?
+    
     var body: some View {
         //        List {
+        /*
+         .filter({ ex in
+         existedExercise?.routines.contains(where: { tmp in
+         tmp.exerciseName != ex.exerciseName
+         }) ?? true
+         })
+         
+         */
         ScrollView {
             ForEach(filteredExercises, id: \.self) { exercise in
+                
                 ExerciseListCellView(exercise: exercise, isSelected: selectedExercises.contains(exercise))
                     .onTapGesture {
                         if selectedExercises.contains(exercise) {
@@ -25,10 +36,12 @@ struct ExerciseListView: View {
                         }
                     }
             }
-            
+            .onAppear(perform: {
+                print("이미 존재하는것들\(existedExercise?.routines.description)")
+                print("??")
+            })
         }
         
-        //        }
         .navigationTitle("Exercises")
     }
     
@@ -36,7 +49,7 @@ struct ExerciseListView: View {
         switch targetPart {
         case .wholeBody:
             if targetTool == .wholeBody { // 모든 도구
-                return ExerciseData.allExercies
+                return ExerciseData.allExercies // contain로 != existed한 데이터와 비교해 걸러내기
             } else { // 특정 도구
                 return ExerciseData.allExercies.filter { exercise in
                     return exercise.tool == targetTool
@@ -47,9 +60,22 @@ struct ExerciseListView: View {
             if targetTool == .wholeBody {
                 return ExerciseData.chestExercises
             } else { // 특정 도구
-                return ExerciseData.chestExercises.filter { exercise in
-                    return exercise.part.first == targetPart && exercise.tool == targetTool
+                let filteredExercises = ExerciseData.chestExercises.filter { exercise in
+                    // 첫 번째 조건: targetPart와 targetTool에 맞는 운동인지 확인
+                    let matchesTarget = exercise.part.first == targetPart && exercise.tool == targetTool
+                    
+                    // 두 번째 조건: existedExercise?.routines에 이미 존재하지 않는 운동인지 확인
+                    let notAlreadyExisted = (existedExercise?.routines.contains(where: { ex in // 하나라도 존재한다면 true
+                        print("\(exercise.exerciseName) == \(ex.exerciseName)")
+                        return exercise.exerciseName == ex.exerciseName
+                    }) ?? false)
+                    // 두 조건을 모두 만족하는지 반환
+                    return matchesTarget && !notAlreadyExisted
                 }
+                
+                print("그래서 찾은거:\(filteredExercises.description)")
+
+                return filteredExercises
             }
         case .back: break
             
@@ -85,3 +111,8 @@ struct ExerciseListView: View {
 #Preview {
     ExerciseListView(targetPart: .constant(.hamstrings), targetTool: .constant(.machine), selectedExercises: .constant(.init()))
 }
+
+/*
+ 그래서 찾은거:[team_project.ExerciseDataModel(id: 8E2B0B40-36CB-4D71-8076-B1C3D08D506C, exerciseName: "디클라인 푸시 업", part: [team_project.ExercisePart.chest,
+ 이미 존재하는것들Optional("[team_project.ExerciseDataModel(id: 343EC5EB-A494-44C6-AEF3-46CD8EC3EE9F, exerciseName: \"디클라인 푸시 업\", part: [team_project.ExercisePart.chest, team_project.ExercisePart.shoulders], tool: team_project.ExerciseTool.bodyWeight, checked: false)
+ */

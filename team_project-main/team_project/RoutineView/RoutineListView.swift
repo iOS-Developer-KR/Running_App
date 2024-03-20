@@ -13,51 +13,84 @@ struct RoutineListView: View {
     var exercise: Exercise
     @State private var selected: ExerciseDataModel?
     @Environment(\.modelContext) var dbContext
+    @State private var pressed = false
     
     var body: some View {
-        List(exercise.routines) { ex in
-            NavigationLink {
-                RoutineRecordView(exercise: ex)
-            } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(ex.exerciseName)
-                            .font(.title2)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.orange)
-                        
-                        HStack {
-                            ForEach(ex.part) { part in
-                                Text(part.rawValue)
-                                    .font(.footnote)
-                                    .multilineTextAlignment(.leading)
-
+        VStack {
+            List(exercise.routines) { ex in
+                NavigationLink {
+                    RoutineRecordView(exercise: ex)
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(ex.exerciseName)
+                                .font(.title2)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.orange)
+                            
+                            HStack {
+                                ForEach(ex.part) { part in
+                                    Text(part.rawValue)
+                                        .font(.footnote)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                }
                             }
+                            
                         }
+                        Spacer()
                         
                     }
-                    Spacer()
-                    
-//                    Image(systemName: ex.checked ? "checkmark.circle.fill" : "circle")
-//                        .foregroundStyle(ex.checked ? .green : .gray)
                 }
             }
+            HStack {
+                Button(action: {
+                    
+                }, label: {
+                    Text("운동 시작")
+                        .bold()
+                        .foregroundStyle(.white)
+                })
+                .buttonStyle(BorderedProminentButtonStyle())
+                .tint(.red)
+                .foregroundStyle(Color.white)
+                
+                
+                NavigationLink {
+                    AddingRoutineView(exercise: exercise)
+                } label: {
+                    Text("운동 추가")
+                        .bold()
+                        .foregroundStyle(.white)
+                }
+                .buttonStyle(BorderedProminentButtonStyle())
+                .tint(.red)
+                .foregroundStyle(Color.white)
 
-
-//            .onTapGesture {
-//                // 운동 리스트뷰로 넘어가기
-//
-//                self.selected = ex
-//                if let index = exercise.routines.firstIndex(where: { $0.id == selected?.id }) {
-//                    exercise.routines[index].checked.toggle()
-//                }
-//            }
-        
-
+//                Button(action: {
+//                    pressed.toggle()
+//                }, label: {
+//                    Text("운동 추가")
+//                        .bold()
+//                        .foregroundStyle(.white)
+//                })
+//                .buttonStyle(BorderedProminentButtonStyle())
+//                .tint(.red)
+//                .foregroundStyle(Color.white)
+            }
+            
+            
         }
+        .onAppear(perform: {
+            print(exercise.routines.count)
+        })
+//        .sheet(isPresented: $pressed, content: {
+//            AddingRoutineView(exercise: exercise)
+//        })
     }
 }
 
 #Preview {
-    RoutineListView(exercise: .init()).modelContainer(PreviewContainer.container)
+    RoutineListView(exercise: .init())
+        .modelContainer(PreviewContainer.container)
 }

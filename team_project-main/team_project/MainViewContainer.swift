@@ -42,7 +42,10 @@ struct MainViewContainer: View {
                     
                     
                     MyRoutineView()
-//                    Spacer()
+                        .onAppear {
+                            print("????")
+                        }
+
                     
                     Button {
                         soundManager.getTest(url: Constants().currentmusic!)
@@ -67,6 +70,10 @@ struct MainViewContainer: View {
                     AddingRoutineView()
                 })
             }
+        .onAppear {
+            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try? AVAudioSession.sharedInstance().setActive(true)
+        }
 //        }
 
         

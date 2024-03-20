@@ -12,14 +12,14 @@ struct MyRoutineView: View {
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Query var exerciseData: [Exercise]
     @State private var exerciseParts: [ExercisePart] = [] // 중복 없는 파트 목록을 저장할 변수
-
+    
     var body: some View {
-        
-        List(exerciseData) { exercise in
-            HStack {
-                // 이미지 집어넣는곳
-                
-                VStack {
+        VStack {
+            
+            List(exerciseData) { exercise in
+                HStack {
+                    // 이미지 집어넣는곳
+                    
                     NavigationLink {
                         RoutineListView(exercise: exercise)
                     } label: {
@@ -43,8 +43,14 @@ struct MyRoutineView: View {
                     }
                 }
             }
+            
+            
         }.padding(10)
-//        .frame(minHeight: minRowHeight * 3)
+        
+        
+        
+        
+        //        .frame(minHeight: minRowHeight * 3)
     }
     
     // 중복 없는 파트 데이터를 업데이트하는 메소드

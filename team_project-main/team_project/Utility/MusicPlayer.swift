@@ -11,6 +11,7 @@ import Alamofire
 import SwiftUI
 
 class MusicPlayer: ObservableObject {
+    @Published var musicContainer: [MusicInfoModel] = []
     var nowPlayingInfo: [String : Any] = [:]
     var player: AVPlayer?
     var isPlaying = false
@@ -20,8 +21,7 @@ class MusicPlayer: ObservableObject {
     
     init() {
         print("🙏초기세팅")
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-        try? AVAudioSession.sharedInstance().setActive(true)
+        
         player?.automaticallyWaitsToMinimizeStalling = false
         player?.allowsExternalPlayback = false
         setupRemoteCommands()
@@ -98,6 +98,7 @@ class MusicPlayer: ObservableObject {
             let url = url
             print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
             let header: HTTPHeaders = [.authorization(bearerToken: token.token)]
+            print(url)
             AF.request(url,
                        method: .get,
                        parameters: parameters,
@@ -118,7 +119,33 @@ class MusicPlayer: ObservableObject {
         }
     }
     
-    
+    func getAllTest(url: URL) {
+        do {
+            let parameters = ["heartRate": "70"]
+            print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
+            let token = try KeyChain.get()
+            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
+            let url = url
+            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
+            let header: HTTPHeaders = [.authorization(bearerToken: token.token)]
+            print(url)
+            AF.request(url,
+                       method: .get,
+                       parameters: parameters,
+                       encoding: URLEncoding.default,
+                       headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: [MusicInfoModel].self) { response in
+                print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
+                print(response.value)
+                self.musicContainer = response.value ?? [MusicInfoModel.init(id: 1, title: "", artist: "", albumUrl: "", filePath: "", tempo: "")]
+                print(response.value ?? "값이 없습니다요")
+                print(token.token)
+            }
+        } catch {
+            
+        }
+    }
     
     
     func handlePlaybackChange() {
