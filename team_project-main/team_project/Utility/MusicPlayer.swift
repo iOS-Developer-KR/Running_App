@@ -20,6 +20,8 @@ class MusicPlayer: ObservableObject {
     
     init() {
         print("🙏초기세팅")
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        try? AVAudioSession.sharedInstance().setActive(true)
         player?.automaticallyWaitsToMinimizeStalling = false
         player?.allowsExternalPlayback = false
         setupRemoteCommands()

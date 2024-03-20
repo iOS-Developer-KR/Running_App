@@ -9,39 +9,38 @@ import SwiftUI
 import SwiftData
 
 struct MyRoutineView: View {
-    
+    @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Query var exerciseData: [Exercise]
     @State private var exerciseParts: [ExercisePart] = [] // 중복 없는 파트 목록을 저장할 변수
 
     var body: some View {
-        VStack {
-            ForEach(exerciseData) { exercise in
+        
+        List(exerciseData) { exercise in
+            HStack {
+                // 이미지 집어넣는곳
+                
                 VStack {
                     NavigationLink {
                         RoutineListView(exercise: exercise)
                     } label: {
                         VStack {
                             Text(exercise.routineName)
+                                .foregroundStyle(.white)
+                                .bold()
+                                .font(.title)
                             // 파트 목록을 표시
                             HStack {
                                 ForEach(updateExerciseParts(from: exercise), id: \.self) { data in
                                     Text(data.rawValue)
+                                        .foregroundStyle(.green)
                                 }
                             }
                         }
                     }
-                    
-                    
-                    
-                    Spacer()
                 }
-                .onAppear {
-                    updateExerciseParts(from: exercise)
-                }
-                .padding(.horizontal)
             }
-            Spacer()
         }
+        .frame(minHeight: minRowHeight * 3)
     }
     
     // 중복 없는 파트 데이터를 업데이트하는 메소드

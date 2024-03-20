@@ -30,6 +30,7 @@ struct MainViewContainer: View {
 
                     UserInfoViewContainer()
                     
+                    MainViewMusicContainer()
                     Spacer()
                     
                     HStack(alignment:.bottom) {
@@ -39,7 +40,12 @@ struct MainViewContainer: View {
                         Spacer()
                     }.padding(.horizontal)
                     
-                    MyRoutineView()
+                    
+                    
+                    HStack {
+                        MyRoutineView()
+                        Spacer()
+                    }
                     
                     Button {
                         soundManager.getTest(url: Constants().currentmusic!)
@@ -49,6 +55,7 @@ struct MainViewContainer: View {
                     
                     Spacer()
                     
+                    
                     HStack {
                         Spacer()
                         Button(action: {
@@ -56,20 +63,17 @@ struct MainViewContainer: View {
                         }, label: {
                             Text("루틴추가")
                         })
-                        .buttonBorderShape(.roundedRectangle)
-                        .foregroundStyle(.green)
-                    }.padding()
+                        .foregroundStyle(.white)
+                        .padding(20)
+                    }
                 }.sheet(isPresented: $pressed, content: {
                     AddingRoutineView()
                 })
-                .onAppear {
-                    try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-                    try? AVAudioSession.sharedInstance().setActive(true)
-                }
             }
-//            .navigationTitle("홈")
-//            .navigationBarTitleDisplayMode(.large)
         }
+//        .overlay(alignment: .bottomTrailing) {
+//
+//        }
         
         
     }

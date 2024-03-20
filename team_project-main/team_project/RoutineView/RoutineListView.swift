@@ -15,40 +15,49 @@ struct RoutineListView: View {
     @Environment(\.modelContext) var dbContext
     
     var body: some View {
-        VStack {
-            ForEach(exercise.routines) { ex in
+        List(exercise.routines) { ex in
+            NavigationLink {
+                RoutineRecordView(exercise: ex)
+            } label: {
                 HStack {
-                    VStack {
-                        HStack {
-                            Text(ex.exerciseName)
-                            Spacer()
-                        }
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(ex.exerciseName)
+                            .font(.title2)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.orange)
+                        
                         HStack {
                             ForEach(ex.part) { part in
                                 Text(part.rawValue)
+                                    .font(.footnote)
+                                    .multilineTextAlignment(.leading)
+
                             }
-                            Spacer()
                         }
+                        
                     }
                     Spacer()
                     
-                    Image(systemName: ex.checked ? "checkmark.circle.fill" : "circle")
-                        .foregroundStyle(ex.checked ? .green : .gray)
-                }
-                .onTapGesture {
-                    self.selected = ex
-                    if let index = exercise.routines.firstIndex(where: { $0.id == selected?.id }) {
-                        exercise.routines[index].checked.toggle()
-                    }
-                    
+//                    Image(systemName: ex.checked ? "checkmark.circle.fill" : "circle")
+//                        .foregroundStyle(ex.checked ? .green : .gray)
                 }
             }
-            .padding()
-            Spacer()
+
+
+//            .onTapGesture {
+//                // 운동 리스트뷰로 넘어가기
+//
+//                self.selected = ex
+//                if let index = exercise.routines.firstIndex(where: { $0.id == selected?.id }) {
+//                    exercise.routines[index].checked.toggle()
+//                }
+//            }
+        
+
         }
     }
 }
 
 #Preview {
-    RoutineListView(exercise: .init())
+    RoutineListView(exercise: .init()).modelContainer(PreviewContainer.container)
 }
