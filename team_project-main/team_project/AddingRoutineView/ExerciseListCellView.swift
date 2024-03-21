@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExerciseListCellView: View {
-    var exercise: ExerciseDataModel
+    var exercise: ExerciseModel
     var isSelected: Bool = false
     
     var body: some View {

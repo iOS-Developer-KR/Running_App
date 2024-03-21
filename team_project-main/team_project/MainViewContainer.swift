@@ -42,9 +42,6 @@ struct MainViewContainer: View {
                     
                     
                     MyRoutineView()
-                        .onAppear {
-                            print("????")
-                        }
 
                     
                     Button {

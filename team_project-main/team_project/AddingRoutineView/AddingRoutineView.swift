@@ -14,27 +14,43 @@ struct AddingRoutineView: View {
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
-    @State private var selectedExercises: [ExerciseDataModel] = []
-    @Query var exerciseData: [Exercise]
-    var exercise: Exercise?
+    @State private var selectedExercises: [ExerciseModel] = []
+    @Query var exerciseData: [ExerciseRoutineContainer]
+    var exercise: ExerciseRoutineContainer? // 만약에 기존에 있던 저장소에 추가하려면 존재 / 처음이라면 nil이 들어있을 것임
 
     //MARK: FUNC
 
     func saveRoutine() {
+        // 만일 새로운 데이터라면
         guard let existData = exercise else {
-            let newExercise = Exercise(routineName: "루틴1", routines: selectedExercises)
-            dbContext.insert(newExercise)
+            var newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exercise: selectedExercises)
+
+//            newExercise.routines.first?.exercise.first.exer
+            dbContext.insert(newExerciseRoutineContainer)
             return
         }
-        
-        // 기존에 있던 데이터라면 수정해야되는 것이 맞다.
-        let id = exercise?.id
-        let predicate = #Predicate<Exercise> { $0.id == id }
-        let descriptor = FetchDescriptor<Exercise>(predicate: predicate)
-        if let count = try? dbContext.fetchCount(descriptor), count > 0 {
-            // 만약 존재했다면 기존에 있던 루틴에 추가해준다
-            exercise?.routines += selectedExercises
+        // 만약 기존에 존재했던 데이터라면
+        selectedExercises.forEach { ExerciseModel in
+            if !existData.exercise.contains(where: { $0.exerciseName == ExerciseModel.exerciseName }) {
+                exercise?.exercise.append(ExerciseModel)
+            }
         }
+        
+//        guard let existData = exercise else {
+//            let newExercise = Exercise(routineName: "루틴1", routines: selectedExercises)
+//            dbContext.insert(newExercise)
+//            return
+//        }
+        
+        
+//        // 기존에 있던 데이터라면 수정해야되는 것이 맞다.
+//        let id = exercise?.id
+//        let predicate = #Predicate<ExerciseRoutineContainer> { $0.id == id }
+//        let descriptor = FetchDescriptor<ExerciseRoutineContainer>(predicate: predicate)
+//        if let count = try? dbContext.fetchCount(descriptor), count > 0 {
+//            // 만약 존재했다면 기존에 있던 루틴에 추가해준다
+//            exercise?.routines += selectedExercises
+//        }
         
         
     }
@@ -57,13 +73,13 @@ struct AddingRoutineView: View {
                 
             
         }
-        .onAppear(perform: {
-            print("여기에는 \(exercise?.routines.count)개가 들어있다")
-        })
+//        .onAppear(perform: {
+//            print("여기에는 \(exercise?.routines.count)개가 들어있다")
+//        })
         .navigationBarBackButtonHidden()
-        .onChange(of: selectedExercises) { oldValue, newValue in
-            print("개수 변했다: \(newValue.count)")
-        }
+//        .onChange(of: selectedExercises) { oldValue, newValue in
+//            print("개수 변했다: \(newValue.count)")
+//        }
         .overlay {
             VStack {
                 Spacer()
@@ -129,5 +145,5 @@ struct AddingRoutineView: View {
 
 #Preview {
     AddingRoutineView(part: .chest, tool: .machine, textfield: "")
-        .modelContainer(PreviewContainer.container)
+//        .modelContainer(PreviewContainer.container)
 }

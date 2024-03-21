@@ -10,8 +10,10 @@ import SwiftData
 
 struct MyRoutineView: View {
     @Environment(\.defaultMinListRowHeight) var minRowHeight
-    @Query var exerciseData: [Exercise]
+    @Query var exerciseData: [ExerciseRoutineContainer]
     @State private var exerciseParts: [ExercisePart] = [] // 중복 없는 파트 목록을 저장할 변수
+    
+
     
     var body: some View {
         VStack {
@@ -21,7 +23,7 @@ struct MyRoutineView: View {
                     // 이미지 집어넣는곳
                     
                     NavigationLink {
-                        RoutineListView(exercise: exercise)
+                        RoutineListView(exerciseContainer: exercise, selected: exercise)
                     } label: {
                         VStack {
                             HStack {
@@ -46,20 +48,15 @@ struct MyRoutineView: View {
             
             
         }.padding(10)
-        
-        
-        
-        
-        //        .frame(minHeight: minRowHeight * 3)
     }
     
     // 중복 없는 파트 데이터를 업데이트하는 메소드
-    private func updateExerciseParts(from exercise: Exercise) -> [ExercisePart] {
+    private func updateExerciseParts(from exercise: ExerciseRoutineContainer) -> [ExercisePart] {
         var partsSet = Set<ExercisePart>()
-        exercise.routines.forEach { routine in
-            routine.part.forEach { part in
-                partsSet.insert(part)
-            }
+        exercise.exercise.forEach { ExerciseModel in
+            ExerciseModel.part.forEach({ ExercisePart in
+                partsSet.insert(ExercisePart)
+            })
         }
         return Array(partsSet).sorted(by: { $0.rawValue < $1.rawValue }) // 정렬은 선택적
     }
@@ -67,5 +64,5 @@ struct MyRoutineView: View {
 
 #Preview {
     MyRoutineView()
-        .modelContainer(PreviewContainer.container)
+//        .modelContainer(PreviewContainer.container)
 }

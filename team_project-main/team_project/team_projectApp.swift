@@ -52,7 +52,7 @@ struct team_projectApp: App {
 
             ContentView()
 //                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
-                .modelContainer(for: [Exercise.self])
+                .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseRecordContainer.self, ExerciseRecord.self, Exercise.self, ExerciseModel.self])
 //                .modelContainer(for: ExerciseDataModel.self)
                 .environmentObject(musicPlayer) // 3월19일날 추가한거
 

@@ -26,6 +26,7 @@
 		2B1825902BAA743B00FE887A /* RoutineListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18258F2BAA743B00FE887A /* RoutineListCell.swift */; };
 		2B1825922BAA9E2C00FE887A /* RoutineRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825912BAA9E2C00FE887A /* RoutineRecordView.swift */; };
 		2B19D1492BAB1F200053CFDD /* MusicAllListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B19D1482BAB1F200053CFDD /* MusicAllListView.swift */; };
+		2B19D14B2BAC397E0053CFDD /* PreViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B19D14A2BAC397E0053CFDD /* PreViewData.swift */; };
 		2B3105872AF90A3400DC0E9A /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3105862AF90A3400DC0E9A /* KeyView.swift */; };
 		2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */; };
 		2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */; };
@@ -128,6 +129,7 @@
 		2B18258F2BAA743B00FE887A /* RoutineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListCell.swift; sourceTree = "<group>"; };
 		2B1825912BAA9E2C00FE887A /* RoutineRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRecordView.swift; sourceTree = "<group>"; };
 		2B19D1482BAB1F200053CFDD /* MusicAllListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAllListView.swift; sourceTree = "<group>"; };
+		2B19D14A2BAC397E0053CFDD /* PreViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreViewData.swift; sourceTree = "<group>"; };
 		2B3105862AF90A3400DC0E9A /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 		2B385E2F2BA5A34D001EC65C /* team_project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = team_project.entitlements; sourceTree = "<group>"; };
 		2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInfoModel.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */,
 				2B5FA1DF2B95802A0034CFC9 /* MusicInfoModel.swift */,
 				2B5FA1E12B95BBF30034CFC9 /* BluetoothModel.swift */,
+				2B19D14A2BAC397E0053CFDD /* PreViewData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
+				2B19D14B2BAC397E0053CFDD /* PreViewData.swift in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
 				2B18258B2BA9F11900FE887A /* PreviewContainer.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,

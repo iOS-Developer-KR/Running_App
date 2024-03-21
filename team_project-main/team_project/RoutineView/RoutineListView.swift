@@ -10,30 +10,38 @@ import SwiftData
 
 struct RoutineListView: View {
     
-    var exercise: Exercise
-    @State private var selected: ExerciseDataModel?
+    var exerciseContainer: ExerciseRoutineContainer
+    var selected: ExerciseRoutineContainer
     @Environment(\.modelContext) var dbContext
     @State private var pressed = false
     
+//    func get() {
+//        var record = selected?.exerciseData?.record
+//    }
+    
+    func saveRecord() {
+        
+    }
+    
     var body: some View {
         VStack {
-            List(exercise.routines) { ex in
+            List(exerciseContainer.exercise) { selected in
                 NavigationLink {
-                    RoutineRecordView(exercise: ex)
+                    // selected는 운동루틴에 한 종류를 의미한다
+                    RoutineRecordView(selectedExercise: selected)
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(ex.exerciseName)
+                            Text("\(selected.exerciseName)")
                                 .font(.title2)
                                 .fontWeight(.heavy)
                                 .foregroundColor(.orange)
                             
                             HStack {
-                                ForEach(ex.part) { part in
+                                ForEach(selected.part) { part in
                                     Text(part.rawValue)
                                         .font(.footnote)
                                         .multilineTextAlignment(.leading)
-                                    
                                 }
                             }
                             
@@ -57,7 +65,7 @@ struct RoutineListView: View {
                 
                 
                 NavigationLink {
-                    AddingRoutineView(exercise: exercise)
+                    AddingRoutineView(exercise: selected)
                 } label: {
                     Text("운동 추가")
                         .bold()
@@ -67,30 +75,24 @@ struct RoutineListView: View {
                 .tint(.red)
                 .foregroundStyle(Color.white)
 
-//                Button(action: {
-//                    pressed.toggle()
-//                }, label: {
-//                    Text("운동 추가")
-//                        .bold()
-//                        .foregroundStyle(.white)
-//                })
-//                .buttonStyle(BorderedProminentButtonStyle())
-//                .tint(.red)
-//                .foregroundStyle(Color.white)
+
             }
             
             
         }
         .onAppear(perform: {
-            print(exercise.routines.count)
+//            print(exercise.routines.count)
         })
-//        .sheet(isPresented: $pressed, content: {
-//            AddingRoutineView(exercise: exercise)
+
+//        var record = selected?.exerciseData?.record.contains(where: { record in
+//            record.exerciseData?.routines.contains(where: { exercise in
+//                exercise.exerciseName ==
+//            })
 //        })
     }
 }
 
 #Preview {
-    RoutineListView(exercise: .init())
-        .modelContainer(PreviewContainer.container)
+    RoutineListView(exerciseContainer: PreviewData().previewExerciseRoutineContainer, selected: PreviewData().previewExerciseRoutineContainer)
+//        .modelContainer(PreviewContainer.container)
 }

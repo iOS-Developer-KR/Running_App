@@ -13,11 +13,18 @@ class PreviewContainer {
     static let container: ModelContainer = {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
-            let container = try ModelContainer(for: Exercise.self, ExerciseRecord.self, configurations: config)
-            let ex = Exercise(routineName: "1", routines: [ExerciseDataModel(exerciseName: "데드", part: [.abs], tool: .barbell)])
-            let re = ExerciseRecord(exercise: .init(), date: Date(), exerciseData: ex.routines.first)
-            container.mainContext.insert(ex)
-//            container.mainContext.insert(re)
+            let container = try ModelContainer(for: ExerciseRoutineContainer.self,configurations: config)//, ExerciseRecord.self, configurations: config)
+            let exerciseContainer = ExerciseRoutineContainer(routineName: "루틴1", exercise: [.init(exerciseName: "루틴임", part: [.abs], tool: .barbell)])
+            let recordContainer = PreviewData().previewExerciseRoutineContainer
+            let exerciseRecord = ExerciseRecord(recordDate: Date(), totalTime: 33)
+            let exercise = Exercise()
+            let exerciseModel = ExerciseModel(exerciseName: "하체하체", part: [.hamstrings], tool: .machine)
+//            let re = ExerciseRecord(exercise: <#Exercise#>, routineName: "하체같은 등", date: Date(), exerciseData: ex.routines.first)
+            container.mainContext.insert(exerciseContainer)
+            container.mainContext.insert(recordContainer)
+            container.mainContext.insert(exerciseRecord)
+            container.mainContext.insert(exercise)
+            container.mainContext.insert(exerciseModel)
             
             return container
         } catch {
@@ -25,9 +32,9 @@ class PreviewContainer {
         }
     }()
     @MainActor
-    static var sample: Exercise {
+    static var sample: ExerciseRoutineContainer {
         let context = PreviewContainer.container.mainContext
-        let descriptor = FetchDescriptor<Exercise>(predicate: #Predicate { _ in true }, sortBy: [SortDescriptor(\.routineName)])
+        let descriptor = FetchDescriptor<ExerciseRoutineContainer>(predicate: #Predicate { _ in true }, sortBy: [SortDescriptor(\.routineName)])
         do {
             let results = try context.fetch(descriptor)
             return results[0]
