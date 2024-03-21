@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2B1825682BA5C35C00FE887A /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1825672BA5C35C00FE887A /* WatchConnectivity.framework */; };
 		2B18256A2BA5F2ED00FE887A /* MusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825692BA5F2ED00FE887A /* MusicView.swift */; };
-		2B18256C2BA5F92700FE887A /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18256B2BA5F92700FE887A /* RecommendationView.swift */; };
 		2B18256E2BA5F9E100FE887A /* UserInfoViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18256D2BA5F9E100FE887A /* UserInfoViewContainer.swift */; };
 		2B1825702BA5FB1400FE887A /* MyRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18256F2BA5FB1400FE887A /* MyRoutineView.swift */; };
 		2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1825712BA5FB4400FE887A /* AddingRoutineView.swift */; };
@@ -50,6 +49,8 @@
 		2B6927DF2BA41C8700A5CAA1 /* SelectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6927DE2BA41C8700A5CAA1 /* SelectingView.swift */; };
 		2B6927E12BA4242B00A5CAA1 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6927E02BA4242B00A5CAA1 /* WorkoutManager.swift */; };
 		2B6927E32BA428BF00A5CAA1 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6927E22BA428BF00A5CAA1 /* ElapsedTimeView.swift */; };
+		2B87CA432BAC902F00A99447 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87CA422BAC902F00A99447 /* TimeManager.swift */; };
+		2B87CA452BAC925A00A99447 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87CA442BAC925A00A99447 /* TimerView.swift */; };
 		2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47BD2AF7FD840024D811 /* LoginRegisterView.swift */; };
 		2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C02AF7FF250024D811 /* IdView.swift */; };
 		2B8B47C32AF7FFD10024D811 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C22AF7FFD10024D811 /* PasswordView.swift */; };
@@ -112,7 +113,6 @@
 /* Begin PBXFileReference section */
 		2B1825672BA5C35C00FE887A /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS10.4.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		2B1825692BA5F2ED00FE887A /* MusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicView.swift; sourceTree = "<group>"; };
-		2B18256B2BA5F92700FE887A /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
 		2B18256D2BA5F9E100FE887A /* UserInfoViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewContainer.swift; sourceTree = "<group>"; };
 		2B18256F2BA5FB1400FE887A /* MyRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoutineView.swift; sourceTree = "<group>"; };
 		2B1825712BA5FB4400FE887A /* AddingRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingRoutineView.swift; sourceTree = "<group>"; };
@@ -156,6 +156,8 @@
 		2B6927DE2BA41C8700A5CAA1 /* SelectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectingView.swift; sourceTree = "<group>"; };
 		2B6927E02BA4242B00A5CAA1 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		2B6927E22BA428BF00A5CAA1 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
+		2B87CA422BAC902F00A99447 /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		2B87CA442BAC925A00A99447 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		2B8B47BD2AF7FD840024D811 /* LoginRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterView.swift; sourceTree = "<group>"; };
 		2B8B47C02AF7FF250024D811 /* IdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdView.swift; sourceTree = "<group>"; };
 		2B8B47C22AF7FFD10024D811 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				2B6927BA2BA3E6EE00A5CAA1 /* iOSToWatch.swift */,
 				2B1825732BA5FC6000FE887A /* SearchBar.swift */,
 				2B18257F2BA71BB900FE887A /* ApplicationData.swift */,
+				2B87CA422BAC902F00A99447 /* TimeManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -469,7 +472,7 @@
 				2BABF6AA2AED560D00CD88CE /* MainViewContainer.swift */,
 				2BABF6AC2AED578400CD88CE /* HeaderView.swift */,
 				2B18256D2BA5F9E100FE887A /* UserInfoViewContainer.swift */,
-				2B18256B2BA5F92700FE887A /* RecommendationView.swift */,
+				2B87CA442BAC925A00A99447 /* TimerView.swift */,
 			);
 			name = main;
 			path = ..;
@@ -636,7 +639,6 @@
 				2B19D1492BAB1F200053CFDD /* MusicAllListView.swift in Sources */,
 				2BABF6992AEA1C2300CD88CE /* SettingView.swift in Sources */,
 				2B9C0DE62AE96E6B00DAA0A3 /* ContentView.swift in Sources */,
-				2B18256C2BA5F92700FE887A /* RecommendationView.swift in Sources */,
 				2BE5BBB92AEE8D0800C8AD5A /* ExerciseListView.swift in Sources */,
 				2BABF6A82AEB6AB300CD88CE /* AccountSetting.swift in Sources */,
 				2BC4899C2B0713F100544928 /* SplashScreenView.swift in Sources */,
@@ -668,6 +670,7 @@
 				2BACC16F2AF8CE0A00BA0CCA /* LoginResponseDTO.swift in Sources */,
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
 				2B19D14B2BAC397E0053CFDD /* PreViewData.swift in Sources */,
+				2B87CA452BAC925A00A99447 /* TimerView.swift in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
 				2B18258B2BA9F11900FE887A /* PreviewContainer.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
@@ -675,6 +678,7 @@
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,
 				2B5FA1E22B95BBF30034CFC9 /* BluetoothModel.swift in Sources */,
 				2B9C0DE42AE96E6B00DAA0A3 /* team_projectApp.swift in Sources */,
+				2B87CA432BAC902F00A99447 /* TimeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

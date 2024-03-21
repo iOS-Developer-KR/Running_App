@@ -23,10 +23,9 @@ struct AddingRoutineView: View {
     func saveRoutine() {
         // 만일 새로운 데이터라면
         guard let existData = exercise else {
-            var newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exercise: selectedExercises)
-
-//            newExercise.routines.first?.exercise.first.exer
+            let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exercise: selectedExercises)
             dbContext.insert(newExerciseRoutineContainer)
+//            print("저장된 내용\(newExerciseRoutineContainer.exercise.first?.exerciseName)")
             return
         }
         // 만약 기존에 존재했던 데이터라면
@@ -77,9 +76,9 @@ struct AddingRoutineView: View {
 //            print("여기에는 \(exercise?.routines.count)개가 들어있다")
 //        })
         .navigationBarBackButtonHidden()
-//        .onChange(of: selectedExercises) { oldValue, newValue in
-//            print("개수 변했다: \(newValue.count)")
-//        }
+        .onChange(of: selectedExercises) { oldValue, newValue in
+            print("개수 변했다: \(newValue.count)")
+        }
         .overlay {
             VStack {
                 Spacer()

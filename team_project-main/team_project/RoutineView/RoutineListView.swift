@@ -11,16 +11,23 @@ import SwiftData
 struct RoutineListView: View {
     
     var exerciseContainer: ExerciseRoutineContainer
-    var selected: ExerciseRoutineContainer
+//    var selected: ExerciseRoutineContainer
     @Environment(\.modelContext) var dbContext
+    @EnvironmentObject var timeManager: TimerManager
     @State private var pressed = false
     
-//    func get() {
-//        var record = selected?.exerciseData?.record
-//    }
     
     func saveRecord() {
         
+    }
+    
+    func startExercise() {
+        timeManager.exerciseRoutineContainer = self.exerciseContainer
+        timeManager.start()
+    }
+    
+    func stopExercise() {
+        timeManager.stop()
     }
     
     var body: some View {
@@ -53,19 +60,21 @@ struct RoutineListView: View {
             }
             HStack {
                 Button(action: {
-                    
+                    // 운동 시작
+                    timeManager.checking.toggle()
+//                    timeManager
                 }, label: {
-                    Text("운동 시작")
+                    Text(timeManager.checking ? "운동 종료" : "운동 시작")
                         .bold()
                         .foregroundStyle(.white)
                 })
                 .buttonStyle(BorderedProminentButtonStyle())
-                .tint(.red)
+                .tint(timeManager.checking ? .green : .red)
                 .foregroundStyle(Color.white)
                 
                 
                 NavigationLink {
-                    AddingRoutineView(exercise: selected)
+                    AddingRoutineView(exercise: exerciseContainer)
                 } label: {
                     Text("운동 추가")
                         .bold()
@@ -80,9 +89,13 @@ struct RoutineListView: View {
             
             
         }
-        .onAppear(perform: {
-//            print(exercise.routines.count)
-        })
+        .onChange(of: timeManager.checking) { oldValue, newValue in
+            if newValue {
+                self.startExercise()
+            } else {
+                self.stopExercise()
+            }
+        }
 
 //        var record = selected?.exerciseData?.record.contains(where: { record in
 //            record.exerciseData?.routines.contains(where: { exercise in
@@ -92,7 +105,9 @@ struct RoutineListView: View {
     }
 }
 
-#Preview {
-    RoutineListView(exerciseContainer: PreviewData().previewExerciseRoutineContainer, selected: PreviewData().previewExerciseRoutineContainer)
-//        .modelContainer(PreviewContainer.container)
-}
+//#Preview {
+//    RoutineListView(exerciseContainer: PreviewData().previewExerciseRoutineContainer, selected: PreviewData().previewExerciseRoutineContainer)
+//        .environmentObject(TimerManager())
+//    
+////        .modelContainer(PreviewContainer.container)
+//}

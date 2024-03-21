@@ -13,6 +13,7 @@ struct MainViewContainer: View {
     // MARK: - PROPERTIES
     //    @StateObject var soundManager: MusicPlayer = MusicPlayer() // 되는거
     @EnvironmentObject var soundManager: MusicPlayer
+    @EnvironmentObject var timer: TimerManager
     
     //    @EnvironmentObject private var connect: iOSToWatch
     @State private var pressed: Bool = false
@@ -42,26 +43,30 @@ struct MainViewContainer: View {
                     
                     
                     MyRoutineView()
+                    
+                    // 만약 타이머가 작동중이라면 하단에 현재 시간을 나타낸다.
+                    if timer.checking {
+                        
+                        NavigationLink {
+                            if let data = timer.exerciseRoutineContainer {
+                                RoutineListView(exerciseContainer: data)
+                            }
+                        } label: {
+                            TimerView()
+                        }
 
-                    
-                    Button {
-                        soundManager.getTest(url: Constants().currentmusic!)
-                    } label: {
-                        Text("노래 시작")
-                    }
-                    
-                    Spacer()
-                    
-                    
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            pressed.toggle()
-                        }, label: {
-                            Text("루틴추가")
-                        })
-                        .foregroundStyle(.white)
-                        .padding(20)
+                        
+                    } else {
+                        HStack { // 만약 타이머가 작동중이라면 안보이게한다
+                            Spacer()
+                            Button(action: {
+                                pressed.toggle()
+                            }, label: {
+                                Text("루틴추가")
+                            })
+                            .foregroundStyle(.white)
+                            .padding(20)
+                        }
                     }
                 }.sheet(isPresented: $pressed, content: {
                     AddingRoutineView()
@@ -82,6 +87,7 @@ struct MainViewContainer: View {
 #Preview {
     MainViewContainer()
         .modelContainer(PreviewContainer.container)
+        .environmentObject(TimerManager())
     
     //    MainViewContainer(soundManager: MusicPlayer())
     //        .environmentObject(iOSToWatch())

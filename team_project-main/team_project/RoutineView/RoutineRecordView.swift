@@ -36,7 +36,7 @@ struct RoutineRecordView: View {
                             VStack {
                                 Text("세트")
                                     .frame(minWidth: 50, alignment: .center)
-                                ForEach(1...(selectedExercise.exercise?.set ?? 5), id: \.self) { data in
+                                ForEach(1...(selectedExercise.set), id: \.self) { data in
                                     Text("\(data)")
                                         .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                 }
@@ -45,7 +45,7 @@ struct RoutineRecordView: View {
                             VStack {
                                 Text("KG")
                                     .frame(minWidth: 50, alignment: .center)
-                                ForEach(selectedExercise.exercise?.kg ?? [0,0,0,0,0], id: \.self) { data in
+                                ForEach(selectedExercise.kg, id: \.self) { data in
                                     Text("\(data)")
                                         .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                 }
@@ -54,7 +54,7 @@ struct RoutineRecordView: View {
                             VStack {
                                 Text("횟수")
                                     .frame(minWidth: 50, alignment: .center)
-                                ForEach(selectedExercise.exercise?.count ?? [5,5,5,5,5], id: \.self) { data in
+                                ForEach(selectedExercise.count, id: \.self) { data in
                                     Text("\(data)")
                                         .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                 }
@@ -63,12 +63,11 @@ struct RoutineRecordView: View {
                             VStack {
                                 Text("완료")
                                     .frame(minWidth: 50, alignment: .center)
-                                ForEach(0..<(selectedExercise.exercise?.finished.count ?? 5), id: \.self) { index in
+                                ForEach(selectedExercise.done, id: \.self) { data in
                                     Button(action: {
                                         // 여기서 finished 배열의 index에 해당하는 값을 toggle 처리해야 함
                                         // 예: self.selectedExercise.exercise?.finished[index].toggle()
                                     }, label: {
-                                        let data = selectedExercise.exercise?.finished[index] ?? false
                                         Image(systemName: data ? "checkmark.circle.fill" : "circle")
                                             .foregroundStyle(data ? .green : .gray)
                                             .frame(minWidth: 50, minHeight: 50, alignment: .center)

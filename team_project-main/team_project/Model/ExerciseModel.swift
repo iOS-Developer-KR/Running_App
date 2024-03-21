@@ -15,9 +15,12 @@ class ExerciseRoutineContainer: Identifiable { // 운동 루틴이 저장되는 
     @Relationship(deleteRule: .cascade, inverse: \ExerciseRecordContainer.routinContainer)
     var routines: [ExerciseRecordContainer] = [ExerciseRecordContainer]() // 여러개의 루틴을 저장할 수 있다
     
+    @Relationship(deleteRule: .cascade, inverse: \ExerciseModel.exerciseRoutineContainer)
+    var exercise: [ExerciseModel] = [ExerciseModel]()
+    
     var id: UUID
     var routineName: String
-    var exercise: [ExerciseModel]
+    
 
     
     init(id: UUID? = nil, routineName: String, exercise: [ExerciseModel]) {
@@ -32,70 +35,41 @@ class ExerciseRoutineContainer: Identifiable { // 운동 루틴이 저장되는 
 class ExerciseRecordContainer {
     var routinContainer: ExerciseRoutineContainer?
     
-    @Relationship(deleteRule: .cascade, inverse: \Exercise.recordContainer)
-    var exercise: [Exercise] = [Exercise]()
-    
-    @Relationship(deleteRule: .cascade, inverse: \ExerciseRecord.recordContainer)
-    var record: [ExerciseRecord]?
-    
-    init(routinContainer: ExerciseRoutineContainer? = nil, exercise: [Exercise], record: [ExerciseRecord]?) {
-        self.routinContainer = routinContainer
-        self.exercise = exercise
-        self.record = record
-        print("ExerciseRecordContainer 초기화")
-    }
-}
-
-@Model
-final class ExerciseRecord { // 운동 루틴 기록이 저장되는 곳
-    var recordContainer: ExerciseRecordContainer?
-    
     var recordDate: Date
     var totalTime: Int
     
-    init(recordContainer: ExerciseRecordContainer? = nil, recordDate: Date, totalTime: Int) {
-        self.recordContainer = recordContainer
+    init(routinContainer: ExerciseRoutineContainer? = nil, recordDate: Date, totalTime: Int) {
+        self.routinContainer = routinContainer
         self.recordDate = recordDate
         self.totalTime = totalTime
-        print("ExerciseRecord 초기화")
     }
 }
 
-@Model
-class Exercise {
-    var recordContainer: ExerciseRecordContainer?
-    var set: Int
-    var count: [Int]
-    var kg: [Int]
-    var finished: [Bool]
-    @Relationship(deleteRule: .cascade, inverse: \ExerciseModel.exercise)
-    var exerciseType: ExerciseModel?
-    
-    init() {
-        self.set = 5
-        self.count = [0,0,0,0,0]
-        self.kg = [0,0,0,0,0]
-        self.finished = [false, false, false, false, false]
-        self.exerciseType = exerciseType
-        print("Exercise만들어졌다:\(set.description) + \(count.description) + \(kg) + \(finished)")
-    }
-}
+
 
 @Model
 class ExerciseModel: Identifiable, Hashable {
-//    var routineContainer: ExerciseRoutineContainer?
-    var exercise: Exercise?
+    var exerciseRoutineContainer: ExerciseRoutineContainer?
     var id = UUID()
     var exerciseName: String
     var part: [ExercisePart]
     var tool: ExerciseTool
+    var set: Int
+    var count: [Int]
+    var kg: [Int]
+    var done: [Bool]
     
-    init(exercise: Exercise? = nil, id: UUID = UUID(), exerciseName: String, part: [ExercisePart], tool: ExerciseTool) {
-        self.exercise = exercise
+    init(exerciseRoutineContainer: ExerciseRoutineContainer? = nil, id: UUID = UUID(), exerciseName: String, part: [ExercisePart], tool: ExerciseTool) {
+        self.exerciseRoutineContainer = exerciseRoutineContainer
         self.id = id
         self.exerciseName = exerciseName
         self.part = part
         self.tool = tool
+        self.set = 5
+        self.count = [0,0,0,0,0]
+        self.kg = [0,0,0,0,0]
+        self.done = [false,false,false,false,false]
+        print("ExerciseModel 초기호")
     }
 }
 

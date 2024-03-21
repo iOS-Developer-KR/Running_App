@@ -23,7 +23,7 @@ struct MyRoutineView: View {
                     // 이미지 집어넣는곳
                     
                     NavigationLink {
-                        RoutineListView(exerciseContainer: exercise, selected: exercise)
+                        RoutineListView(exerciseContainer: exercise)
                     } label: {
                         VStack {
                             HStack {

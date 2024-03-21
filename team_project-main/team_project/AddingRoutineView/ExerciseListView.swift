@@ -28,8 +28,6 @@ struct ExerciseListView: View {
                     }
             }
             .onAppear(perform: {
-                print("이미 존재하는것들\(existedExercise?.routines.description)")
-                print("??")
             })
         }
         
