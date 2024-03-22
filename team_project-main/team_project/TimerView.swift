@@ -10,15 +10,16 @@ import SwiftUI
 struct TimerView: View {
     @EnvironmentObject var timer: TimerManager
     @State var rotation: CGFloat = 0.0
+    var exerciseContainer: ExerciseRoutineContainer
+    
+    func recordSaveExercise() {
+        
+    }
     
     var body: some View {
-        ZStack {
-//            RoundedRectangle(cornerRadius: 20, style: .continuous)
-//                .frame(width: , height: 40)
-//                .backgroundStyle(.color1)
-//            Color(.systemBackground)
+
+            
             HStack {
-                
                 VStack {
                     HStack {
                         Text("\(timer.exerciseRoutineContainer?.routineName ?? "")")
@@ -34,28 +35,36 @@ struct TimerView: View {
                 Spacer()
                 
                 Button(action: {
-                    
+                    timer.resume()
                 }, label: {
-                    Image(systemName: "pause.fill")
+                    Image(systemName: timer.timerOn ? "pause.fill" : "play.fill")
                 })
                 .padding()
                 
-                Button(action: {
-                    
-                }, label: {
+                Button {
+                    timer.pause()
+                    timer.stopped.toggle()
+                    print(timer.stopped)
+                } label: {
                     Image(systemName: "stop.fill")
-                })
+                }
+                
+                
                 .padding()
+                
+                
                 
             }
             .padding()
             .foregroundStyle(.color1)
-//            .backgroundStyle(.color2)
-        }
+            
+
     }
 }
 
 #Preview {
-    TimerView()
+    TimerView(exerciseContainer: PreviewData().previewExerciseRoutineContainer)
+        .modelContainer(PreviewContainer.container)
+
         .environmentObject(TimerManager())
 }

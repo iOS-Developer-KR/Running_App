@@ -4,51 +4,72 @@
 //
 //  Created by Taewon Yoon on 3/22/24.
 //
-
 import SwiftUI
 
 class TimerManager: ObservableObject {
     @Published var elapsedTime: TimeInterval = 0
     @Published var elapsedTime2: String = ""
-    @Published var checking: Bool = false
+    @Published var timerOn: Bool = false // 측정하고 있는중인지에 대한 여부
+    @Published var stopped: Bool = false // 중단 버튼 눌렀는지에 대한 여부
+    @Published var paused: Bool = false
     @Published var exerciseRoutineContainer: ExerciseRoutineContainer?
     var timer: Timer?
     var startTime: Date?
+    var pauseStartTime: Date? // 일시정지 시작 시간
+    var totalPauseDuration: TimeInterval = 0 // 누적된 일시정지 시간
     var routineName: String = ""
     
     func start() {
-        checking = true
+        print("시작")
+        timerOn = true
+        paused = false
         startTime = Date()
+        pauseStartTime = nil
+        totalPauseDuration = 0
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            guard let strongSelf = self, let startTime = strongSelf.startTime else { return }
-            let currentTime = Date().timeIntervalSince(startTime)
+            guard let strongSelf = self else { return }
+            let currentTime = Date().timeIntervalSince(strongSelf.startTime!) - strongSelf.totalPauseDuration
             strongSelf.elapsedTime = currentTime
-            strongSelf.elapsedTime2 = strongSelf.formatTimeInterval(currentTime)
+            strongSelf.elapsedTime2 = strongSelf.convertSecondsToReadableTime(Int(currentTime))
+        }
+    }
+    
+    func pause() {
+        print("중단")
+        paused = true
+        pauseStartTime = Date() // 일시정지 시작 시간 기록
+        timer?.invalidate()
+    }
+    
+    func resume() {
+        paused = false
+        if let pauseStart = pauseStartTime {
+            let pauseDuration = Date().timeIntervalSince(pauseStart)
+            totalPauseDuration += pauseDuration // 일시정지 시간을 누적
+        }
+        pauseStartTime = nil // 일시정지 시작 시간 초기화
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            let currentTime = Date().timeIntervalSince(strongSelf.startTime!) - strongSelf.totalPauseDuration
+            strongSelf.elapsedTime = currentTime
+            strongSelf.elapsedTime2 = strongSelf.convertSecondsToReadableTime(Int(currentTime))
         }
     }
     
     func stop() {
-        checking = false
+        print("종료")
+        stopped = true
+//        timerOn = false // 측정하고 있는중인지에 대한 여부
+        paused = false
+        pauseStartTime = Date() // 일시정지 시작 시간 기록
         timer?.invalidate()
-        timer = nil
     }
     
-    private func formatTimeInterval(_ seconds: TimeInterval) -> String {
-        let hours = Int(seconds) / 3600
-        let minutes = (Int(seconds) % 3600) / 60
-        let seconds = Int(seconds) % 60
-        
-        var timeString = ""
-        if hours > 0 {
-            timeString += "\(hours)시간 "
-        }
-        if minutes > 0 || hours > 0 {
-            timeString += "\(minutes)분 "
-        }
-        timeString += "\(seconds)초"
-        
-        return timeString
+    func termination() {
+        timerOn = false
     }
+    
 }
 
 extension TimerManager {

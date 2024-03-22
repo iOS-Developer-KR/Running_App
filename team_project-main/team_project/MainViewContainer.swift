@@ -17,6 +17,7 @@ struct MainViewContainer: View {
     
     //    @EnvironmentObject private var connect: iOSToWatch
     @State private var pressed: Bool = false
+    @State private var alert: Bool = false
     
     // MARK: - FUNCTIONS
     
@@ -24,11 +25,11 @@ struct MainViewContainer: View {
     
     var body: some View {
         NavigationStack {
-//            ScrollView {
+            
                 
                 VStack {
                     HeaderView()
-
+                    
                     UserInfoViewContainer()
                     
                     MainViewMusicContainer()
@@ -45,16 +46,22 @@ struct MainViewContainer: View {
                     MyRoutineView()
                     
                     // 만약 타이머가 작동중이라면 하단에 현재 시간을 나타낸다.
-                    if timer.checking {
+                    if timer.timerOn {
                         
                         NavigationLink {
                             if let data = timer.exerciseRoutineContainer {
                                 RoutineListView(exerciseContainer: data)
+                                    .onAppear {
+                                        print("abc")
+                                    }
                             }
                         } label: {
-                            TimerView()
+                            if let data = timer.exerciseRoutineContainer {
+                                TimerView(exerciseContainer: data)
+                            }
+                            
                         }
-
+                        
                         
                     } else {
                         HStack { // 만약 타이머가 작동중이라면 안보이게한다
@@ -72,14 +79,32 @@ struct MainViewContainer: View {
                     AddingRoutineView()
                 })
             }
-        .onAppear {
-            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try? AVAudioSession.sharedInstance().setActive(true)
-        }
-//        }
+            .onAppear {
+                try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+                try? AVAudioSession.sharedInstance().setActive(true)
+            }
+//            .onChange(of: timer.checking) { oldValue, newValue in
+//                if ((oldValue && !newValue) && !timer.checking) {
+//                    alert.toggle()
+//                }
+//            }
+            
+            .overlay {
+                if timer.timerOn && timer.stopped {
+                        Color.black.opacity(0.4)
+                            .ignoresSafeArea() // 화면 전체를 커버합니다.
+                            .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
+                            .onTapGesture {
+                                // 운동 취소 안한다
+                                alert = false
+                            }
 
-        
-        
+                        // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
+                        ExerciseAlertView()
+                            
+                    }
+            }
+
     }
 }
 
