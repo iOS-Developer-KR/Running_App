@@ -34,10 +34,10 @@ struct TimerView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    timer.resume()
+                Button(action: { // 타이머가 실행중이고 타이머가 멈춘 상태가 아니라면 멈추기, 아니면 다시 재생
+                    (timer.timerOn && !timer.paused) ? timer.pause() : timer.resume()
                 }, label: {
-                    Image(systemName: timer.timerOn ? "pause.fill" : "play.fill")
+                    Image(systemName: (timer.timerOn && !timer.paused) ? "pause.fill" : "play.fill")
                 })
                 .padding()
                 

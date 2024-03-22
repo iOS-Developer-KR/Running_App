@@ -42,6 +42,7 @@ struct ExerciseAlertView: View {
                 HStack {
                     Button {
                         timer.resume()
+                        //timer.timerOn && timer.stopped
                     } label: {
                         Text("취소")
                     }

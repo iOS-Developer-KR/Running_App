@@ -36,7 +36,7 @@ struct RoutineListView: View {
             List(exerciseContainer.exercise) { selected in
                 NavigationLink {
                     // selected는 운동루틴에 한 종류를 의미한다
-                    RoutineRecordView(selectedExercise: selected)
+                    RoutineRecordView(selectedExercise: selected, set: selected.set, count: Array(repeating: 0, count: 5), kg: Array(repeating: 0, count: 5), done: Array(repeating: false, count: 5))
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
