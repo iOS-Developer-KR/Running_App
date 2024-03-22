@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ExerciseAlertView: View {
     @EnvironmentObject var timer: TimerManager
+    @Environment(\.modelContext) var dbContext
+
     var pausedImage = "stop.fill"
     var pausedTitle = "운동 중단"
     var pausedText = "운동을 중단하면 기록이 저장되지 않습니다. 운동을 중단하시겠습니까?"
@@ -16,6 +18,19 @@ struct ExerciseAlertView: View {
     var stoppedImage = "flag.fill"
     var stoppedTitle = "운동 완료"
     var stoppedText = "기록이 저장되고 결과 페이지로 이동합니다."
+    
+    func saveRecord() {
+        if let exerciseContainer = timer.exerciseRoutineContainer {
+            let exerciseDataModel = exerciseContainer.exerciseDataModel
+            let recordContainer = ExerciseRecordContainer(routinContainer: exerciseContainer, exerciseDataModel: exerciseDataModel, recordDate: Date(), totalTime: Int(timer.elapsedTime))
+            print("저장될 운동이름:\(recordContainer.exerciseDataModel.first?.exerciseName ?? "")")
+            print("저장될 운동횟수:\(recordContainer.exerciseDataModel.first?.count.description ?? "")")
+            print("저장될 운동중량:\(recordContainer.exerciseDataModel.first?.kg.description ?? "")")
+            exerciseContainer.routines.append(recordContainer)
+            
+            dbContext.insert(exerciseContainer)
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -49,8 +64,10 @@ struct ExerciseAlertView: View {
                     .padding()
                     
                     Button {
+                        saveRecord()
                         timer.stop()
                         timer.timerOn = false
+                        
                     } label: {
                         Text("확인")
                     }

@@ -14,7 +14,7 @@ struct AddingRoutineView: View {
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
-    @State private var selectedExercises: [ExerciseModel] = []
+    @State private var selectedExercises: [ExerciseDataModel] = []
     @Query var exerciseData: [ExerciseRoutineContainer]
     var exercise: ExerciseRoutineContainer? // 만약에 기존에 있던 저장소에 추가하려면 존재 / 처음이라면 nil이 들어있을 것임
 
@@ -22,16 +22,23 @@ struct AddingRoutineView: View {
 
     func saveRoutine() {
         // 만일 새로운 데이터라면
+        selectedExercises.forEach { ExerciseDataModel in
+            print(ExerciseDataModel.exerciseName)
+            print(ExerciseDataModel.part.description)
+            print(ExerciseDataModel.tool.rawValue)
+            print(ExerciseDataModel.count.description)
+            print(ExerciseDataModel.kg.description)
+        }
         guard let existData = exercise else {
-            let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exercise: selectedExercises)
+            print("새롭게 추가하는거")
+            let newExerciseRoutineContainer = ExerciseRoutineContainer(exerciseDataModel: selectedExercises, routineName: "루틴1")
             dbContext.insert(newExerciseRoutineContainer)
-//            print("저장된 내용\(newExerciseRoutineContainer.exercise.first?.exerciseName)")
             return
         }
         // 만약 기존에 존재했던 데이터라면
         selectedExercises.forEach { ExerciseModel in
-            if !existData.exercise.contains(where: { $0.exerciseName == ExerciseModel.exerciseName }) {
-                exercise?.exercise.append(ExerciseModel)
+            if !(existData.exerciseDataModel.contains(where: { $0.exerciseName == ExerciseModel.exerciseName })) {
+                exercise?.exerciseDataModel.append(ExerciseModel)
             }
         }
         

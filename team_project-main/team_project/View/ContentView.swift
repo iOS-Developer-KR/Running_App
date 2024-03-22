@@ -20,6 +20,7 @@ struct ContentView: View {
                     Image(systemName: "house")
                 }
             
+            
             MyPageView()
                 .tabItem {
                     Image(systemName: "person")
@@ -37,4 +38,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(TimerManager())
 }

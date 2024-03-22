@@ -12,15 +12,19 @@ struct RoutineListView: View {
     
     var exerciseContainer: ExerciseRoutineContainer
 //    var selected: ExerciseRoutineContainer
-    @Environment(\.modelContext) var dbContext
+//    @Environment(\.modelContext) var dbContext
     @EnvironmentObject var timeManager: TimerManager
     @State private var pressed = false
     @State private var paused = false
     
     
-    func saveRecord() {
-        
-    }
+//    func saveRecord() {
+//        var exerciseDataModel = exerciseContainer.exerciseDataModel
+//        let recordContainer = ExerciseRecordContainer(routinContainer: exerciseContainer, exerciseDataModel: exerciseDataModel, recordDate: Date(), totalTime: Int(timeManager.elapsedTime))
+//        exerciseContainer.routines.append(recordContainer)
+//        
+//        dbContext.insert(exerciseContainer)
+//    }
     
 //    func startExercise() {
 //        timeManager.exerciseRoutineContainer = self.exerciseContainer
@@ -33,10 +37,11 @@ struct RoutineListView: View {
     
     var body: some View {
         VStack {
-            List(exerciseContainer.exercise) { selected in
+            List(exerciseContainer.exerciseDataModel) { selected in
                 NavigationLink {
                     // selected는 운동루틴에 한 종류를 의미한다
-                    RoutineRecordView(selectedExercise: selected, set: selected.set, count: Array(repeating: 0, count: 5), kg: Array(repeating: 0, count: 5), done: Array(repeating: false, count: 5))
+                    RoutineRecordView(selectedExercise: selected, set: 5, count: selected.count, kg: selected.kg, done: selected.done)
+                    //(selectedExercise: selected, set: selected.set, count: Array(repeating: 0, count: 5), kg: Array(repeating: 0, count: 5), done: Array(repeating: false, count: 5))
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {

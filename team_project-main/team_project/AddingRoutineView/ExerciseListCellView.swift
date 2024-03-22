@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExerciseListCellView: View {
-    var exercise: ExerciseModel
+    var exercise: ExerciseDataModel
     var isSelected: Bool = false
     
     var body: some View {
@@ -41,5 +41,10 @@ struct ExerciseListCellView: View {
 }
 
 #Preview {
-    ExerciseListCellView(exercise: ExerciseData.archerPushup)
+    ExerciseListCellView(exercise: ExerciseDataModel(exerciseName: "랫풀다운", part: [.back], tool: .machine), isSelected: false)
 }
+
+
+/*
+ exercise: ExerciseModel(exercise: ExerciseDataModel(exerciseName: "백익스텐션", part: [.abs,.back], tool: .bodyWeight), set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false])
+ */

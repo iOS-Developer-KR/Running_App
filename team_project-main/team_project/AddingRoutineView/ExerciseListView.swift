@@ -10,14 +10,13 @@ import SwiftUI
 struct ExerciseListView: View {
     @Binding var targetPart: ExercisePart?
     @Binding var targetTool: ExerciseTool?
-    @Binding var selectedExercises: [ExerciseModel]
+    @Binding var selectedExercises: [ExerciseDataModel]
     
     var existedExercise: ExerciseRoutineContainer?
     
     var body: some View {
         ScrollView {
             ForEach(filteredExercises, id: \.self) { exercise in
-                //                Text(exercise.exerciseName ?? "없는데?")
                 ExerciseListCellView(exercise: exercise, isSelected: selectedExercises.contains(exercise))
                     .onTapGesture {
                         if selectedExercises.contains(exercise) {
@@ -34,7 +33,7 @@ struct ExerciseListView: View {
         .navigationTitle("Exercises")
     }
     
-    var filteredExercises: [ExerciseModel] {
+    var filteredExercises: [ExerciseDataModel] {
         switch targetPart {
         case .wholeBody:
             if targetTool == .wholeBody { // 모든 도구
@@ -63,7 +62,7 @@ struct ExerciseListView: View {
                     let matchesTarget = exercise.part.first == targetPart && exercise.tool == targetTool
                     
                     // 두 번째 조건: existedExercise?.routines에 이미 존재하지 않는 운동인지 확인
-                    let notAlreadyExisted = existedExercise?.exercise.contains(where: { ExerciseModel in
+                    let notAlreadyExisted = existedExercise?.exerciseDataModel.contains(where: { ExerciseModel in
                         return exercise.exerciseName == ExerciseModel.exerciseName
                     }) ?? false
                     

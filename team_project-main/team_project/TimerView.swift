@@ -26,7 +26,7 @@ struct TimerView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("\(timer.elapsedTime2)")
+                        Text("\(timer.elapsedTime2), \(Int(timer.elapsedTime))")
                         Spacer()
                     }
                 }
