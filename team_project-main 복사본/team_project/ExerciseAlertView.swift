@@ -10,7 +10,7 @@ import SwiftData
 
 struct ExerciseAlertView: View {
     @Environment(\.modelContext) var dbContext
-    @Query var exerciseRecordContainer: [ExerciseRoutineContainer]
+//    @Query var exerciseRecordContainer: [ExerciseRoutineContainer]
     
     @EnvironmentObject var timer: TimerManager
     var pausedImage = "stop.fill"
@@ -27,24 +27,49 @@ struct ExerciseAlertView: View {
             print("존재하지 않는 데이터라서 저장할 수 없습니다")
             return
         }
-        let recordDataModel = existData.exerciseDefaultModel.map { defaultModel in
-            ExerciseRecordModel(
-//                recordContainer: recordContainer,
-                exerciseName: defaultModel.exerciseName,
-                part: defaultModel.part,
-                tool: defaultModel.tool,
-                set: defaultModel.set,
-                count: defaultModel.count,
-                kg: defaultModel.kg,
-                done: defaultModel.done
-            )
+        
+        timer.exerciseRoutineContainer?.exerciseDefaultModel.forEach({ ExerciseDefaultModel in
+            print("타이머값 count: \(ExerciseDefaultModel.count)")
+            print("타이머값 kg: \(ExerciseDefaultModel.kg)")
+            print("타이머값 done: \(ExerciseDefaultModel.done)")
+        })
+        
+        
+        
+        if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
+            return ExerciseRecordModel(exerciseName: timer.routineName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
+        }) {
+            recordDataModel.forEach { rm in
+                print("기록록 count: \(rm.count)")
+                print("기록록 kg: \(rm.kg)")
+                print("기록록 done: \(rm.done)")
+            }
+            
+            let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
+            dbContext.insert(recordContainer)
+            
+            print("기록 저장완료")
+            
         }
-        let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
+        
 
-        dbContext.insert(recordContainer)
+
         
-        print("기록 저장완료")
         
+
+        
+//        recordDataModel.forEach { ExerciseRecordModel in
+//            print("기록물에 저장할것count: \(ExerciseRecordModel.count)")
+//            print("기록물에 저장할것kg: \(ExerciseRecordModel.kg)")
+//            print("기록물에 저장할것:done: \(ExerciseRecordModel.done)")
+//        }
+//        
+//        let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
+
+//        dbContext.insert(recordContainer)
+//        
+//        print("기록 저장완료")
+//        
     }
     
     

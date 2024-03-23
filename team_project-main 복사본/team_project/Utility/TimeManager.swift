@@ -13,7 +13,7 @@ class TimerManager: ObservableObject {
     @Published var timerOn: Bool = false // 측정하고 있는중인지에 대한 여부
     @Published var stopped: Bool = false // 중단 버튼 눌렀는지에 대한 여부
     @Published var paused: Bool = false
-    var exerciseRoutineContainer: ExerciseRoutineContainer?
+    @Published var exerciseRoutineContainer: ExerciseRoutineContainer?
     
     
     var timer: Timer?
@@ -48,6 +48,7 @@ class TimerManager: ObservableObject {
     
     func resume() {
         paused = false
+        stopped = false
         if let pauseStart = pauseStartTime {
             let pauseDuration = Date().timeIntervalSince(pauseStart)
             totalPauseDuration += pauseDuration // 일시정지 시간을 누적
@@ -65,12 +66,9 @@ class TimerManager: ObservableObject {
     func stop() {
         print("종료")
         stopped = true
-        //        timerOn = false // 측정하고 있는중인지에 대한 여부
         paused = false
         pauseStartTime = Date() // 일시정지 시작 시간 기록
         timer?.invalidate()
-        timerOn = false
-        // 기록중이던 데이터 저장하기
     }
     
     func termination() {

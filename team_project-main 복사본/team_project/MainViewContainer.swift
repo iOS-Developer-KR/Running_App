@@ -15,6 +15,8 @@ struct MainViewContainer: View {
     //    @StateObject var soundManager: MusicPlayer = MusicPlayer() // 되는거
     @EnvironmentObject var soundManager: MusicPlayer
     @EnvironmentObject var timer: TimerManager
+    @Query var exerciseData: [ExerciseRoutineContainer]
+
     
     //    @EnvironmentObject private var connect: iOSToWatch
     @State private var pressed: Bool = false
@@ -46,7 +48,7 @@ struct MainViewContainer: View {
                     
                     
                     
-                    MyRoutineView()
+                    MyRoutineView(exerciseData: exerciseData)
                     
                     // 만약 타이머가 작동중이라면 하단에 현재 시간을 나타낸다.
                     if timer.timerOn {

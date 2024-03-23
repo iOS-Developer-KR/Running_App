@@ -10,7 +10,7 @@ import SwiftData
 
 struct MyRoutineView: View {
     @Environment(\.defaultMinListRowHeight) var minRowHeight
-    @Query var exerciseData: [ExerciseRoutineContainer]
+    var exerciseData: [ExerciseRoutineContainer]
     @State private var exerciseParts: [ExercisePart] = [] // 중복 없는 파트 목록을 저장할 변수
     
 
@@ -63,6 +63,6 @@ struct MyRoutineView: View {
 }
 
 #Preview {
-    MyRoutineView()
+    MyRoutineView( exerciseData: [.init(routineName: "루틴11", exerciseDefaultModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)])])
 //        .modelContainer(PreviewContainer.container)
 }

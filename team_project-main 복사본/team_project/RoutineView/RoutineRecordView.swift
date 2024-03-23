@@ -19,9 +19,9 @@ struct RoutineRecordView: View {
     @State var done: [Bool]
     
     init(selectedExercise: ExerciseDefaultModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
-        print("가져온 운동 이름:\(selectedExercise.exerciseName)")
-        print("가져온 운동 횟수:\(selectedExercise.count)")
-        print("가져온 운동 kg:\(selectedExercise.kg)")
+//        print("가져온 운동 이름:\(selectedExercise.exerciseName)")
+//        print("가져온 운동 횟수:\(selectedExercise.count)")
+//        print("가져온 운동 kg:\(selectedExercise.kg)")
         self.selectedExercise = selectedExercise
         self.set = set
         self.count = count.map({ count in
@@ -31,10 +31,6 @@ struct RoutineRecordView: View {
             return String(kg)
         })
         self.done = done
-        
-        print("기록뷰에 있는 세트:\(set)")
-        print("기록뷰에 있는 횟수:\(count)")
-        print("기록뷰에 있는 kg:\(kg)")
     }
     
     // 키보드를 내리는 함수
@@ -73,7 +69,7 @@ struct RoutineRecordView: View {
                             Text("KG")
                                 .frame(minWidth: 50, alignment: .center)
                             ForEach(Array(selectedExercise.kg.enumerated()), id: \.offset) { index, kg in
-                                TextField("0", text: $kg[index])
+                                TextField("\(kg)", text: $kg[index])
                                     .multilineTextAlignment(.center) // 텍스트를 가운데 정렬
                                     .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                     .keyboardType(.numberPad)
@@ -84,7 +80,7 @@ struct RoutineRecordView: View {
                             Text("횟수")
                                 .frame(minWidth: 50, alignment: .center)
                             ForEach(Array(selectedExercise.count.enumerated()), id: \.offset) { index, count in
-                                TextField("0", text: $count[index])
+                                TextField("\(count)", text: $count[index])
                                     .multilineTextAlignment(.center) // 텍스트를 가운데 정렬
                                     .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                     .keyboardType(.numberPad)
@@ -127,12 +123,15 @@ struct RoutineRecordView: View {
             hideKeyboard()
         }
         .onChange(of: kg) { oldValue, newValue in
+            print("값이 변한걸 인지는 하는데?11")
+            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
             selectedExercise.kg = kg.map({ kg in
                 return Int(kg) ?? 999
             })
         }
         .onChange(of: count) { oldValue, newValue in
             print("count는 \(oldValue)에서 \(newValue)로 바뀜")
+            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
             selectedExercise.count = count.map({ count in
                 return Int(count) ?? 999
             })
@@ -140,10 +139,16 @@ struct RoutineRecordView: View {
             
         }
         .onChange(of: done) { oldValue, newValue in
+            print("값이 변한걸 인지는 하는데?33")
+            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
             selectedExercise.done = done
         }
         .onChange(of: set) { oldValue, newValue in
             selectedExercise.set = set
+            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
+        }
+        .onChange(of: timer.exerciseRoutineContainer?.exerciseDefaultModel.first?.count) { a, b in
+            print("값이 변한걸 인지는 하는데?🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲")
         }
     }
     
