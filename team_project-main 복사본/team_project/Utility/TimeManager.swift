@@ -69,6 +69,7 @@ class TimerManager: ObservableObject {
         paused = false
         pauseStartTime = Date() // 일시정지 시작 시간 기록
         timer?.invalidate()
+        timerOn = false
         // 기록중이던 데이터 저장하기
     }
     

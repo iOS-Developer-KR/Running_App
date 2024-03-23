@@ -27,7 +27,6 @@ struct ExerciseAlertView: View {
             print("존재하지 않는 데이터라서 저장할 수 없습니다")
             return
         }
-        let recordContainer = ExerciseRecordContainer(recordDate: Date(), totalTime: 333)
         let recordDataModel = existData.exerciseDefaultModel.map { defaultModel in
             ExerciseRecordModel(
 //                recordContainer: recordContainer,
@@ -40,26 +39,10 @@ struct ExerciseAlertView: View {
                 done: defaultModel.done
             )
         }
-        
-//        let recordContainer = ExerciseRecordContainer(recordDate: Date(), totalTime: 5, exerciseRecordModel: recordDataModel)
+        let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
 
-        print("기록 저장중")
-        print("저장하는 값들")
-        recordDataModel.forEach { ExerciseDefaultModel in
-            print(ExerciseDefaultModel.exerciseName)
-            print(ExerciseDefaultModel.count)
-            print(ExerciseDefaultModel.done)
-            print(ExerciseDefaultModel.kg)
-        }
-        print("저장되는 값들")
-        recordContainer.exerciseRecordModel = recordDataModel
-        
         dbContext.insert(recordContainer)
-        do {
-            try dbContext.save()
-        } catch {
-            print("저장하는데 에러발생")
-        }
+        
         print("기록 저장완료")
         
     }
@@ -96,9 +79,10 @@ struct ExerciseAlertView: View {
                     .padding()
                     
                     Button {
+                        saveRecord()
                         timer.stop()
                         timer.timerOn = false
-                        saveRecord()
+                        
                     } label: {
                         Text("확인")
                     }

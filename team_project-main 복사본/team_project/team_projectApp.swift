@@ -47,6 +47,7 @@ struct team_projectApp: App {
     
     // MARK: - FUNCTIONS
     
+
     var body: some Scene {
         WindowGroup {
 

@@ -16,14 +16,9 @@ class PreviewContainer {
             let container = try ModelContainer(for: ExerciseRoutineContainer.self,configurations: config)//, ExerciseRecord.self, configurations: config)
             let exerciseContainer = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: [.init(exerciseName: "루틴임", part: [.abs], tool: .barbell)])
             let recordContainer = PreviewData().previewExerciseRoutineContainer
-//            let exerciseRecord = ExerciseRecord(recordDate: Date(), totalTime: 33)
-//            let exercise = Exercise()
             let exerciseModel = ExerciseDefaultModel(exerciseName: "하체하체", part: [.hamstrings], tool: .machine)
-//            let re = ExerciseRecord(exercise: <#Exercise#>, routineName: "하체같은 등", date: Date(), exerciseData: ex.routines.first)
             container.mainContext.insert(exerciseContainer)
             container.mainContext.insert(recordContainer)
-//            container.mainContext.insert(exerciseRecord)
-//            container.mainContext.insert(exercise)
             container.mainContext.insert(exerciseModel)
             
             return container

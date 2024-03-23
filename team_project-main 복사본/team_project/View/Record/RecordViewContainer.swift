@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecordViewContainer: View {
+    @State private var date = Date()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                DatePickerView(date: $date)
+                
+                RecordRoutineView(date: dateformat.string(from: date))
+            }
+        }
     }
 }
 

@@ -85,6 +85,9 @@
 		2BC5D8882AF9336800A04770 /* AccountSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */; };
 		2BCAB9572BAF192500A30052 /* RecordViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAB9562BAF192500A30052 /* RecordViewContainer.swift */; };
 		2BCAB9592BAF192E00A30052 /* RecordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAB9582BAF192E00A30052 /* RecordListView.swift */; };
+		2BCAB95B2BAF1B2100A30052 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAB95A2BAF1B2100A30052 /* DatePickerView.swift */; };
+		2BCAB95D2BAF2FF000A30052 /* RecordRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAB95C2BAF2FF000A30052 /* RecordRoutineView.swift */; };
+		2BCAB95F2BAF3C7D00A30052 /* RecordInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAB95E2BAF3C7D00A30052 /* RecordInfoView.swift */; };
 		2BE5BBB92AEE8D0800C8AD5A /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */; };
 		2BEC5B7E2B01F45D00D45CBE /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC5B7D2B01F45D00D45CBE /* JWT.swift */; };
 		2BEC5B822B01FF6F00D45CBE /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 2BEC5B812B01FF6F00D45CBE /* JWTDecode */; };
@@ -197,6 +200,9 @@
 		2BC5D8872AF9336800A04770 /* AccountSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingModel.swift; sourceTree = "<group>"; };
 		2BCAB9562BAF192500A30052 /* RecordViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewContainer.swift; sourceTree = "<group>"; };
 		2BCAB9582BAF192E00A30052 /* RecordListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListView.swift; sourceTree = "<group>"; };
+		2BCAB95A2BAF1B2100A30052 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		2BCAB95C2BAF2FF000A30052 /* RecordRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRoutineView.swift; sourceTree = "<group>"; };
+		2BCAB95E2BAF3C7D00A30052 /* RecordInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordInfoView.swift; sourceTree = "<group>"; };
 		2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		2BEC5B7D2B01F45D00D45CBE /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -339,8 +345,8 @@
 		2B8B47BC2AF7D4960024D811 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2BC4899A2B0713D500544928 /* SplashScreen */,
 				2B9C0DE52AE96E6B00DAA0A3 /* ContentView.swift */,
+				2BC4899A2B0713D500544928 /* SplashScreen */,
 				2BC5D8892AF9364700A04770 /* Summery */,
 				2BABF69A2AEA71C000CD88CE /* Setting */,
 				2BABF6A22AEA7E4100CD88CE /* MyPage */,
@@ -508,7 +514,10 @@
 			isa = PBXGroup;
 			children = (
 				2BCAB9562BAF192500A30052 /* RecordViewContainer.swift */,
+				2BCAB95A2BAF1B2100A30052 /* DatePickerView.swift */,
+				2BCAB95C2BAF2FF000A30052 /* RecordRoutineView.swift */,
 				2BCAB9582BAF192E00A30052 /* RecordListView.swift */,
+				2BCAB95E2BAF3C7D00A30052 /* RecordInfoView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -686,6 +695,7 @@
 				2BABF69E2AEA725500CD88CE /* SettingToggleView.swift in Sources */,
 				2B8B47BE2AF7FD840024D811 /* LoginRegisterView.swift in Sources */,
 				2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */,
+				2BCAB95D2BAF2FF000A30052 /* RecordRoutineView.swift in Sources */,
 				2B1825792BA6101900FE887A /* PartSearchMenuView.swift in Sources */,
 				2B1825832BA9B18300FE887A /* MusicListView.swift in Sources */,
 				2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */,
@@ -694,8 +704,10 @@
 				2B5FCFC12AF0D3CD0063C5FA /* LoginView.swift in Sources */,
 				2B19D14B2BAC397E0053CFDD /* PreViewData.swift in Sources */,
 				2B87CA452BAC925A00A99447 /* TimerView.swift in Sources */,
+				2BCAB95F2BAF3C7D00A30052 /* RecordInfoView.swift in Sources */,
 				2B1825722BA5FB4400FE887A /* AddingRoutineView.swift in Sources */,
 				2B18258B2BA9F11900FE887A /* PreviewContainer.swift in Sources */,
+				2BCAB95B2BAF1B2100A30052 /* DatePickerView.swift in Sources */,
 				2BABF6972AEA19C000CD88CE /* ProfileView.swift in Sources */,
 				2B5FA1E02B95802A0034CFC9 /* MusicInfoModel.swift in Sources */,
 				2BC0935B2B88346C00E528A1 /* Bluetooth.swift in Sources */,

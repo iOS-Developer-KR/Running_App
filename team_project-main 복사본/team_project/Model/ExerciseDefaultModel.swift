@@ -54,22 +54,25 @@ class ExerciseDefaultModel: Identifiable, Hashable {
 
 
 @Model
-final class ExerciseRecordContainer: Identifiable, Hashable {
+class ExerciseRecordContainer: Identifiable, Hashable {
     
-    var recordDate: Date
+    var recordDate: String
     var totalTime: Int
+    var routineName: String
     
 //    @Relationship(deleteRule: .cascade, inverse: \ExerciseRecordModel.recordContainer)
-    var exerciseRecordModel: [ExerciseRecordModel]?
+    var exerciseRecordModel: [ExerciseRecordModel]
     
-    init(recordDate: Date, totalTime: Int) {
+    init(recordDate: String, totalTime: Int, routineName: String, exerciseRecordModel: [ExerciseRecordModel]) {
         self.recordDate = recordDate
         self.totalTime = totalTime
-//        self.exerciseRecordModel = exerciseRecordModel
+        self.routineName = routineName
+        self.exerciseRecordModel = exerciseRecordModel
     }
 }
 
-struct ExerciseRecordModel: Codable {
+class ExerciseRecordModel: Codable, Identifiable {
+    var id = UUID()
     var exerciseName: String
     var part: [ExercisePart]
     var tool: ExerciseTool
@@ -77,6 +80,7 @@ struct ExerciseRecordModel: Codable {
     var count: [Int]
     var kg: [Int]
     var done: [Bool]
+    
 
     init(exerciseName: String, part: [ExercisePart], tool: ExerciseTool, set: Int, count: [Int], kg: [Int], done: [Bool]) {
         self.exerciseName = exerciseName

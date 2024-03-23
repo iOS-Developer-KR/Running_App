@@ -22,8 +22,8 @@ struct Constants {
 }
 
 
-//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsc2gyIiwiaWF0IjoxNzAwNDU3MTUzLCJleHAiOjE3MDA0NTczMzN9.EcVVrEs8hvEslyPuyw00dLrQ4klJ8Aht_hdKDOgbFj_bt84edI-FK0hq5-_TUmHsed8mH-giSrm97nr-xZyB_w
-//eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsc2gyIiwiaWF0IjoxNzAwNDU3MTUzLCJleHAiOjE3MDA0NTczMzN9.EcVVrEs8hvEslyPuyw00dLrQ4klJ8Aht_hdKDOgbFj_bt84edI-FK0hq5-_TUmHsed8mH-giSrm97nr-xZyB_w
-//"https://myawsbucket334.s3.amazonaws.com/music/Future+House.mp3",
-//    "albumUrl": "https://myawsbucket334.s3.amazonaws.com/image/Alan+Walker.jpg",
-///"filePath": "https://myawsbucket334.s3.amazonaws.com/music/Fade.mp3",
+let dateformat: DateFormatter = {
+      let formatter = DateFormatter()
+       formatter.dateFormat = "YYYY년 M월 d일"
+       return formatter
+}()

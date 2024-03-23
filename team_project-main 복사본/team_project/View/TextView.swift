@@ -14,7 +14,7 @@ struct TextView: View {
     
     var body: some View {
         List(exerciseRecordContainer) { record in
-            Text(record.exerciseRecordModel?.first?.exerciseName ?? "값없음")
+            Text(record.exerciseRecordModel.first?.exerciseName ?? "값없음")
 //            Text(record.?.first?.exerciseName ?? "값이 없음")
         }.onAppear {
             print(exerciseRecordContainer.count)
