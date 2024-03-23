@@ -14,7 +14,7 @@ struct AddingRoutineView: View {
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""
-    @State private var selectedExercises: [ExerciseDataModel] = []
+    @State private var selectedExercises: [ExerciseDefaultModel] = []
     @Query var exerciseData: [ExerciseRoutineContainer]
     var exercise: ExerciseRoutineContainer? // 만약에 기존에 있던 저장소에 추가하려면 존재 / 처음이라면 nil이 들어있을 것임
 
@@ -22,23 +22,25 @@ struct AddingRoutineView: View {
 
     func saveRoutine() {
         // 만일 새로운 데이터라면
-        selectedExercises.forEach { ExerciseDataModel in
-            print(ExerciseDataModel.exerciseName)
-            print(ExerciseDataModel.part.description)
-            print(ExerciseDataModel.tool.rawValue)
-            print(ExerciseDataModel.count.description)
-            print(ExerciseDataModel.kg.description)
-        }
+        print("짤린부분0")
         guard let existData = exercise else {
             print("새롭게 추가하는거")
-            let newExerciseRoutineContainer = ExerciseRoutineContainer(exerciseDataModel: selectedExercises, routineName: "루틴1")
+            let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: selectedExercises)
+            print("짤린부분1")
+            newExerciseRoutineContainer.exerciseDefaultModel.forEach { ExerciseDataModel in
+                print("새로추가한 이름:\(ExerciseDataModel.exerciseName)")
+                print("새로추가한 횟수:\(ExerciseDataModel.count.description)")
+                print("새로추가한 도구:\(ExerciseDataModel.tool.rawValue)")
+                print("새로추가한 무게:\(ExerciseDataModel.kg.description)")
+            }
+            print("짤린부분2")
             dbContext.insert(newExerciseRoutineContainer)
             return
         }
         // 만약 기존에 존재했던 데이터라면
         selectedExercises.forEach { ExerciseModel in
-            if !(existData.exerciseDataModel.contains(where: { $0.exerciseName == ExerciseModel.exerciseName })) {
-                exercise?.exerciseDataModel.append(ExerciseModel)
+            if !(existData.exerciseDefaultModel.contains(where: { $0.exerciseName == ExerciseModel.exerciseName })) {
+                exercise?.exerciseDefaultModel.append(ExerciseModel)
             }
         }
         

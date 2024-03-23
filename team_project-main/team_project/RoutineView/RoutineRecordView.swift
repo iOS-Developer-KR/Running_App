@@ -12,14 +12,14 @@ struct RoutineRecordView: View {
     
     @EnvironmentObject var timer: TimerManager
     
-    var selectedExercise: ExerciseDataModel // 선택된 단독 데이터
+    var selectedExercise: ExerciseDefaultModel // 선택된 단독 데이터
     @State var set: Int
     @State var count: [String]
     @State var kg: [String]
     @State var done: [Bool]
     
     
-    init(selectedExercise: ExerciseDataModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
+    init(selectedExercise: ExerciseDefaultModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
         print("가져온 운동 이름:\(selectedExercise.exerciseName)")
         print("가져온 운동 횟수:\(selectedExercise.count)")
         print("가져온 운동 kg:\(selectedExercise.kg)")
@@ -32,6 +32,10 @@ struct RoutineRecordView: View {
             return String(kg)
         })
         self.done = done
+        
+        print("기록뷰에 있는 세트:\(set)")
+        print("기록뷰에 있는 횟수:\(count)")
+        print("기록뷰에 있는 kg:\(kg)")
     }
     
     // 키보드를 내리는 함수

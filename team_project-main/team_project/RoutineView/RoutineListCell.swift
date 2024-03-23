@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RoutineListCell: View {
     
-    var model: ExerciseDataModel
+    var model: ExerciseDefaultModel
     
     var body: some View {
         HStack() {

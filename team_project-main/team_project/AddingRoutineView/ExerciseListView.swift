@@ -10,7 +10,7 @@ import SwiftUI
 struct ExerciseListView: View {
     @Binding var targetPart: ExercisePart?
     @Binding var targetTool: ExerciseTool?
-    @Binding var selectedExercises: [ExerciseDataModel]
+    @Binding var selectedExercises: [ExerciseDefaultModel]
     
     var existedExercise: ExerciseRoutineContainer?
     
@@ -33,7 +33,7 @@ struct ExerciseListView: View {
         .navigationTitle("Exercises")
     }
     
-    var filteredExercises: [ExerciseDataModel] {
+    var filteredExercises: [ExerciseDefaultModel] {
         switch targetPart {
         case .wholeBody:
             if targetTool == .wholeBody { // 모든 도구
@@ -62,7 +62,7 @@ struct ExerciseListView: View {
                     let matchesTarget = exercise.part.first == targetPart && exercise.tool == targetTool
                     
                     // 두 번째 조건: existedExercise?.routines에 이미 존재하지 않는 운동인지 확인
-                    let notAlreadyExisted = existedExercise?.exerciseDataModel.contains(where: { ExerciseModel in
+                    let notAlreadyExisted = existedExercise?.exerciseDefaultModel.contains(where: { ExerciseModel in
                         return exercise.exerciseName == ExerciseModel.exerciseName
                     }) ?? false
                     

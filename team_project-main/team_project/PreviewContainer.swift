@@ -14,12 +14,11 @@ class PreviewContainer {
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
             let container = try ModelContainer(for: ExerciseRoutineContainer.self,configurations: config)//, ExerciseRecord.self, configurations: config)
-            let exerciseContainer = ExerciseRoutineContainer(exerciseDataModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)], routineName: "등조지는날")
-            //ExerciseRoutineContainer(exerciseDataModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)], routineName: "등조지는날")
+            let exerciseContainer = ExerciseRoutineContainer(routineName: "등조지는날", exerciseDefaultModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)])            //ExerciseRoutineContainer(exerciseDataModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)], routineName: "등조지는날")
             let recordContainer = PreviewData().previewExerciseRoutineContainer
 //            let exerciseRecord = ExerciseRecord(recordDate: Date(), totalTime: 33)
 
-            let exerciseDataModel = ExerciseDataModel(exerciseName: "하체하체", part: [.hamstrings], tool: .machine)
+            let exerciseDataModel = ExerciseDefaultModel(exerciseName: "하체하체", part: [.hamstrings], tool: .machine)
             container.mainContext.insert(exerciseContainer)
             container.mainContext.insert(recordContainer)
             container.mainContext.insert(exerciseDataModel)

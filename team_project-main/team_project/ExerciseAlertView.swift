@@ -20,16 +20,16 @@ struct ExerciseAlertView: View {
     var stoppedText = "기록이 저장되고 결과 페이지로 이동합니다."
     
     func saveRecord() {
-        if let exerciseContainer = timer.exerciseRoutineContainer {
-            let exerciseDataModel = exerciseContainer.exerciseDataModel
-            let recordContainer = ExerciseRecordContainer(routinContainer: exerciseContainer, exerciseDataModel: exerciseDataModel, recordDate: Date(), totalTime: Int(timer.elapsedTime))
-            print("저장될 운동이름:\(recordContainer.exerciseDataModel.first?.exerciseName ?? "")")
-            print("저장될 운동횟수:\(recordContainer.exerciseDataModel.first?.count.description ?? "")")
-            print("저장될 운동중량:\(recordContainer.exerciseDataModel.first?.kg.description ?? "")")
-            exerciseContainer.routines.append(recordContainer)
-            
-            dbContext.insert(exerciseContainer)
-        }
+//        if let exerciseContainer = timer.exerciseRoutineContainer {
+//            let exerciseDataModel = exerciseContainer.exerciseDataModel
+//            let recordContainer = ExerciseRecordContainer(routinContainer: exerciseContainer, exerciseDataModel: exerciseDataModel, recordDate: Date(), totalTime: Int(timer.elapsedTime))
+////            print("저장될 운동이름:\(recordContainer.exerciseDataModel.first?.exerciseName ?? "")")
+////            print("저장될 운동횟수:\(recordContainer.exerciseDataModel.first?.count.description ?? "")")
+////            print("저장될 운동중량:\(recordContainer.exerciseDataModel.first?.kg.description ?? "")")
+//            exerciseContainer.routines.append(recordContainer)
+//            
+//            dbContext.insert(exerciseContainer)
+//        }
     }
     
     var body: some View {

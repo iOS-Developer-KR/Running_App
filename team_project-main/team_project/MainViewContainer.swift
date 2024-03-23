@@ -81,11 +81,12 @@ struct MainViewContainer: View {
             })
         }
         .onAppear {
+            print("가져오는게 문제?")
             try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try? AVAudioSession.sharedInstance().setActive(true)
             
             exerciseData.first.map { ExerciseRoutineContainer in
-                ExerciseRoutineContainer.exerciseDataModel.forEach { ExerciseDataModel in
+                ExerciseRoutineContainer.exerciseDefaultModel.forEach { ExerciseDataModel in
                     print("존재하는 운동이름:\(ExerciseDataModel.exerciseName)")
                     print("존재하는 운동횟수:\(ExerciseDataModel.count.description)")
                     print("존재하는 운동중량:\(ExerciseDataModel.kg.description)")
