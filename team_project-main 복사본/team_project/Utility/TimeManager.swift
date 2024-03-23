@@ -20,7 +20,6 @@ class TimerManager: ObservableObject {
     var startTime: Date?
     var pauseStartTime: Date? // 일시정지 시작 시간
     var totalPauseDuration: TimeInterval = 0 // 누적된 일시정지 시간
-    var routineName: String = ""
     
 
     

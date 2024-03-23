@@ -34,23 +34,30 @@ struct ExerciseAlertView: View {
             print("타이머값 done: \(ExerciseDefaultModel.done)")
         })
         
+//        ExerciseRecordContainer
         
-        
-        if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
-            return ExerciseRecordModel(exerciseName: timer.routineName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
-        }) {
-            recordDataModel.forEach { rm in
-                print("기록록 count: \(rm.count)")
-                print("기록록 kg: \(rm.kg)")
-                print("기록록 done: \(rm.done)")
-            }
-            
-            let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
-            dbContext.insert(recordContainer)
-            
-            print("기록 저장완료")
-            
+        if let data = timer.exerciseRoutineContainer {
+            let data2 = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime ?? Date()), totalTime: Int(timer.elapsedTime), routineName: timer.exerciseRoutineContainer?.routineName ?? "루틴 이름 없음", exerciseRecordModel: data.exerciseDefaultModel)
+            print("데이터 저장성공중")
+            dbContext.insert(data2)
         }
+        
+//        if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
+//            return ExerciseRecordModel(exerciseName: timer.routineName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
+//        }) {
+//            recordDataModel.forEach { rm in
+//                print("기록록 count: \(rm.count)")
+//                print("기록록 kg: \(rm.kg)")
+//                print("기록록 done: \(rm.done)")
+//            }
+//            
+//            let recordContainer = ExerciseRecordContainer(recordDate: dateformat.string(from: timer.startTime!), totalTime: 333, routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
+//            dbContext.insert(recordContainer)
+//            
+//            
+//            print("기록 저장완료")
+//            
+//        }
         
 
 

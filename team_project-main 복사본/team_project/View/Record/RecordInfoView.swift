@@ -10,13 +10,13 @@ import SwiftUI
 struct RecordInfoView: View {
     @EnvironmentObject var timer: TimerManager
 
-    var selectedExercise: ExerciseRecordModel // 선택된 단독 데이터
+    var selectedExercise: ExerciseDefaultModel // 선택된 단독 데이터
     @State var set: Int
     @State var count: [String]
     @State var kg: [String]
     @State var done: [Bool]
     
-    init(selectedExercise: ExerciseRecordModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
+    init(selectedExercise: ExerciseDefaultModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
         print("가져온 운동 이름:\(selectedExercise.exerciseName)")
         print("가져온 운동 횟수:\(selectedExercise.count)")
         print("가져온 운동 kg:\(selectedExercise.kg)")
@@ -147,5 +147,5 @@ struct RecordInfoView: View {
 }
 
 #Preview {
-    RecordInfoView(selectedExercise: .init(exerciseName: "랫풀다운", part: [.back], tool: .machine, set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false]), set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false])
+    RecordInfoView(selectedExercise: .init(exerciseName: "랫풀다운", part: [.back], tool: .machine), set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false])
 }

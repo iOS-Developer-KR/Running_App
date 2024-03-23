@@ -18,6 +18,7 @@ struct RecordListView: View {
             List(recordContainer.exerciseRecordModel) { record in
                 NavigationLink {
                     RecordInfoView(selectedExercise: record, set: record.set, count: record.count, kg: record.kg, done: record.done)
+//                    RecordInfoView(selectedExercise: record, set: record.set, count: record.count, kg: record.kg, done: record.done)
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
@@ -86,7 +87,7 @@ struct RecordListView: View {
 }
 
 #Preview {
-    RecordListView(recordContainer: .init(recordDate: dateformat.string(from: Date()), totalTime: 33, routineName: "등하는날", exerciseRecordModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine, set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false])]))
+    RecordListView(recordContainer: .init(recordDate: dateformat.string(from: Date()), totalTime: 33, routineName: "등하는날", exerciseRecordModel: [.init(exerciseName: "랫풀다운", part: [.back], tool: .machine)]))
 }
 
 /*
