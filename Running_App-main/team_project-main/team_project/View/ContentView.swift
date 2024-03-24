@@ -14,26 +14,29 @@ struct ContentView: View {
     // MARK: - FUNCTIONS
 
     var body: some View {
-        TabView {
-            MainViewContainer()
-                .tabItem {
-                    Image(systemName: "house")
-                }
+        NavigationStack {
             
-            RecordViewContainer()
-                .tabItem {
-                    Image(systemName: "calendar")
+            TabView {
+                MainViewContainer()
+                    .tabItem {
+                        Image(systemName: "house")
+                    }
+                
+                RecordViewContainer()
+                    .tabItem {
+                        Image(systemName: "calendar")
+                    }
+                
+                MyPageView()
+                    .tabItem {
+                        Image(systemName: "person")
+                    }
+            }
+            .scaleEffect(appear ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeOut) {
+                    appear = true
                 }
-            
-            MyPageView()
-                .tabItem {
-                    Image(systemName: "person")
-                }
-        }
-        .scaleEffect(appear ? 1 : 0)
-        .onAppear {
-            withAnimation(.easeOut) {
-                appear = true
             }
         }
         

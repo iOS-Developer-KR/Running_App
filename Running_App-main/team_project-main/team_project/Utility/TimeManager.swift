@@ -50,6 +50,7 @@ class TimerManager: ObservableObject {
     
     func resume() {
         paused = false
+        stopped = false
         if let pauseStart = pauseStartTime {
             let pauseDuration = Date().timeIntervalSince(pauseStart)
             totalPauseDuration += pauseDuration // 일시정지 시간을 누적
@@ -64,18 +65,19 @@ class TimerManager: ObservableObject {
         }
     }
     
+
     func stop() {
         print("종료")
         stopped = true
-        paused = false
+        pause()
         endTime = Date()
         pauseStartTime = Date() // 일시정지 시작 시간 기록
         timer?.invalidate()
     }
     
-//    func termination() {
-//        timerOn = false
-//    }
+    func termination() {
+        timerOn = false
+    }
     
 }
 

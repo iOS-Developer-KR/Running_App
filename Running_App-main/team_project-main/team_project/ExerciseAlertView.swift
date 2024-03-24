@@ -23,10 +23,6 @@ struct ExerciseAlertView: View {
     
     
     func saveRecord() {
-        guard let existData = timer.exerciseRoutineContainer else {
-            print("존재하지 않는 데이터라서 저장할 수 없습니다")
-            return
-        }
         
         timer.exerciseRoutineContainer?.exerciseDefaultModel.forEach({ ExerciseDefaultModel in
             print("타이머값 count: \(ExerciseDefaultModel.count)")
@@ -53,13 +49,6 @@ struct ExerciseAlertView: View {
             print("기록 저장완료")
             
         }
-        
-
-
-        
-        
-
-        
 
 //        
     }
@@ -97,6 +86,7 @@ struct ExerciseAlertView: View {
                     
                     Button {
                         timer.stop()
+                        timer.stopped = true
                         saveRecord()
 
                         timer.timerOn = false
