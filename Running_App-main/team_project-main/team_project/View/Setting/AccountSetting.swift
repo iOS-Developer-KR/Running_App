@@ -43,7 +43,7 @@ struct AccountSetting: View {
         }, label: {
             Text("변경하기").frame(height: 5)
         })
-        .buttonStyle(GradientBackgroundStyle())
+//        .buttonStyle(GradientBackgroundStyle())
         .alert(response?.reason ?? "비밀번호 변경 실패", isPresented: $alert) {
             Button("확인", role: .cancel) {}
         }

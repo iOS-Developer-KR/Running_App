@@ -91,11 +91,9 @@ class KeyChain {
                                     kSecReturnData as String: true] // token 포함
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
         guard status != errSecItemNotFound else {
             return completion(.failure(KeychainError.notFound))
         }
-        
         guard status == errSecSuccess else {
             return completion(.failure(KeychainError.unhandledError(status: status)))
         }
@@ -110,6 +108,7 @@ class KeyChain {
         } catch {
             return completion(.failure(KeychainError.decodingError))
         }
+        return completion(.success(true))
         
     }
     

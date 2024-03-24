@@ -10,7 +10,11 @@ import Foundation
 struct Constants {
     private static let baseUrlPath = "http://lsproject.shop:8080"
     
+    
+    var requestEmailCode = URL(string: baseUrlPath + "/mailConfirm")
+    var verifyEmailCode = URL(string: baseUrlPath + "/verifyCode")
     var registerPath = URL(string: baseUrlPath + "/join")
+    
     var loginPath = URL(string: baseUrlPath + "/login")
     var changePasswordPath = URL(string: baseUrlPath + "/changePassword")
     
@@ -19,6 +23,7 @@ struct Constants {
     var currentmusic = URL(string: baseUrlPath + "/music")
     var previousmusic = URL(string: baseUrlPath + "/previous")
     var nextmusic = URL(string: baseUrlPath + "/next")
+    var getOneMusic = URL(string: baseUrlPath + "/music/") // 뒤에 아이디 붙여줄것
 }
 
 

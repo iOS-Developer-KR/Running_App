@@ -49,6 +49,7 @@ class LoginModel {
         do {
             let credentials = try KeyChain.get()
             login2(username: credentials.username, password: credentials.psssword) { result in
+                print("재로그인 실패: \(result)")
                 return completion(result)
             }
         } catch {
