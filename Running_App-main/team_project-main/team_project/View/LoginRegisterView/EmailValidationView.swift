@@ -72,8 +72,7 @@ struct EmailValidationView: View {
                 }
                 
                 Button(action: {
-                    register.requestEmailCode(email: email) { result in
-                        debugPrint(result)
+                    register.requestEmailCode(email: email) {  result in
                     }
                     
                 }, label: {

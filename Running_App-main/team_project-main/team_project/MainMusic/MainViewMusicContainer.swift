@@ -20,7 +20,7 @@ struct MainViewMusicContainer: View {
             Button {
                 print("button")
                 // cksdud3786!@
-                
+                musicPlayerModel.getTest(url: Constants().currentmusic!)
             } label: {
                 VStack {
                     Image(systemName: "forward.fill")

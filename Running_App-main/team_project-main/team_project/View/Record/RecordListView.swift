@@ -51,7 +51,7 @@ struct RecordListView: View {
     // 중복 없는 파트 데이터를 업데이트하는 메소드
     private func updateExerciseParts(from exercise: ExerciseRoutineContainer) -> [ExercisePart] {
         var partsSet = Set<ExercisePart>()
-        exercise.exerciseDefaultModel.forEach { ExerciseModel in
+        exercise.exerciseDefaultModel!.forEach { ExerciseModel in
             ExerciseModel.part.forEach({ ExercisePart in
                 partsSet.insert(ExercisePart)
             })

@@ -22,19 +22,11 @@ struct RoutineListView: View {
     func saveRecord() {
         
     }
-    
-//    func startExercise() {
-//        timeManager.exerciseRoutineContainer = self.exerciseContainer
-//        timeManager.start()
-//    }
-//    
-//    func stopExercise() {
-//        timeManager.stop()
-//    }
+
     
     var body: some View {
         VStack {
-            List(exerciseContainer.exerciseDefaultModel) { selected in
+            List(exerciseContainer.exerciseDefaultModel!) { selected in
                 NavigationLink {
                     // selected는 운동루틴에 한 종류를 의미한다
                     RoutineRecordView(selectedExercise: selected, set: selected.set, count: selected.count, kg: selected.kg, done: selected.done)

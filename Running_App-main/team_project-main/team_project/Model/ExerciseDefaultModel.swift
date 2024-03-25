@@ -12,31 +12,32 @@ import SwiftData
 @Model
 class ExerciseRoutineContainer: Identifiable { // 운동 루틴이 저장되는 곳
     var id: UUID = UUID()
-    var routineName: String
+    var routineName: String = ""
 
+    // CloudKit과의 호환성을 위해 관계를 선택적으로 변경합니다.
     @Relationship(deleteRule: .cascade, inverse: \ExerciseDefaultModel.exerciseRoutineContainer)
-    var exerciseDefaultModel: [ExerciseDefaultModel] = [ExerciseDefaultModel]() // 여러개의 루틴을 저장할 수 있다
-    
+    var exerciseDefaultModel: [ExerciseDefaultModel]? = nil // 선택적으로 변경
 
-    init(id: UUID? = nil, routineName: String, exerciseDefaultModel: [ExerciseDefaultModel]) {
-        self.id = UUID()
+    init(id: UUID? = nil, routineName: String, exerciseDefaultModel: [ExerciseDefaultModel]?) {
+        self.id = id ?? UUID()
         self.routineName = routineName
         self.exerciseDefaultModel = exerciseDefaultModel
-        print("ExerciseRoutinContainer 초기화")
+        print("ExerciseRoutineContainer 초기화")
     }
 }
+
 
 @Model
 class ExerciseDefaultModel: Identifiable, Hashable {
     var exerciseRoutineContainer: ExerciseRoutineContainer?
     var id = UUID()
-    var exerciseName: String
-    var part: [ExercisePart]
-    var tool: ExerciseTool
-    var set: Int
-    var count: [Int]
-    var kg: [Int]
-    var done: [Bool]
+    var exerciseName: String = ""
+    var part: [ExercisePart] = []
+    var tool: ExerciseTool = ExerciseTool.machine
+    var set: Int = 0
+    var count: [Int] = []
+    var kg: [Int] = []
+    var done: [Bool] = []
     
     init(exerciseRoutineContainer: ExerciseRoutineContainer? = nil, exerciseName: String, part: [ExercisePart], tool: ExerciseTool) {
         self.exerciseRoutineContainer = exerciseRoutineContainer
@@ -56,13 +57,13 @@ class ExerciseDefaultModel: Identifiable, Hashable {
 @Model
 class ExerciseRecordContainer: Identifiable, Hashable {
     
-    var startDate: Date
-    var endDate: Date
-    var totalTime: Int
-    var routineName: String
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    var totalTime: Int = 0
+    var routineName: String = ""
     
 //    @Relationship(deleteRule: .cascade, inverse: \ExerciseRecordModel.recordContainer)
-    var exerciseRecordModel: [ExerciseRecordModel]
+    var exerciseRecordModel: [ExerciseRecordModel] = []
     
     init(startDate: Date, endDate: Date, totalTime: Int, routineName: String, exerciseRecordModel: [ExerciseRecordModel]) {
         self.startDate = startDate
@@ -75,13 +76,13 @@ class ExerciseRecordContainer: Identifiable, Hashable {
 
 class ExerciseRecordModel: Codable, Identifiable {
     var id = UUID()
-    var exerciseName: String
-    var part: [ExercisePart]
-    var tool: ExerciseTool
-    var set: Int
-    var count: [Int]
-    var kg: [Int]
-    var done: [Bool]
+    var exerciseName: String = ""
+    var part: [ExercisePart] = []
+    var tool: ExerciseTool = ExerciseTool.machine
+    var set: Int = 0
+    var count: [Int] = []
+    var kg: [Int] = []
+    var done: [Bool] = []
     
 
     init(exerciseName: String, part: [ExercisePart], tool: ExerciseTool, set: Int, count: [Int], kg: [Int], done: [Bool]) {

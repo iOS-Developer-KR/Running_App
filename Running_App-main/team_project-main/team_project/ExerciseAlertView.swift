@@ -24,17 +24,22 @@ struct ExerciseAlertView: View {
     
     func saveRecord() {
         
-        timer.exerciseRoutineContainer?.exerciseDefaultModel.forEach({ ExerciseDefaultModel in
+        timer.exerciseRoutineContainer?.exerciseDefaultModel!.forEach({ ExerciseDefaultModel in
             print("타이머값 count: \(ExerciseDefaultModel.count)")
             print("타이머값 kg: \(ExerciseDefaultModel.kg)")
             print("타이머값 done: \(ExerciseDefaultModel.done)")
         })
         
         
-        
         if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
-            return ExerciseRecordModel(exerciseName: ec.exerciseName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
-        }) {
+            return ec.map { ed in
+                return ExerciseRecordModel(exerciseName: ed.exerciseName, part: ed.part, tool: ed.tool, set: ed.set, count: ed.count, kg: ed.kg, done: ed.done)
+            }
+        })
+//        if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
+//            return ExerciseRecordModel(exerciseName: ec.exerciseName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
+//        }) 
+        {
             recordDataModel.forEach { rm in
                 print("기록록 count: \(rm.count)")
                 print("기록록 kg: \(rm.kg)")

@@ -29,17 +29,17 @@ struct AddCompletionRoutineView: View {
         guard let existData = exercise else {
             let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: routineName, exerciseDefaultModel: selectedExercises)
             dbContext.insert(newExerciseRoutineContainer)
-            do {
-                try dbContext.save()
-            } catch {
-                print("저장하는데 에러발생")
-            }
+//            do {
+//                try dbContext.save()
+//            } catch {
+//                print("저장하는데 에러발생")
+//            }
             return completion(true)
         }
         // 만약 기존에 존재했던 데이터라면
         selectedExercises.forEach { ExerciseModel in
-            if !existData.exerciseDefaultModel.contains(where: { $0.exerciseName == ExerciseModel.exerciseName }) {
-                exercise?.exerciseDefaultModel.append(ExerciseModel)
+            if !existData.exerciseDefaultModel!.contains(where: { $0.exerciseName == ExerciseModel.exerciseName }) {
+                exercise?.exerciseDefaultModel!.append(ExerciseModel)
             }
         }
         return completion(true)

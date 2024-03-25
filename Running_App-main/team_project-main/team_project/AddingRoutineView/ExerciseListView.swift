@@ -63,7 +63,7 @@ struct ExerciseListView: View {
                     let matchesTarget = exercise.part.first == targetPart && exercise.tool == targetTool
                     
                     // 두 번째 조건: existedExercise?.routines에 이미 존재하지 않는 운동인지 확인
-                    let notAlreadyExisted = existedExercise?.exerciseDefaultModel.contains(where: { ExerciseModel in
+                    let notAlreadyExisted = existedExercise?.exerciseDefaultModel!.contains(where: { ExerciseModel in
                         return exercise.exerciseName == ExerciseModel.exerciseName
                     }) ?? false
                     

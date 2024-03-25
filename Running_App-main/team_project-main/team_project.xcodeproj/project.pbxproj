@@ -34,6 +34,11 @@
 		2B5FCFC32AF0D4550063C5FA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFC22AF0D4550063C5FA /* LoginModel.swift */; };
 		2B5FCFC62AF0D7E60063C5FA /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFC52AF0D7E60063C5FA /* HTTPClient.swift */; };
 		2B5FCFCB2AF0FD540063C5FA /* NameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FCFCA2AF0FD540063C5FA /* NameInputView.swift */; };
+		2B6068522BB15272000ED55A /* RoutineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6068512BB15272000ED55A /* RoutineTableView.swift */; };
+		2B6068532BB15866000ED55A /* ExerciseDefaultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97ED8D2AF12A2300CEEFE3 /* ExerciseDefaultModel.swift */; };
+		2B6068552BB158D7000ED55A /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6068542BB158D7000ED55A /* RoutineListView.swift */; };
+		2B6068582BB15907000ED55A /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6068572BB15907000ED55A /* RoutineView.swift */; };
+		2B60685A2BB15B4D000ED55A /* data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6068592BB15B4D000ED55A /* data.swift */; };
 		2B61711D2B9365BD00E379F6 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */; };
 		2B61711F2B9368D200E379F6 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B61711E2B9368D200E379F6 /* music.mp3 */; };
 		2B6239F82BB0500800D1F325 /* EmailValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6239F72BB0500800D1F325 /* EmailValidationView.swift */; };
@@ -150,6 +155,10 @@
 		2B5FCFC52AF0D7E60063C5FA /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		2B5FCFC72AF0F0F60063C5FA /* team-project-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "team-project-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2B5FCFCA2AF0FD540063C5FA /* NameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameInputView.swift; sourceTree = "<group>"; };
+		2B6068512BB15272000ED55A /* RoutineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableView.swift; sourceTree = "<group>"; };
+		2B6068542BB158D7000ED55A /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
+		2B6068572BB15907000ED55A /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
+		2B6068592BB15B4D000ED55A /* data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = data.swift; sourceTree = "<group>"; };
 		2B61711C2B9365BD00E379F6 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		2B61711E2B9368D200E379F6 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		2B6239F72BB0500800D1F325 /* EmailValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidationView.swift; sourceTree = "<group>"; };
@@ -277,6 +286,7 @@
 				2B1825882BA9C3D600FE887A /* RoutineListView.swift */,
 				2B18258F2BAA743B00FE887A /* RoutineListCell.swift */,
 				2B1825912BAA9E2C00FE887A /* RoutineRecordView.swift */,
+				2B6068512BB15272000ED55A /* RoutineTableView.swift */,
 			);
 			path = RoutineView;
 			sourceTree = "<group>";
@@ -322,16 +332,27 @@
 			path = HTTP;
 			sourceTree = "<group>";
 		};
+		2B6068562BB158F9000ED55A /* Routine */ = {
+			isa = PBXGroup;
+			children = (
+				2B6068542BB158D7000ED55A /* RoutineListView.swift */,
+				2B6068572BB15907000ED55A /* RoutineView.swift */,
+			);
+			path = Routine;
+			sourceTree = "<group>";
+		};
 		2B6927C32BA3E7E400A5CAA1 /* team_project_w Watch App */ = {
 			isa = PBXGroup;
 			children = (
 				2B6927D72BA416BD00A5CAA1 /* team_project_w Watch App.entitlements */,
 				2B6927D62BA410E700A5CAA1 /* team-project-w-Watch-App-Info.plist */,
 				2B6927C42BA3E7E400A5CAA1 /* team_project_wApp.swift */,
+				2B6068592BB15B4D000ED55A /* data.swift */,
 				2B6927D42BA3E88900A5CAA1 /* WatchToiOS.swift */,
 				2B6927E02BA4242B00A5CAA1 /* WorkoutManager.swift */,
 				2B6927DE2BA41C8700A5CAA1 /* SelectingView.swift */,
 				2B6927C62BA3E7E400A5CAA1 /* ContentView.swift */,
+				2B6068562BB158F9000ED55A /* Routine */,
 				2B6927E22BA428BF00A5CAA1 /* ElapsedTimeView.swift */,
 				2B6927D82BA41A0F00A5CAA1 /* MetricsView.swift */,
 				2B6927DA2BA41A9100A5CAA1 /* SessionPagingView.swift */,
@@ -643,10 +664,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B6068532BB15866000ED55A /* ExerciseDefaultModel.swift in Sources */,
 				2B6927D92BA41A0F00A5CAA1 /* MetricsView.swift in Sources */,
 				2B6927C72BA3E7E400A5CAA1 /* ContentView.swift in Sources */,
 				2B18256A2BA5F2ED00FE887A /* MusicView.swift in Sources */,
 				2B6927DF2BA41C8700A5CAA1 /* SelectingView.swift in Sources */,
+				2B60685A2BB15B4D000ED55A /* data.swift in Sources */,
+				2B6068582BB15907000ED55A /* RoutineView.swift in Sources */,
+				2B6068552BB158D7000ED55A /* RoutineListView.swift in Sources */,
 				2B6927DB2BA41A9100A5CAA1 /* SessionPagingView.swift in Sources */,
 				2B6927D52BA3E88900A5CAA1 /* WatchToiOS.swift in Sources */,
 				2B6927E12BA4242B00A5CAA1 /* WorkoutManager.swift in Sources */,
@@ -726,6 +751,7 @@
 				2B87CA472BAD2C1000A99447 /* ExerciseAlertView.swift in Sources */,
 				2B9C0DE42AE96E6B00DAA0A3 /* team_projectApp.swift in Sources */,
 				2B6239FA2BB05D9D00D1F325 /* PasswordInputView.swift in Sources */,
+				2B6068522BB15272000ED55A /* RoutineTableView.swift in Sources */,
 				2B87CA432BAC902F00A99447 /* TimeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

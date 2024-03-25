@@ -105,7 +105,6 @@ struct RoutineRecordView: View {
                         
                         Spacer()
                     }
-                    .frame(maxWidth: .infinity)
                     
                 }
                 
@@ -122,32 +121,68 @@ struct RoutineRecordView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .onChange(of: kg) { oldValue, newValue in
-            print("값이 변한걸 인지는 하는데?11")
-            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
-            selectedExercise.kg = kg.map({ kg in
-                return Int(kg) ?? 999
-            })
+        .overlay {
+            if timer.timerOn && timer.stopped {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea() // 화면 전체를 커버합니다.
+                        .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
+                        .onTapGesture {
+                            // 운동 취소 안한다
+//                            alert = false
+                        }
+
+                    // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
+                    ExerciseAlertView()
+                        
+                }
         }
-        .onChange(of: count) { oldValue, newValue in
-            print("count는 \(oldValue)에서 \(newValue)로 바뀜")
-            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
-            selectedExercise.count = count.map({ count in
-                return Int(count) ?? 999
-            })
-            print("저장된 count: \(selectedExercise.count.description)")
-            
-        }
-        .onChange(of: done) { oldValue, newValue in
-            print("값이 변한걸 인지는 하는데?33")
-            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
-            selectedExercise.done = done
-        }
-        .onChange(of: set) { oldValue, newValue in
-            selectedExercise.set = set
-            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
-        }
-        .onChange(of: timer.exerciseRoutineContainer?.exerciseDefaultModel.first?.count) { a, b in
+//        .onChange(of: kg) { oldValue, newValue in
+//            print("값이 변한걸 인지는 하는데?11")
+////            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
+//            selectedExercise.kg = kg.map({ kg in
+//                return Int(kg) ?? 999
+//            })
+//        }
+//        .onChange(of: count) { oldValue, newValue in
+//            print("count는 \(oldValue)에서 \(newValue)로 바뀜")
+////            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
+//            selectedExercise.count = count.map({ count in
+//                return Int(count) ?? 999
+//            })
+//            print("저장된 count: \(selectedExercise.count.description)")
+//            
+//        }
+//        .onChange(of: done) { oldValue, newValue in
+//            print("값이 변한걸 인지는 하는데?33")
+////            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
+//            selectedExercise.done = done
+//        }
+//        .onChange(of: set) { oldValue, newValue in
+//            selectedExercise.set = set
+////            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
+//        }
+//        .onChange(of: [kg, count, done, set]) { _, _ in
+//            print("값이 변한걸 인지는 하는데?")
+//            
+//            // kg 변경
+//            selectedExercise.kg = kg.map { kg in
+//                return Int(kg) ?? 999
+//            }
+//            
+//            // count 변경
+//            selectedExercise.count = count.map { count in
+//                return Int(count) ?? 999
+//            }
+//            print("저장된 count: \(selectedExercise.count.description)")
+//            
+//            // done 변경
+//            selectedExercise.done = done
+//            
+//            // set 변경
+//            selectedExercise.set = set
+//        }
+
+        .onChange(of: timer.exerciseRoutineContainer?.exerciseDefaultModel?.first?.count) { a, b in
             print("값이 변한걸 인지는 하는데?🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲")
         }
     }
