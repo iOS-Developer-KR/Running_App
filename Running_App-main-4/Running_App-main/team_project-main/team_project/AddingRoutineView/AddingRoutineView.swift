@@ -75,13 +75,13 @@ struct AddingRoutineView: View {
                     .foregroundStyle(Color.white)
                     
                     Spacer()
-                    
-                    Button(action: {
+
+                    NavigationLink {
                         // 데이터 저장하기
-                        print("루틴 저장하기")
-                        saveRoutine()
-                        dismiss()
-                    }, label: {
+//                        saveRoutine()
+                        AddCompletionRoutineView(selectedExercises: $selectedExercises)
+//                        dismiss()
+                    } label: {
                         HStack {
                             if !selectedExercises.isEmpty {
                                 Text("\(selectedExercises.count)")
@@ -94,7 +94,7 @@ struct AddingRoutineView: View {
                         }
                         .frame(width: 170, height: 33, alignment: .bottom)
 
-                    })
+                    }
                     .buttonStyle(BorderedProminentButtonStyle())
                     .tint(.white)
                     .foregroundStyle(Color.red)

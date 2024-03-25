@@ -22,7 +22,6 @@ struct PartSearchMenuView: View {
                         .padding(.horizontal, 5)
                         .foregroundStyle(part?.rawValue == item.rawValue ? selectedColor : Color.gray)
                         .onTapGesture {
-                            print("눌렸는데")
                             part = item
                         }
                 }
@@ -44,6 +43,6 @@ struct PartSearchMenuView: View {
     }
 }
 
-//#Preview {
-//    PartSearchMenuView(part: .constant(.hamstrings), selectedItem: "", scrollViewContentSize: .zero, selectedColor: .orange)
-//}
+#Preview {
+    PartSearchMenuView(part: .constant(.back), selectedColor: .gray)
+}

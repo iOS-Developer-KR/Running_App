@@ -116,7 +116,6 @@ enum ExercisePart: String, CaseIterable, Codable, Identifiable {
 }
 
 enum ExerciseTool: String, CaseIterable, Codable {
-    case none = ""
     case wholeBody = "전체"
     case bodyWeight = "맨몸"
     case cardio = "유산소"
@@ -127,6 +126,7 @@ enum ExerciseTool: String, CaseIterable, Codable {
     case resistanceBand = "벤드"
     case machine = "머신"
     case cable = "케이블"
+    case none = ""
 }
 
 

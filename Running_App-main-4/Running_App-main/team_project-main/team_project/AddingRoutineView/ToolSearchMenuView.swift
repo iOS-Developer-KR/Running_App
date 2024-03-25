@@ -34,9 +34,7 @@ struct ToolSearchMenuView: View {
                 }
             )
         }
-        .frame(
-            maxWidth: scrollViewContentSize.width
-        )
+
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
     }
