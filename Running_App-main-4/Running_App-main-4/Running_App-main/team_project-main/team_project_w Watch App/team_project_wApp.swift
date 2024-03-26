@@ -14,15 +14,20 @@ struct team_project_w_Watch_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])
-                .environmentObject(connectManager)
-                .environmentObject(workoutManager)
-//            SessionPagingView()
-//            SelectingView()
-//                .environmentObject(connectManager)
-//                .environmentObject(workoutManager)
+            NavigationStack {
+                ContentView()
+                    .sheet(isPresented: $workoutManager.showingSummaryView) {
+                        SummaryView()
+                    }
+            }
+            .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])
+            .environmentObject(connectManager)
+            .environmentObject(workoutManager)
+            //            SessionPagingView()
+            //            SelectingView()
+            //                .environmentObject(connectManager)
+            //                .environmentObject(workoutManager)
         }
-
+        
     }
 }

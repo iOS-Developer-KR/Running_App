@@ -96,6 +96,8 @@
 		2BF47ABB2BB2EB7100C00A2D /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18258A2BA9F11900FE887A /* PreviewContainer.swift */; };
 		2BF47ABC2BB2EB9200C00A2D /* ExerciseDefaultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97ED8D2AF12A2300CEEFE3 /* ExerciseDefaultModel.swift */; };
 		2BF47AC02BB2F20F00C00A2D /* RoutineListViewWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF47ABF2BB2F20F00C00A2D /* RoutineListViewWatch.swift */; };
+		2BF47AC22BB2F67400C00A2D /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF47AC12BB2F67400C00A2D /* SummaryView.swift */; };
+		2BF47AC42BB2F69500C00A2D /* ActivityRingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF47AC32BB2F69500C00A2D /* ActivityRingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,8 @@
 		2BE5BBB82AEE8D0800C8AD5A /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		2BEC5B7D2B01F45D00D45CBE /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		2BF47ABF2BB2F20F00C00A2D /* RoutineListViewWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListViewWatch.swift; sourceTree = "<group>"; };
+		2BF47AC12BB2F67400C00A2D /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		2BF47AC32BB2F69500C00A2D /* ActivityRingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +340,8 @@
 				2B6927E22BA428BF00A5CAA1 /* ElapsedTimeView.swift */,
 				2B6927D82BA41A0F00A5CAA1 /* MetricsView.swift */,
 				2B6927DA2BA41A9100A5CAA1 /* SessionPagingView.swift */,
+				2BF47AC12BB2F67400C00A2D /* SummaryView.swift */,
+				2BF47AC32BB2F69500C00A2D /* ActivityRingsView.swift */,
 				2BF47ABF2BB2F20F00C00A2D /* RoutineListViewWatch.swift */,
 				2B1825692BA5F2ED00FE887A /* MusicView.swift */,
 				2B6927DC2BA41BDD00A5CAA1 /* ControlView.swift */,
@@ -654,7 +660,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BF47ABC2BB2EB9200C00A2D /* ExerciseDefaultModel.swift in Sources */,
+				2BF47AC22BB2F67400C00A2D /* SummaryView.swift in Sources */,
 				2BF47ABB2BB2EB7100C00A2D /* PreviewContainer.swift in Sources */,
+				2BF47AC42BB2F69500C00A2D /* ActivityRingsView.swift in Sources */,
 				2B6927D92BA41A0F00A5CAA1 /* MetricsView.swift in Sources */,
 				2B6927C72BA3E7E400A5CAA1 /* ContentView.swift in Sources */,
 				2B18256A2BA5F2ED00FE887A /* MusicView.swift in Sources */,

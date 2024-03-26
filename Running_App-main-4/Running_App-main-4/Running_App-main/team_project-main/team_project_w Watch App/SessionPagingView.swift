@@ -10,7 +10,7 @@ import HealthKit
 import WatchKit
 
 struct SessionPagingView: View {
-    @EnvironmentObject var connectManager: WatchToiOS
+//    @EnvironmentObject var connectManager: WatchToiOS
     @Environment(\.isLuminanceReduced) var isLuminanceReduced
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var selection: Tab = .metrics
@@ -23,12 +23,12 @@ struct SessionPagingView: View {
     
     var body: some View {
         TabView(selection: $selection, content:  {
-            ControlView().tag(Tab.metrics)
+            ControlView().tag(Tab.controls)
             
             TabView {
                 MetricsView().tag(Tab.metrics)
                 RoutineListViewWatch(exerciseContainer: exerciseRoutineContainer)
-            }.tabViewStyle(.carousel)
+            }.tabViewStyle(.carousel).tag(Tab.metrics)
             
             NowPlayingView().tag(Tab.nowPlaying)
         })
@@ -49,7 +49,15 @@ struct SessionPagingView: View {
     }
 }
 
-#Preview {
-    SessionPagingView(exerciseRoutineContainer: SampleData.routineContainer.first!)
+struct SessionPagingScreen: View {
+    
+    var body: some View {
+        SessionPagingView(exerciseRoutineContainer: SampleData.routineContainer.first!)
+    }
+}
+
+#Preview { @MainActor in
+    SessionPagingScreen()
         .environmentObject(WorkoutManager())
+        .modelContainer(previewRoutineContainer)
 }

@@ -7,10 +7,12 @@
 
 import Foundation
 import WatchConnectivity
+import SwiftUI
 
 class WatchToiOS: NSObject, ObservableObject {
     @Published var startStatus: Bool?
-
+    @EnvironmentObject var workoutManager: WorkoutManager
+    
     override init() {
         super.init()
         if WCSession.isSupported() {
@@ -34,7 +36,7 @@ class WatchToiOS: NSObject, ObservableObject {
 extension WatchToiOS: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        print("여기스")
+        print("전달받음")
     }
     
     
