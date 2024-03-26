@@ -20,22 +20,22 @@ struct AddingRoutineView: View {
 
     //MARK: FUNC
 
-    func saveRoutine() {
-        // 만일 새로운 데이터라면
-        guard let existData = exercise else {
-            let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: selectedExercises)
-            dbContext.insert(newExerciseRoutineContainer)
-            return
-        }
-        // 만약 기존에 존재했던 데이터라면 새로 선택한 것들을 넣는다
-        
-        let saveData = selectedExercises.filter { ExerciseDefaultModel in
-            !(existData.exerciseDefaultModel?.contains(where: { $0.exerciseName == ExerciseDefaultModel.exerciseName }) ?? false)
-        }
-        // 기존에 있던 데이터 + 새로 추가하는 데이터
-        let container = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: saveData + selectedExercises)
-        dbContext.insert(container)
-    }
+//    func saveRoutine() {
+//        // 만일 새로운 데이터라면
+//        guard let existData = exercise else {
+//            let newExerciseRoutineContainer = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: selectedExercises)
+//            dbContext.insert(newExerciseRoutineContainer)
+//            return
+//        }
+//        // 만약 기존에 존재했던 데이터라면 새로 선택한 것들을 넣는다
+//        
+//        let saveData = selectedExercises.filter { ExerciseDefaultModel in
+//            !(existData.exerciseDefaultModel?.contains(where: { $0.exerciseName == ExerciseDefaultModel.exerciseName }) ?? false)
+//        }
+//        // 기존에 있던 데이터 + 새로 추가하는 데이터
+//        let container = ExerciseRoutineContainer(routineName: "루틴1", exerciseDefaultModel: saveData + selectedExercises)
+//        dbContext.insert(container)
+//    }
 
     // 만약 루틴에 추가한다면 exercise에 데이터가 있다면 추가한 루틴은 없어야한다.
     var body: some View {

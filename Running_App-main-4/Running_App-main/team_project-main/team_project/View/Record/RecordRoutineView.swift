@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecordRoutineView: View {
+    @MainActor 
     @Query var exerciseRecordData: [ExerciseRecordContainer]
     
     

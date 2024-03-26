@@ -33,8 +33,24 @@ struct RoutineRecordView: View {
         self.done = done
     }
     
-    private func saveRecord() {
-        
+    private func saveRecord(set: Int? = nil, count: [String]? = nil, kg: [String]? = nil, done: [Bool]? = nil) {
+        print("변경 감지 완료")
+        if let sets = set {
+            selectedExercise.set = sets
+        }
+        if count != nil {
+            selectedExercise.count = count?.map({ c in
+                return Int(c)
+            }) as! [Int]
+        }
+        if kg != nil {
+            selectedExercise.kg = kg?.map({ k in
+                return Int(k)
+            }) as! [Int]
+        }
+        if let dones = done {
+            selectedExercise.done = dones
+        }
     }
     
     // 키보드를 내리는 함수
@@ -76,7 +92,7 @@ struct RoutineRecordView: View {
                                     .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                     .keyboardType(.numberPad)
                                     .onSubmit {
-                                        
+                                        saveRecord(kg: self.kg)
                                     }
                             }
                         } //VSTACK
@@ -89,6 +105,9 @@ struct RoutineRecordView: View {
                                     .multilineTextAlignment(.center) // 텍스트를 가운데 정렬
                                     .frame(minWidth: 50, minHeight: 50, alignment: .center)
                                     .keyboardType(.numberPad)
+                                    .onSubmit {
+                                        saveRecord(count: self.count)
+                                    }
                             }
                         } //VSTACK
                         
@@ -99,6 +118,7 @@ struct RoutineRecordView: View {
                                 Button(action: {
                                     // `selectedExercise.done` 배열의 `index`에 해당하는 값을 toggle 처리
                                     self.done[index].toggle()
+                                    saveRecord(done: self.done)
                                 }, label: {
                                     Image(systemName: self.done[index] ? "checkmark.circle.fill" : "circle")
                                         .foregroundStyle(self.done[index]
