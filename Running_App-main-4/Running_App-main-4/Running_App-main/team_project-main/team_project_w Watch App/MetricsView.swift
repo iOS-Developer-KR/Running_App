@@ -29,7 +29,7 @@ struct MetricsView: View {
             .scenePadding()
         }
         .onChange(of: workoutManager.heartRate) { oldValue, newValue in
-            connect.sendMessage(heartRate: ["abc":123])
+            connect.sendMessage(heartRate: ["heartRate":Int(workoutManager.heartRate)])
         }
 
     }

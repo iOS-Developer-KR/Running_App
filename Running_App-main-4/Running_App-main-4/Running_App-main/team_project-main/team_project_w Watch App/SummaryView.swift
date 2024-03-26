@@ -19,6 +19,8 @@ struct SummaryView: View {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
+    @Binding var path: [Int]
+
     
     var body: some View {
         if workoutManager.workout == nil {
@@ -52,7 +54,7 @@ struct SummaryView: View {
                     ActivityRingsView(healthStore: workoutManager.healthStore)
                         .frame(width: 50, height: 50)
                     Button("확인") {
-                        dismiss()
+                        path.removeAll()
                     }
                 }
                 .scenePadding()
@@ -65,7 +67,7 @@ struct SummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        SummaryView()
+        SummaryView(path: .constant(.empty))
             .environmentObject(WorkoutManager())
     }
 }

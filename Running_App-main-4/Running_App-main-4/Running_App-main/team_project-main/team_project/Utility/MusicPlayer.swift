@@ -10,6 +10,7 @@ import MediaPlayer
 import Alamofire
 import SwiftUI
 
+@MainActor
 class MusicPlayer: ObservableObject {
     @Published var musicContainer: [MusicInfoModel] = []
     var nowPlayingInfo: [String : Any] = [:]
@@ -17,6 +18,7 @@ class MusicPlayer: ObservableObject {
     var isPlaying = false
     var currentTime: CMTime = .zero
     var timeObserverToken: Any?
+    @EnvironmentObject var iosToWatch: iOSToWatch
 
     
     init() {
@@ -27,24 +29,24 @@ class MusicPlayer: ObservableObject {
         setupRemoteCommands()
     }
     
-//        func playSound() {
-//            guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
-//                self.player = AVPlayer(url: url)
-//                player?.play()
-//                // 재생 중인 노래 정보를 설정
-//                var nowPlayingInfo: [String : Any] = [
-//                    MPMediaItemPropertyTitle: "Your Song Title",
-//                    MPMediaItemPropertyArtist: "Your Artist Name",
-//                    MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
-//                    MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
-//                ]
-//                if let albumCoverPage = UIImage(named: "apple") {
-//                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
-//                        return albumCoverPage
-//                    })
-//                }
-//                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-//        }
+        func playSound() {
+            guard let url = Bundle.main.url(forResource: "music", withExtension: ".mp3") else { return }
+                self.player = AVPlayer(url: url)
+                player?.play()
+                // 재생 중인 노래 정보를 설정
+                var nowPlayingInfo: [String : Any] = [
+                    MPMediaItemPropertyTitle: "Your Song Title",
+                    MPMediaItemPropertyArtist: "Your Artist Name",
+                    MPMediaItemPropertyPlaybackDuration: player?.currentItem?.duration ?? 0,
+                    MPNowPlayingInfoPropertyElapsedPlaybackTime: player?.currentItem?.duration ?? 0
+                ]
+                if let albumCoverPage = UIImage(named: "apple") {
+                    nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: albumCoverPage.size, requestHandler: { size in
+                        return albumCoverPage
+                    })
+                }
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        }
     
     func getMusicInfo(completion: @escaping ([MusicInfoModel]) -> Void) {
         do {
@@ -89,9 +91,10 @@ class MusicPlayer: ObservableObject {
         }
     }
     
-    func getTest(url: URL) {
+    func getWithoutBPM(url: URL) {
+        let bpm = iosToWatch.bpm
         do {
-            let parameters = ["heartRate": "70"]
+            let parameters = ["heartRate": bpm?.description]
             print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
             let token = try KeyChain.get()
             print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
@@ -101,7 +104,36 @@ class MusicPlayer: ObservableObject {
             print(url)
             AF.request(url,
                        method: .get,
-                       parameters: parameters,
+                       parameters: parameters as Parameters,
+                       encoding: URLEncoding.default,
+                       headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: MusicInfoModel.self) { response in
+                print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
+                Task {
+                    await self.setupMusicInfo(url: URL(string: response.value?.filePath ?? "")!, info: response.value!)
+                }
+                print(response.value ?? "값이 없습니다요")
+                print(token.token)
+            }
+        } catch {
+            
+        }
+    }
+    
+    func getTest(url: URL, bpm: Int) {
+        do {
+            let parameters = ["heartRate": bpm.description]
+            print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
+            let token = try KeyChain.get()
+            print("토큰 가져온 시간 \(Date().timeIntervalSince1970)")
+            let url = url
+            print("웹으로부터 가져오기전 \(Date().timeIntervalSince1970)")
+            let header: HTTPHeaders = [.authorization(bearerToken: token.token)]
+            print(url)
+            AF.request(url,
+                       method: .get,
+                       parameters: parameters as Parameters,
                        encoding: URLEncoding.default,
                        headers: header)
             .validate(statusCode: 200..<300)
@@ -188,6 +220,7 @@ class MusicPlayer: ObservableObject {
                         return albumCoverPage
                     })
                 }
+                
             } catch {
                 print(error)
             }
@@ -211,7 +244,7 @@ class MusicPlayer: ObservableObject {
         NotificationCenter.default.addObserver(forName: AVPlayerItem.didPlayToEndTimeNotification, object: nil, queue: nil) { _ in
             Task {
                 print("이게 왜 호출되냐고")
-                self.getTest(url: Constants().nextmusic!)
+                await self.getTest(url: Constants().nextmusic!, bpm: self.iosToWatch.bpm ?? 0)
             }
         }
   
@@ -287,13 +320,13 @@ class MusicPlayer: ObservableObject {
     
     func previousPlayback() async {
         print("이전버튼")
-        getTest(url: Constants().previousmusic!)
+        getWithoutBPM(url: Constants().previousmusic!)
         handlePlaybackChange()
     }
     
     func nextPlayback() async {
         print("다음버튼")
-        getTest(url: Constants().nextmusic!)
+        getWithoutBPM(url: Constants().nextmusic!)
         handlePlaybackChange()
     }
     

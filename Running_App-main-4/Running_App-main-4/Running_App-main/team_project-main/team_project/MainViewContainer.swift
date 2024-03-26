@@ -25,7 +25,6 @@ struct MainViewContainer: View {
     var body: some View {
         NavigationStack {
             
-                
                 VStack {
                     HeaderView()
                     

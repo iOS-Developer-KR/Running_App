@@ -11,7 +11,8 @@ import SwiftUI
 
 class WatchToiOS: NSObject, ObservableObject {
     @Published var startStatus: Bool?
-    @EnvironmentObject var workoutManager: WorkoutManager
+//    @EnvironmentObject var workoutManager: WorkoutManager
+    let workoutManager = WorkoutManager.shared
     
     override init() {
         super.init()
@@ -22,10 +23,10 @@ class WatchToiOS: NSObject, ObservableObject {
         }
     }
     
-    func sendMessage(heartRate: [String:Any]) {
+    func sendMessage(heartRate: [String:Int]) {
         let session = WCSession.default
         session.sendMessage(["heartRate":heartRate]) { _ in
-            
+            print("심박수 전송중")
         } errorHandler: { error in
             print(error)
         }
@@ -36,7 +37,12 @@ class WatchToiOS: NSObject, ObservableObject {
 extension WatchToiOS: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        print("전달받음")
+        if let heartrate = message["heartRate"] {
+            print("심박수 요청")
+            replyHandler(["heartRate":workoutManager.heartRate])
+        } else {
+            print("이러면 안되자나")
+        }
     }
     
     
@@ -58,14 +64,8 @@ extension WatchToiOS: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        if let startValue = message["start"] {
-            // "start" 키의 값이 존재함
-            // startValue를 사용하여 작업을 수행하면 됨
-            print("값이 왔다")
-            startStatus = startValue as? Bool
-        } else {
-            print("존재하지 않는 값")
-        }
+        print("ㅗ긴데")
+       
     }
 
     

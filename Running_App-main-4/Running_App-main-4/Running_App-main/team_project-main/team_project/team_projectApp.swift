@@ -18,9 +18,10 @@ struct team_projectApp: App {
     @StateObject var timeManager = TimerManager()
     @StateObject var register = RegisterModel()
     @State private var isSplashScreenVisible = true
-//    @StateObject var connectManager = iOSToWatch()
     @Environment(\.scenePhase) var scenePhase
     @StateObject var musicPlayer = MusicPlayer()
+    @StateObject var iosToWatch = iOSToWatch()
+    
     
     // MARK: - FUNCTIOINS
     func MainTainSession() {
@@ -53,10 +54,10 @@ struct team_projectApp: App {
         WindowGroup {
 
             ContentView()
-//                .environment(\.managedObjectContext, ApplicationData.preview.container.viewContext)
                 .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])//, ExerciseRecordModel.self], isAutosaveEnabled: false)
                 .environmentObject(musicPlayer) // 3월19일날 추가한거
                 .environmentObject(timeManager)
+                .environmentObject(iosToWatch)
 
             }
         }
@@ -84,10 +85,11 @@ struct team_projectApp: App {
 //            }
 //        }
 //        .environmentObject(isLogged)
-//                        .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])
-//                        .environmentObject(musicPlayer) // 3월19일날 추가한거
-//                        .environmentObject(timeManager)
-//                        .environmentObject(register)
+//        .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])//, ExerciseRecordModel.self], isAutosaveEnabled: false)
+//        .environmentObject(musicPlayer) // 3월19일날 추가한거
+//        .environmentObject(timeManager)
+//        .environmentObject(iosToWatch)
+//        .environmentObject(register)
 //        .onChange(of: scenePhase) {
 ////                do {
 ////                    try KeyChain.delete()

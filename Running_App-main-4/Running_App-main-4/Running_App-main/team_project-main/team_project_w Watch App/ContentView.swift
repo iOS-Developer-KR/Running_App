@@ -12,51 +12,53 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.isLuminanceReduced) var isLuminanceReduced
     @EnvironmentObject var workoutManager: WorkoutManager
-    private var healthStore = HKHealthStore()
+    var healthStore = HKHealthStore()
     let heartRateQuantity = HKUnit(from: "count/min")
     
     @EnvironmentObject var connect: WatchToiOS
     @Query var routines: [ExerciseRoutineContainer]
     //    var routines = SampleData.routineContainer
-    @State private var value = 0
+    @State var value = 0
+    @Binding var path: [Int]
+
     
     
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(routines) { routine in
-                    NavigationLink {
-                        SessionPagingView(exerciseRoutineContainer: routine)
-                    } label: {
-                        VStack {
-                            HStack {
-                                Text(routine.routineName)
-                                    .foregroundStyle(.white)
-                                    .font(.system(size: 25))
-                                    .bold()
-                                
-                                Spacer()
-                            }
-                            // 파트 목록을 표시
-                            HStack {
-                                ForEach(updateExerciseParts(from: routine), id: \.self) { data in
-                                    Text(data.rawValue)
-                                        .foregroundStyle(.green)
-                                        .font(.system(size: 15))
+            VStack {
+                List {
+                    ForEach(routines) { routine in
+                        NavigationLink {
+                            SessionPagingView(exerciseRoutineContainer: routine, path: $path)
+                        } label: {
+                            VStack {
+                                HStack {
+                                    Text(routine.routineName)
+                                        .foregroundStyle(.white)
+                                        .font(.system(size: 25))
+                                        .bold()
+                                    
+                                    Spacer()
                                 }
-                                Spacer()
+                                // 파트 목록을 표시
+                                HStack {
+                                    ForEach(updateExerciseParts(from: routine), id: \.self) { data in
+                                        Text(data.rawValue)
+                                            .foregroundStyle(.green)
+                                            .font(.system(size: 15))
+                                    }
+                                    Spacer()
+                                }
                             }
                         }
                     }
+                }.padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
+                    .listStyle(.carousel)
+                
+            }.navigationTitle("루틴")
+                .onAppear {
+                    workoutManager.requestAuthorization()
                 }
-            }.padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
-                .listStyle(.carousel)
-            
-        }.navigationTitle("루틴")
-            .onAppear {
-                workoutManager.requestAuthorization()
-            }
     }
     
     // 중복 없는 파트 데이터를 업데이트하는 메소드
@@ -118,7 +120,7 @@ struct ContentScreen: View {
     
     var body: some View {
         NavigationStack {
-            ContentView()
+            ContentView(path: .constant(.empty))
         }
     }
 }

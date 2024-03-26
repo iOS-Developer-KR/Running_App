@@ -39,7 +39,7 @@ struct EmailView: View {
                 
                 TextField("이메일", text: $email)
                     .modifier(customTextFieldModifier(roundedCorners: 15, textColor: .black))
-                    .keyboardType(.phonePad)
+                    .keyboardType(.emailAddress)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)
                 
