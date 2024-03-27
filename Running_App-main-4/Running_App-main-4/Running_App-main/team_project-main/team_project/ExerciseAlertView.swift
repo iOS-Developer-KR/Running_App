@@ -24,9 +24,9 @@ struct ExerciseAlertView: View {
     func saveRecord() {
         
         timer.exerciseRoutineContainer?.exerciseDefaultModel?.forEach({ ExerciseDefaultModel in
-            print("타이머값 count: \(ExerciseDefaultModel.count)")
-            print("타이머값 kg: \(ExerciseDefaultModel.kg)")
-            print("타이머값 done: \(ExerciseDefaultModel.done)")
+            print("저장할 타이머값 count: \(ExerciseDefaultModel.count)")
+            print("저장할 타이머값 kg: \(ExerciseDefaultModel.kg)")
+            print("저장할 타이머값 done: \(ExerciseDefaultModel.done)")
         })
         
         

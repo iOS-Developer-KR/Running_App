@@ -9,14 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var appear = false
+    @Environment(NavigationObject.self) private var path
 
 
     // MARK: - FUNCTIONS
 
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             
             TabView {
+                
                 MainViewContainer()
                     .tabItem {
                         Image(systemName: "house")
@@ -38,7 +40,9 @@ struct ContentView: View {
                     appear = true
                 }
             }
-        }
+            
+//        }
+//        .toolbar(.hidden, for: .tabBar)
         
     }
 }

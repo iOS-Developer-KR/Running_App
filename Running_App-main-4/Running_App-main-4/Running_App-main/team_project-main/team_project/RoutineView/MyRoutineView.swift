@@ -46,6 +46,7 @@ struct MyRoutineView: View {
                 })
             }.padding(10)
                 .onAppear {
+                    path.tab = true
                     print("여기를 확인해보자ㅏㅏㅏㅏㅏ:\(path.path.count)")
                 }
         }

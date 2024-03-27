@@ -17,7 +17,7 @@ struct team_projectApp: App {
     @StateObject var isLogged = LoginStatus()
     @StateObject var timeManager = TimerManager()
     @StateObject var register = RegisterModel()
-    @State private var path = NavigationObject(path: NavigationPath())
+    @State private var path = NavigationObject(path: NavigationPath(), tab: true)
     @State private var isSplashScreenVisible = true
     @Environment(\.scenePhase) var scenePhase
     @StateObject var musicPlayer = MusicPlayer()

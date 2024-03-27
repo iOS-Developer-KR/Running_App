@@ -13,6 +13,7 @@ struct RoutineListView: View {
     var exerciseContainer: ExerciseRoutineContainer
 //    var selected: ExerciseRoutineContainer
     @Environment(\.modelContext) private var dbContext
+    @Environment(NavigationObject.self) private var path
     @EnvironmentObject var timeManager: TimerManager
     @EnvironmentObject var timer: TimerManager
     @State private var pressed = false
@@ -23,7 +24,7 @@ struct RoutineListView: View {
             List(exerciseContainer.exerciseDefaultModel ?? [ExerciseDefaultModel(exerciseName: "", part: [], tool: .none)]) { selected in
                 NavigationLink {
                     // selected는 운동루틴에 한 종류를 의미한다
-                    RoutineRecordView(selectedExercise: selected, set: selected.set, count: selected.count, kg: selected.kg, done: selected.done)
+                    RoutineRecordView(selectedExercise: selected)//, set: selected.set, count: selected.count, kg: selected.kg, done: selected.done)
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
@@ -82,21 +83,25 @@ struct RoutineListView: View {
             
             
         }
-        .overlay {
-            if timer.timerOn && timer.stopped {
-                    Color.black.opacity(0.4)
-                        .ignoresSafeArea() // 화면 전체를 커버합니다.
-                        .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
-                        .onTapGesture {
-                            // 운동 취소 안한다
-                            
-                        }
-
-                    // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
-                ExerciseAlertView()
-                        
-                }
+        .onAppear {
+            print("빼애액?")
+            path.tab = false
         }
+//        .overlay {
+//            if timer.timerOn && timer.stopped {
+//                    Color.black.opacity(0.4)
+//                        .ignoresSafeArea() // 화면 전체를 커버합니다.
+//                        .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
+//                        .onTapGesture {
+//                            // 운동 취소 안한다
+//                            
+//                        }
+//
+//                    // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
+//                ExerciseAlertView()
+//                        
+//                }
+//        }
 
 
     }

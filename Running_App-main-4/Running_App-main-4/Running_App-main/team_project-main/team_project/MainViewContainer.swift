@@ -18,6 +18,8 @@ struct MainViewContainer: View {
     @State private var pressed: Bool = false
     @State private var alert: Bool = false
     @Environment(NavigationObject.self) private var path
+    @Environment(\.scenePhase) var scenePhase
+    @Environment(\.isPresented) var presented
 
     // MARK: - FUNCTIONS
     
@@ -80,13 +82,13 @@ struct MainViewContainer: View {
                 }
             }
 
+
             .onAppear {
                 print("시작")
-                
+                path.tab = true
                 try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
                 try? AVAudioSession.sharedInstance().setActive(true)
             }
-
             
             .overlay {
                 if timer.timerOn && timer.stopped {
@@ -99,6 +101,7 @@ struct MainViewContainer: View {
                             
                     }
             }
+            .toolbar(path.tab ? .visible : .hidden, for: .tabBar)
 
     }
 }

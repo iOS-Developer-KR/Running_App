@@ -17,8 +17,10 @@ struct PreviewData {
 @Observable
 class NavigationObject {
     var path: NavigationPath
+    var tab: Bool
     
-    init(path: NavigationPath) {
+    init(path: NavigationPath, tab: Bool) {
         self.path = path
+        self.tab = tab
     }
 }
