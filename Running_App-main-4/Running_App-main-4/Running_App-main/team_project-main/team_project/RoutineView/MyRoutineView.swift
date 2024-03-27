@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct MyRoutineView: View {
+    @Environment(NavigationObject.self) private var path
     @Environment(\.modelContext) private var modelContext
     @State private var exerciseParts: [ExercisePart] = [] // 중복 없는 파트 목록을 저장할 변수
     @Query var exerciseData: [ExerciseRoutineContainer] // 모든 루틴이 들어있는 컨테이너
@@ -20,9 +21,7 @@ struct MyRoutineView: View {
                 ForEach(exerciseData, id: \.self) { exercise in
                     HStack {
                         // 이미지 집어넣는곳
-                        NavigationLink {
-                            RoutineListView(exerciseContainer: exercise)
-                        } label: {
+                        NavigationLink(value: exercise) {
                             VStack {
                                 HStack {
                                     Text(exercise.routineName)
@@ -46,7 +45,13 @@ struct MyRoutineView: View {
                     removeList(at: indexSet)
                 })
             }.padding(10)
+                .onAppear {
+                    print("여기를 확인해보자ㅏㅏㅏㅏㅏ:\(path.path.count)")
+                }
         }
+        .navigationDestination(for: ExerciseRoutineContainer.self, destination: { exercise in
+            RoutineListView(exerciseContainer: exercise)
+        })
     }
     
     func removeList(at offsets: IndexSet) {

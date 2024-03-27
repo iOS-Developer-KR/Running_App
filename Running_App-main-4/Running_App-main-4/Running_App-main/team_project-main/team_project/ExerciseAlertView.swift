@@ -10,9 +10,8 @@ import SwiftData
 
 struct ExerciseAlertView: View {
     @Environment(\.modelContext) var dbContext
-//    @Query var exerciseRecordContainer: [ExerciseRoutineContainer]
-    
     @EnvironmentObject var timer: TimerManager
+    @Environment(NavigationObject.self) private var path
     var pausedImage = "stop.fill"
     var pausedTitle = "운동 중단"
     var pausedText = "운동을 중단하면 기록이 저장되지 않습니다. 운동을 중단하시겠습니까?"
@@ -48,8 +47,19 @@ struct ExerciseAlertView: View {
 //            
 //            print("기록 저장완료")
 //        }
-
-//        
+        if let routineContainer = timer.exerciseRoutineContainer {
+            guard let recordDataModel = routineContainer.exerciseDefaultModel?.map({ ED in
+                return ExerciseRecordModel(exerciseName: ED.exerciseName, part: ED.part, tool: ED.tool, set: ED.set, count: ED.count, kg: ED.kg, done: ED.done)
+            }) else {
+                print("안된다 기록 데이터 모델이 비어있음")
+                return
+            }
+            
+            let recordContainer = ExerciseRecordContainer(startDate: timer.startTime ?? Date(), endDate: timer.endTime ?? Date(), totalTime: Int(timer.elapsedTime), routineName: routineContainer.routineName, exerciseRecordModel: recordDataModel)
+            
+            dbContext.insert(recordContainer)
+        }
+//
     }
     
     
@@ -89,7 +99,7 @@ struct ExerciseAlertView: View {
                         saveRecord()
 
                         timer.timerOn = false
-                        
+                        path.path.removeLast()
                     } label: {
                         Text("확인")
                     }
@@ -104,6 +114,15 @@ struct ExerciseAlertView: View {
     }
 }
 
-#Preview {
-    ExerciseAlertView()
+struct ExerciseAlertScreen: View {
+    var body: some View {
+        ExerciseAlertView()
+            .environmentObject(TimerManager())
+            .modelContainer(previewRoutineContainer)
+
+    }
+}
+
+#Preview { @MainActor in
+    ExerciseAlertScreen()
 }

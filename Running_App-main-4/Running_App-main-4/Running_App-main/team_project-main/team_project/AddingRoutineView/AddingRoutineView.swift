@@ -11,6 +11,7 @@ import SwiftData
 struct AddingRoutineView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) var dbContext
+    @Environment(NavigationObject.self) private var path
     @State var part: ExercisePart?
     @State var tool: ExerciseTool?
     @State var textfield: String = ""

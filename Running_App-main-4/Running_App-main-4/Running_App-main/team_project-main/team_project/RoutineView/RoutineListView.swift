@@ -17,7 +17,7 @@ struct RoutineListView: View {
     @EnvironmentObject var timer: TimerManager
     @State private var pressed = false
     @State private var paused = false
-    
+
     var body: some View {
         VStack {
             List(exerciseContainer.exerciseDefaultModel ?? [ExerciseDefaultModel(exerciseName: "", part: [], tool: .none)]) { selected in
@@ -93,7 +93,7 @@ struct RoutineListView: View {
                         }
 
                     // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
-                    ExerciseAlertView()
+                ExerciseAlertView()
                         
                 }
         }

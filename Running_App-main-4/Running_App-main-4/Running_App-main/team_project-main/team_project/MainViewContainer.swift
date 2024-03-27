@@ -17,19 +17,22 @@ struct MainViewContainer: View {
     //    @EnvironmentObject private var connect: iOSToWatch
     @State private var pressed: Bool = false
     @State private var alert: Bool = false
-        
+    @Environment(NavigationObject.self) private var path
+
     // MARK: - FUNCTIONS
     
     // MARK: - BODY
     
     var body: some View {
-        NavigationStack {
+        @Bindable var path = path
+        NavigationStack(path: $path.path) {
             
                 VStack {
                     HeaderView()
                     
                     UserInfoViewContainer()
                     
+
                     MainViewMusicContainer()
                     
                     HStack(alignment:.bottom) {
@@ -39,9 +42,8 @@ struct MainViewContainer: View {
                         Spacer()
                     }.padding(.horizontal)
                     
-                    
-                    
                     MyRoutineView()
+                    
                     
                     // 만약 타이머가 작동중이라면 하단에 현재 시간을 나타낸다.
                     if timer.timerOn {
@@ -77,6 +79,7 @@ struct MainViewContainer: View {
                     }
                 }
             }
+
             .onAppear {
                 print("시작")
                 
@@ -92,7 +95,7 @@ struct MainViewContainer: View {
                             .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
 
                         // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
-                        ExerciseAlertView()
+                    ExerciseAlertView()
                             
                     }
             }

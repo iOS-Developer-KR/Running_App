@@ -18,7 +18,8 @@ struct RoutineRecordView: View {
     @State var count: [String]
     @State var kg: [String]
     @State var done: [Bool]
-    
+//    @Binding var path: NavigationPath
+
     init(selectedExercise: ExerciseDefaultModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
 //        print("가져온 운동 이름:\(selectedExercise.exerciseName)")
 //        print("가져온 운동 횟수:\(selectedExercise.count)")
@@ -32,7 +33,10 @@ struct RoutineRecordView: View {
             return String(kg)
         })
         self.done = done
+        
     }
+    
+
     
     private func saveRecord(set: Int? = nil, count: [String]? = nil, kg: [String]? = nil, done: [Bool]? = nil) {
         print("변경 감지 완료")
@@ -149,6 +153,16 @@ struct RoutineRecordView: View {
         .onTapGesture {
             hideKeyboard()
         }
+        .overlay {
+            if timer.timerOn && timer.stopped {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea() // 화면 전체를 커버합니다.
+                        .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
+                    // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
+                ExerciseAlertView()
+                        
+                }
+        }
 //        .onChange(of: kg) { oldValue, newValue in
 //            print("값이 변한걸 인지는 하는데?11")
 //            timer.exerciseRoutineContainer = selectedExercise.exerciseRoutineContainer
@@ -188,6 +202,11 @@ struct RoutineRecordScreen: View {
     
     var body: some View {
         RoutineRecordView(selectedExercise: ExerciseDefaultModel(exerciseName: "백익스텐션", part: [.abs, .wholeBody], tool: .bodyWeight), set: 5, count: [0,0,0,0,0], kg: [0,0,0,0,0], done: [false,false,false,false,false])
+//        RoutineRecordView(selectedExercise: SampleData.exerciseDefaultModel.first!, set: 5, count: [0,0,0,0,0].map({ num in
+//            return String(num)
+//        }), kg: [0,0,0,0,0].map({ num in
+//            return String(num)
+//        }), done: [false,false,false,false,false])
     }
 }
 

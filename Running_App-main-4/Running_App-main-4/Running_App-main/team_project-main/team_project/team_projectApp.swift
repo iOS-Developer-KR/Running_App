@@ -17,6 +17,7 @@ struct team_projectApp: App {
     @StateObject var isLogged = LoginStatus()
     @StateObject var timeManager = TimerManager()
     @StateObject var register = RegisterModel()
+    @State private var path = NavigationObject(path: NavigationPath())
     @State private var isSplashScreenVisible = true
     @Environment(\.scenePhase) var scenePhase
     @StateObject var musicPlayer = MusicPlayer()
@@ -58,6 +59,7 @@ struct team_projectApp: App {
                 .environmentObject(musicPlayer) // 3월19일날 추가한거
                 .environmentObject(timeManager)
                 .environmentObject(iosToWatch)
+                .environment(path)
 
             }
         }
