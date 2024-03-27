@@ -11,7 +11,7 @@ import SwiftUI
 struct team_project_w_Watch_AppApp: App {
     @StateObject private var connectManager = WatchToiOS()
     @StateObject private var workoutManager = WorkoutManager.shared
-    @State var path: [Int] = []
+    @State var path = NavigationPath()
     
     var body: some Scene {
         WindowGroup {

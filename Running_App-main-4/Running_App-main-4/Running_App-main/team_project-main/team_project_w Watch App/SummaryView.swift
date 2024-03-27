@@ -19,8 +19,7 @@ struct SummaryView: View {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
-    @Binding var path: [Int]
-
+    @Binding var path: NavigationPath
     
     var body: some View {
         if workoutManager.workout == nil {
@@ -53,9 +52,15 @@ struct SummaryView: View {
                     Text("활동링")
                     ActivityRingsView(healthStore: workoutManager.healthStore)
                         .frame(width: 50, height: 50)
-                    Button("확인") {
-                        path.removeAll()
+
+                    Button {
+                        print("확인버튼")
+                        dismiss()
+                        path.removeLast()
+                    } label: {
+                        Text("확인")
                     }
+
                 }
                 .scenePadding()
             }
@@ -67,7 +72,7 @@ struct SummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        SummaryView(path: .constant(.empty))
+        SummaryView(path: .constant(NavigationPath()))
             .environmentObject(WorkoutManager())
     }
 }

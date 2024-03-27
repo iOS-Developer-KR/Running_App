@@ -15,8 +15,7 @@ struct SessionPagingView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var selection: Tab = .metrics
     var exerciseRoutineContainer: ExerciseRoutineContainer
-    @Binding var path: [Int]
-
+    @Binding var path: NavigationPath
 //    @Binding var workoutType: HKWorkoutActivityType
     
     enum Tab {
@@ -54,7 +53,7 @@ struct SessionPagingView: View {
 struct SessionPagingScreen: View {
     
     var body: some View {
-        SessionPagingView(exerciseRoutineContainer: SampleData.routineContainer.first!, path: .constant(.empty))
+        SessionPagingView(exerciseRoutineContainer: SampleData.routineContainer.first!, path: .constant(NavigationPath()))
     }
 }
 
