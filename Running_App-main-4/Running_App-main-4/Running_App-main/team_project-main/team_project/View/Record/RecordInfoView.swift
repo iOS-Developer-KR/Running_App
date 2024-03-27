@@ -61,7 +61,7 @@ struct RecordInfoView: View {
                         VStack {
                             Text("세트")
                                 .frame(minWidth: 50, alignment: .center)
-                            ForEach(0..<selectedExercise.set) { set in
+                            ForEach(0..<selectedExercise.set, id: \.self) { set in
                                 Text(String(set))
                                     .frame(minWidth: 50, minHeight: 50, alignment: .center)
                             }

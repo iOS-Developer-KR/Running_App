@@ -58,6 +58,7 @@
 		2B8B47BE2AF7FD840024D811 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47BD2AF7FD840024D811 /* EmailView.swift */; };
 		2B8B47C12AF7FF250024D811 /* IdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C02AF7FF250024D811 /* IdView.swift */; };
 		2B8B47C32AF7FFD10024D811 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8B47C22AF7FFD10024D811 /* PasswordView.swift */; };
+		2B91ABB22BB458BF00E23E6D /* RoutineStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B91ABB12BB458BF00E23E6D /* RoutineStatusView.swift */; };
 		2B97ED8E2AF12A2300CEEFE3 /* ExerciseDefaultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97ED8D2AF12A2300CEEFE3 /* ExerciseDefaultModel.swift */; };
 		2B97ED902AF12CAE00CEEFE3 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97ED8F2AF12CAE00CEEFE3 /* RegisterModel.swift */; };
 		2B97ED932AF12D9F00CEEFE3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97ED922AF12D9F00CEEFE3 /* Constants.swift */; };
@@ -179,6 +180,7 @@
 		2B8B47BD2AF7FD840024D811 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		2B8B47C02AF7FF250024D811 /* IdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdView.swift; sourceTree = "<group>"; };
 		2B8B47C22AF7FFD10024D811 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
+		2B91ABB12BB458BF00E23E6D /* RoutineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatusView.swift; sourceTree = "<group>"; };
 		2B97ED8D2AF12A2300CEEFE3 /* ExerciseDefaultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDefaultModel.swift; sourceTree = "<group>"; };
 		2B97ED8F2AF12CAE00CEEFE3 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		2B97ED922AF12D9F00CEEFE3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -258,7 +260,9 @@
 		2B1825812BA9B16300FE887A /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				2B18258D2BAA711200FE887A /* MainViewMusicContainer.swift */,
 				2B1825822BA9B18300FE887A /* MusicListView.swift */,
+				2B19D1482BAB1F200053CFDD /* MusicAllListView.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -290,8 +294,6 @@
 		2B18258C2BAA70F000FE887A /* MainMusic */ = {
 			isa = PBXGroup;
 			children = (
-				2B18258D2BAA711200FE887A /* MainViewMusicContainer.swift */,
-				2B19D1482BAB1F200053CFDD /* MusicAllListView.swift */,
 			);
 			path = MainMusic;
 			sourceTree = "<group>";
@@ -337,12 +339,12 @@
 				2B6927C62BA3E7E400A5CAA1 /* ContentView.swift */,
 				2BF47AB92BB2EA9600C00A2D /* Utility */,
 				2B6927DE2BA41C8700A5CAA1 /* SelectingView.swift */,
+				2B91ABB02BB457FB00E23E6D /* CloudKitView */,
 				2B6927E22BA428BF00A5CAA1 /* ElapsedTimeView.swift */,
 				2B6927D82BA41A0F00A5CAA1 /* MetricsView.swift */,
 				2B6927DA2BA41A9100A5CAA1 /* SessionPagingView.swift */,
 				2BF47AC12BB2F67400C00A2D /* SummaryView.swift */,
 				2BF47AC32BB2F69500C00A2D /* ActivityRingsView.swift */,
-				2BF47ABF2BB2F20F00C00A2D /* RoutineListViewWatch.swift */,
 				2B1825692BA5F2ED00FE887A /* MusicView.swift */,
 				2B6927DC2BA41BDD00A5CAA1 /* ControlView.swift */,
 				2B6927C82BA3E7E500A5CAA1 /* Assets.xcassets */,
@@ -374,6 +376,15 @@
 				2B1825772BA60B6F00FE887A /* ExerciseList */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2B91ABB02BB457FB00E23E6D /* CloudKitView */ = {
+			isa = PBXGroup;
+			children = (
+				2BF47ABF2BB2F20F00C00A2D /* RoutineListViewWatch.swift */,
+				2B91ABB12BB458BF00E23E6D /* RoutineStatusView.swift */,
+			);
+			path = CloudKitView;
 			sourceTree = "<group>";
 		};
 		2B97ED8C2AF129AB00CEEFE3 /* Model */ = {
@@ -666,6 +677,7 @@
 				2B6927D92BA41A0F00A5CAA1 /* MetricsView.swift in Sources */,
 				2B6927C72BA3E7E400A5CAA1 /* ContentView.swift in Sources */,
 				2B18256A2BA5F2ED00FE887A /* MusicView.swift in Sources */,
+				2B91ABB22BB458BF00E23E6D /* RoutineStatusView.swift in Sources */,
 				2B6927DF2BA41C8700A5CAA1 /* SelectingView.swift in Sources */,
 				2B6927DB2BA41A9100A5CAA1 /* SessionPagingView.swift in Sources */,
 				2B6927D52BA3E88900A5CAA1 /* WatchToiOS.swift in Sources */,

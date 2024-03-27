@@ -17,7 +17,7 @@ struct RoutineListViewWatch: View {
             List(exerciseContainer.exerciseDefaultModel ?? [ExerciseDefaultModel(exerciseName: "", part: [], tool: .none)]) { selected in
                 NavigationLink {
                     // selected는 운동루틴에 한 종류를 의미한다
-//                    RoutineRecordView(selectedExercise: selected, set: selected.set, count: selected.count, kg: selected.kg, done: selected.done)
+                    RoutineStatusView(selectedExercise: selected)
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
@@ -44,5 +44,10 @@ struct RoutineListViewWatch: View {
 }
 
 #Preview {
-    RoutineListViewWatch(exerciseContainer: SampleData.routineContainer.first!)
+    NavigationStack {
+        RoutineListViewWatch(exerciseContainer: SampleData.routineContainer.first!)
+            .environmentObject(WorkoutManager())
+            .environmentObject(WatchToiOS())
+            .modelContainer(previewRoutineContainer)
+    }
 }

@@ -25,15 +25,15 @@ class RegisterModel: ObservableObject {
     
     
     func requestEmailCode(email: String, completion: @escaping (Bool) -> Void) {
-        let registerData = ["email": email]
+//        let registerData = ["email": email]
         var url = Constants().requestEmailCode?.absoluteString
         url = (url ?? "") + "?email=\(email)"
         print("요청한 이메일:\(email)")
         AF.request(URL(string: url!)!,
                    method: .post)
         .responseData { response in
-            print(response.request?.url ?? "값없음")
-            print(response.request?.url?.query())
+//            print(response.request?.url ?? "값없음")
+//            print(response.request?.url?.query())
             switch response.result {
             case .success:
                 print("성공")

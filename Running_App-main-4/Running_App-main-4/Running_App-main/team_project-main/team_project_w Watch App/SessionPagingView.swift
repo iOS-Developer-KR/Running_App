@@ -24,7 +24,7 @@ struct SessionPagingView: View {
     
     var body: some View {
         TabView(selection: $selection, content:  {
-            ControlView().tag(Tab.controls)
+            ControlView(exerciseContainer: exerciseRoutineContainer).tag(Tab.controls)
             
             TabView {
                 MetricsView().tag(Tab.metrics)
@@ -61,4 +61,5 @@ struct SessionPagingScreen: View {
     SessionPagingScreen()
         .environmentObject(WorkoutManager())
         .modelContainer(previewRoutineContainer)
+    
 }

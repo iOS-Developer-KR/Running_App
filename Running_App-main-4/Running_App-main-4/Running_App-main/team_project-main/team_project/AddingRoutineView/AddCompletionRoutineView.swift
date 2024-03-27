@@ -33,11 +33,11 @@ struct AddCompletionRoutineView: View {
             return completion(true)
         }
         // 만약 기존에 존재했던 데이터라면
-        let saveData = selectedExercises.filter { ExerciseDefaultModel in
-            !(existData.exerciseDefaultModel?.contains(where: { $0.exerciseName == ExerciseDefaultModel.exerciseName }) ?? false)
-        }
+//        let saveData = selectedExercises.filter { ExerciseDefaultModel in
+//            !(existData.exerciseDefaultModel?.contains(where: { $0.exerciseName == ExerciseDefaultModel.exerciseName }) ?? false)
+//        }
         // 기존에 있던 데이터 + 새로 추가하는 데이터
-        let container = ExerciseRoutineContainer(routineName: routineName, exerciseDefaultModel: saveData + selectedExercises)
+//        let container = ExerciseRoutineContainer(routineName: routineName, exerciseDefaultModel: saveData + selectedExercises)
         return completion(true)
         
     }

@@ -37,12 +37,12 @@ class WatchToiOS: NSObject, ObservableObject {
 extension WatchToiOS: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        if let heartrate = message["heartRate"] {
-            print("심박수 요청")
-            replyHandler(["heartRate":workoutManager.heartRate])
-        } else {
-            print("이러면 안되자나")
-        }
+//        if let heartrate = message["heartRate"] {
+//            print("심박수 요청")
+//            replyHandler(["heartRate":workoutManager.heartRate])
+//        } else {
+//            print("이러면 안되자나")
+//        }
     }
     
     

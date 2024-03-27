@@ -12,13 +12,13 @@ import SwiftUI
 
 @MainActor
 class MusicPlayer: ObservableObject {
+    @State var iosToWatch: iOSToWatch
     @Published var musicContainer: [MusicInfoModel] = []
     var nowPlayingInfo: [String : Any] = [:]
     var player: AVPlayer?
     var isPlaying = false
     var currentTime: CMTime = .zero
     var timeObserverToken: Any?
-    @State var iosToWatch: iOSToWatch
 //    @EnvironmentObject var iosToWatch: iOSToWatch
 
     

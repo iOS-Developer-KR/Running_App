@@ -28,9 +28,9 @@ struct MetricsView: View {
             .ignoresSafeArea(edges: .bottom)
             .scenePadding()
         }
-        .onChange(of: workoutManager.heartRate) { oldValue, newValue in
-            connect.sendMessage(heartRate: ["heartRate":Int(workoutManager.heartRate)])
-        }
+//        .onChange(of: workoutManager.heartRate) { oldValue, newValue in
+//            connect.sendMessage(heartRate: ["heartRate":Int(workoutManager.heartRate)])
+//        }
 
     }
 }

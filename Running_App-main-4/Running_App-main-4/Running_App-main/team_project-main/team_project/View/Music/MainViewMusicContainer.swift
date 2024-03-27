@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainViewMusicContainer: View {
-    
     @EnvironmentObject var musicPlayerModel: MusicPlayer
 //    @EnvironmentObject var iosToWatch: iOSToWatch
     @State private var toggle: Bool = false

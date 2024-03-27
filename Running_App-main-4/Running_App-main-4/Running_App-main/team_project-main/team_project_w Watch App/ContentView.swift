@@ -60,6 +60,7 @@ struct ContentView: View {
         })
         .onAppear {
             workoutManager.requestAuthorization()
+            start()
         }
     }
     
@@ -75,47 +76,48 @@ struct ContentView: View {
     }
     
     
-    //    func start() {
-    //        autorizeHealthKit()
-    //        startHeartRateQuery(quantityTypeIdentifier: .heartRate)
-    //    }
-    //
-    //    func autorizeHealthKit() {
-    //        print("이상하네")
-    //        let healthKitTypes: Set = [HKQuantityType(.heartRate)]
-    //        healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { result, error in
-    //            if !result {
-    //                print(error!.localizedDescription)
-    //            }
-    //        }
-    //    }
-    //
-    //    private func startHeartRateQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-    //        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-    //        let updateHandler: (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void = {
-    //            query, samples, deletedObjects, queryAnchor, error in
-    //
-    //            guard let samples = samples as? [HKQuantitySample] else {
-    //                return
-    //            }
-    //            self.process(samples, type: quantityTypeIdentifier)
-    //        }
-    //
-    //        let query = HKAnchoredObjectQuery(type: HKQuantityType(quantityTypeIdentifier), predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
-    //        query.updateHandler = updateHandler
-    //        healthStore.execute(query)
-    //    }
-    //
-    //    private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
-    //        var lastHeartRate = 0.0
-    //        for sample in samples {
-    //            if type == .heartRate {
-    //                lastHeartRate = sample.quantity.doubleValue(for: heartRateQuantity)
-    //                connect.sendMessage(heartRate: ["heartRate": lastHeartRate])
-    //            }
-    //            self.value = Int(lastHeartRate)
-    //        }
-    //    }
+        func start() {
+//            autorizeHealthKit()
+            startHeartRateQuery(quantityTypeIdentifier: .heartRate)
+        }
+    
+//        func autorizeHealthKit() {
+//            print("이상하네")
+//            let healthKitTypes: Set = [HKQuantityType(.heartRate)]
+//            healthStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { result, error in
+//                if !result {
+//                    print(error!.localizedDescription)
+//                }
+//            }
+//        }
+    
+        private func startHeartRateQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) {
+            let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
+            let updateHandler: (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void = {
+                query, samples, deletedObjects, queryAnchor, error in
+    
+                guard let samples = samples as? [HKQuantitySample] else {
+                    return
+                }
+                self.process(samples, type: quantityTypeIdentifier)
+            }
+    
+            let query = HKAnchoredObjectQuery(type: HKQuantityType(quantityTypeIdentifier), predicate: devicePredicate, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: updateHandler)
+            query.updateHandler = updateHandler
+            healthStore.execute(query)
+        }
+    
+    
+        private func process(_ samples: [HKQuantitySample], type: HKQuantityTypeIdentifier) {
+            var lastHeartRate = 0.0
+            for sample in samples {
+                if type == .heartRate {
+                    lastHeartRate = sample.quantity.doubleValue(for: heartRateQuantity)
+                    connect.sendMessage(heartRate: ["heartRate": Int(lastHeartRate)])
+                }
+                self.value = Int(lastHeartRate)
+            }
+        }
 }
 
 struct ContentScreen: View {

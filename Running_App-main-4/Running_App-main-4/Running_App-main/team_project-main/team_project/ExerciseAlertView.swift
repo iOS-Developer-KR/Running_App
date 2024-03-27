@@ -29,24 +29,6 @@ struct ExerciseAlertView: View {
             print("저장할 타이머값 done: \(ExerciseDefaultModel.done)")
         })
         
-        
-        //데이터 저장하기
-//        if let recordDataModel = timer.exerciseRoutineContainer?.exerciseDefaultModel.map({ ec in
-//            return ExerciseRecordModel(exerciseName: ec.exerciseName, part: ec.part, tool: ec.tool, set: ec.set, count: ec.count, kg: ec.kg, done: ec.done)
-//        }) {
-//            recordDataModel.forEach { rm in
-//                print("기록록 count: \(rm.count)")
-//                print("기록록 kg: \(rm.kg)")
-//                print("기록록 done: \(rm.done)")
-//            }
-//            guard let startTime = timer.startTime, let endTime = timer.endTime else {
-//                return print("타이머의 측정 시간이 잘못되어 있다")
-//            }
-//            let recordContainer = ExerciseRecordContainer(startDate: startTime, endDate: endTime, totalTime: Int(timer.elapsedTime), routineName: "루틴이름1", exerciseRecordModel: recordDataModel)
-//            dbContext.insert(recordContainer)
-//            
-//            print("기록 저장완료")
-//        }
         if let routineContainer = timer.exerciseRoutineContainer {
             guard let recordDataModel = routineContainer.exerciseDefaultModel?.map({ ED in
                 return ExerciseRecordModel(exerciseName: ED.exerciseName, part: ED.part, tool: ED.tool, set: ED.set, count: ED.count, kg: ED.kg, done: ED.done)
