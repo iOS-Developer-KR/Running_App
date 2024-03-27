@@ -10,7 +10,7 @@ import SwiftUI
 struct MainViewMusicContainer: View {
     
     @EnvironmentObject var musicPlayerModel: MusicPlayer
-    @EnvironmentObject var iosToWatch: iOSToWatch
+//    @EnvironmentObject var iosToWatch: iOSToWatch
     @State private var toggle: Bool = false
     
     var body: some View {
@@ -22,11 +22,11 @@ struct MainViewMusicContainer: View {
             Button {
                 print("button")
                 // 심박수 요청하기 // 음악 시작하기 //
-                if let bpm = iosToWatch.bpm {
+                if let bpm = musicPlayerModel.iosToWatch.bpm {
 //                    musicPlayerModel.playSound()
                     musicPlayerModel.getTest(url: Constants().currentmusic!, bpm: bpm)
                 } else {
-                    print("값확인중:\(String(describing: iosToWatch.bpm))")
+                    print("값확인중:\(String(describing: musicPlayerModel.iosToWatch.bpm))")
                     toggle.toggle()
                 }
                 
@@ -83,7 +83,7 @@ struct MainViewMusicContainer: View {
 #Preview {
     NavigationStack {
         MainViewMusicContainer()
-            .environmentObject(MusicPlayer())
+            .environmentObject(MusicPlayer(iosToWatch: iOSToWatch()))
             .environmentObject(iOSToWatch())
     }
 }

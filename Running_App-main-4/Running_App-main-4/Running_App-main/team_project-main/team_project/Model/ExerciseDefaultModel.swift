@@ -97,7 +97,6 @@ class ExerciseRecordModel: Codable, Identifiable {
 
 
 
-
 enum ExercisePart: String, CaseIterable, Codable, Identifiable {
     case wholeBody = "전체"
     case chest = "가슴"

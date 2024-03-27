@@ -19,6 +19,7 @@ class iOSToWatch: NSObject, ObservableObject {
     let session = WCSession.default
     
     override init() {
+        print("실행중")
         super.init()
         if WCSession.isSupported() {
             print("시작")

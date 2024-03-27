@@ -14,65 +14,7 @@ struct RoutineRecordView: View {
     @Environment(\.modelContext) private var modelContext
 
     @Bindable var selectedExercise: ExerciseDefaultModel // 선택된 단독 데이터
-//    @State var set: Int
-//    @State var count: [Int]
-//    @State var kg: [Int]
-//    @State var done: [Bool]
-    
-    
-//    @Binding var path: NavigationPath
 
-//    init(selectedExercise: ExerciseDefaultModel, set: Int, count: [Int], kg: [Int], done: [Bool]) {
-////        print("가져온 운동 이름:\(selectedExercise.exerciseName)")
-////        print("가져온 운동 횟수:\(selectedExercise.count)")
-////        print("가져온 운동 kg:\(selectedExercise.kg)")
-//        self.selectedExercise = selectedExercise
-//        self.set = set
-//        self.count = count.map({ count in
-//            return String(count)
-//        })
-//        self.kg = kg.map({ kg in
-//            return String(kg)
-//        })
-//        self.done = done
-//        
-//    }
-//    init(selectedExercise: ExerciseDefaultModel) {
-//        self.selectedExercise = selectedExercise
-//        self.set = selectedExercise.set
-//        self.count = selectedExercise.count
-//        self.kg = selectedExercise.kg
-//        self.done = selectedExercise.done
-//    }
-    
-
-    
-//    private func saveRecord(set: Int? = nil, count: [String]? = nil, kg: [String]? = nil, done: [Bool]? = nil) {
-//        print("변경 감지 완료")
-//        if let sets = set {
-//            selectedExercise.set = sets
-//            print("새로 저장하는 세트 수:\(selectedExercise.set)")
-//        }
-//        if count != nil {
-//            selectedExercise.count = count?.map({ c in
-//                return Int(c)
-//            }) as! [Int]
-//            print("새로 저장하는 카운트 수:\(selectedExercise.count)")
-//
-//        }
-//        if kg != nil {
-//            selectedExercise.kg = kg?.map({ k in
-//                return Int(k)
-//            }) as! [Int]
-//            print("새로 저장하는 중량 수:\(selectedExercise.kg)")
-//
-//        }
-//        if let dones = done {
-//            selectedExercise.done = dones
-//            print("새로 저장하는 완료:\(selectedExercise.done)")
-//        }
-//    }
-    
     // 키보드를 내리는 함수
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -173,16 +115,6 @@ struct RoutineRecordView: View {
             hideKeyboard()
         }
 
-//        .overlay {
-//            if timer.timerOn && timer.stopped {
-//                Color.black.opacity(0.4)
-//                    .ignoresSafeArea() // 화면 전체를 커버합니다.
-//                    .allowsHitTesting(true) // 이 뷰가 사용자 입력을 받도록 합니다.
-//                // 커스텀 알림창 뷰입니다. alert 상태가 true일 때만 보여집니다.
-//                ExerciseAlertView()
-//                
-//            }
-//        }
     }
     
 }

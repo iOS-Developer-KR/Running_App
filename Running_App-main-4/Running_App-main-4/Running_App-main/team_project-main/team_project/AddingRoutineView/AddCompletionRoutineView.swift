@@ -12,7 +12,7 @@ struct AddCompletionRoutineView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var dbContext
     @Binding var selectedExercises: [ExerciseDefaultModel]
-    @Query var exerciseData: [ExerciseRoutineContainer]
+//    @Query var exerciseData: ExerciseRoutineContainer
     @State var alert: Bool = false
     @State var title: String = "\(dateformat.string(from: Date()))"
 

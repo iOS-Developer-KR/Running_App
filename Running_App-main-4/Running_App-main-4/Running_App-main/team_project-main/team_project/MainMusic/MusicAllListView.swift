@@ -46,5 +46,5 @@ struct MusicAllListView: View {
 
 #Preview {
     MusicAllListView()
-        .environmentObject(MusicPlayer())
+        .environmentObject(MusicPlayer(iosToWatch: iOSToWatch()))
 }

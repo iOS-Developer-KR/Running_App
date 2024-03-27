@@ -20,8 +20,8 @@ struct team_projectApp: App {
     @State private var path = NavigationObject(path: NavigationPath(), tab: true)
     @State private var isSplashScreenVisible = true
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var musicPlayer = MusicPlayer()
-    @StateObject var iosToWatch = iOSToWatch()
+    @StateObject var musicPlayer = MusicPlayer(iosToWatch: iOSToWatch())
+//    @StateObject var iosToWatch = iOSToWatch()
     
     
     // MARK: - FUNCTIOINS
@@ -58,7 +58,7 @@ struct team_projectApp: App {
                 .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])//, ExerciseRecordModel.self], isAutosaveEnabled: false)
                 .environmentObject(musicPlayer) // 3월19일날 추가한거
                 .environmentObject(timeManager)
-                .environmentObject(iosToWatch)
+//                .environmentObject(iosToWatch)
                 .environment(path)
 
             }
@@ -90,8 +90,10 @@ struct team_projectApp: App {
 //        .modelContainer(for: [ExerciseRoutineContainer.self, ExerciseDefaultModel.self,  ExerciseRecordContainer.self])//, ExerciseRecordModel.self], isAutosaveEnabled: false)
 //        .environmentObject(musicPlayer) // 3월19일날 추가한거
 //        .environmentObject(timeManager)
-//        .environmentObject(iosToWatch)
+////        .environmentObject(iosToWatch)
 //        .environmentObject(register)
+//
+//        .environment(path)
 //        .onChange(of: scenePhase) {
 ////                do {
 ////                    try KeyChain.delete()

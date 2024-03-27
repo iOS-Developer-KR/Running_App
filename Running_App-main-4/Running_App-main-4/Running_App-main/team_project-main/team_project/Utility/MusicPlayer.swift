@@ -18,12 +18,13 @@ class MusicPlayer: ObservableObject {
     var isPlaying = false
     var currentTime: CMTime = .zero
     var timeObserverToken: Any?
-    @EnvironmentObject var iosToWatch: iOSToWatch
+    @State var iosToWatch: iOSToWatch
+//    @EnvironmentObject var iosToWatch: iOSToWatch
 
     
-    init() {
+    init(iosToWatch: iOSToWatch) {
         print("🙏초기세팅")
-        
+        self.iosToWatch = iosToWatch
         player?.automaticallyWaitsToMinimizeStalling = false
         player?.allowsExternalPlayback = false
         setupRemoteCommands()
@@ -122,6 +123,8 @@ class MusicPlayer: ObservableObject {
     }
     
     func getTest(url: URL, bpm: Int) {
+        print("URL:\(url)")
+        print("bpm:\(bpm)")
         do {
             let parameters = ["heartRate": bpm.description]
             print("토큰 가져오기전 시간 \(Date().timeIntervalSince1970)")
@@ -169,7 +172,9 @@ class MusicPlayer: ObservableObject {
             .responseDecodable(of: [MusicInfoModel].self) { response in
                 print("웹으로부터 가져온 후 \(Date().timeIntervalSince1970)")
 //                print(response.value)
-                self.musicContainer = response.value ?? [MusicInfoModel.init(id: 1, title: "", artist: "", albumUrl: "", filePath: "", tempo: "")]
+                DispatchQueue.main.async {
+                    self.musicContainer = response.value ?? [MusicInfoModel.init(id: 1, title: "", artist: "", albumUrl: "", filePath: "", tempo: "")]
+                }
                 print(response.value ?? "값이 없습니다요")
                 print(token.token)
             }
@@ -320,13 +325,18 @@ class MusicPlayer: ObservableObject {
     
     func previousPlayback() async {
         print("이전버튼")
-        getWithoutBPM(url: Constants().previousmusic!)
+        // 싱글톤
+//        getWithoutBPM(url: Constants().previousmusic!)
+        print("서버에 전송하는 이전 버튼 심박수:\(String(describing: iosToWatch.bpm))")
+        getTest(url: Constants().previousmusic!, bpm: iosToWatch.bpm ?? 0)
         handlePlaybackChange()
     }
     
     func nextPlayback() async {
         print("다음버튼")
-        getWithoutBPM(url: Constants().nextmusic!)
+//        getWithoutBPM(url: Constants().nextmusic!)
+        print("서버에 전송하는 다음 버튼 심박수:\(String(describing: iosToWatch.bpm))")
+        getTest(url: Constants().nextmusic!, bpm: iosToWatch.bpm ?? 0)
         handlePlaybackChange()
     }
     
